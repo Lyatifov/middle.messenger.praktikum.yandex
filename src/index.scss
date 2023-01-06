@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}
+
+article {
+    height: 100vh;
+    display: flex;
+}
+
+.authorization-form {
+    width: 340px;
+    height: 450px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    border-radius: 12px;
+    margin: auto auto;
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        text-align: center;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 20px;
+        color: #1E1E1E;
+    }
+
+
+    .input-wrapper {
+        position: relative;
+        margin-top: 30px;
+
+        .placeholder {
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 13px;
+            color: #999999;
+            position: absolute;
+            bottom: 7px;
+            left: 0;
+            transition: transform 500ms;
+        }
+
+        .inputField:focus~.placeholder,
+        .inputField:not(:placeholder-shown)~.placeholder {
+            transform: translateY(-23px) scale(0.80);
+            transition: transform 500ms;
+        }
+
+        // .inputField:focus~.placeholder,
+        // .inputField:not(:placeholder-shown)~.placeholder {
+        //     font-size: 9px;
+        //     line-height: 9px;
+        //     
+        // }
+
+        // .inputField:not(:placeholder-shown)~.placeholder {
+        //     font-size: 9px;
+        //     line-height: 9px;
+        // }
+
+        // .inputField:focus~.placeholder {
+        //     font-size: 9px;
+        //     line-height: 9px;
+        // }
+    }
+
+    .button-wrapper {
+        margin-top: auto;
+    }
+
+
+}
+
+.button,
+.inputField {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+}
+
+
+.button {
+    border: 0;
+    border-radius: 8px;
+    width: 280px;
+    height: 37px;
+    background: #3369F3;
+    color: #FFFFFF;
+}
+
+._bg-wite {
+    background: white;
+    color: #3369F3;
+    font-size: 11px;
+    line-height: 11px;
+}
+
+.inputField {
+    border: 0;
+    border-bottom: 1px solid #3369F3;
+    width: 100%;
+    outline: none;
+    padding: 7px 0;
+}

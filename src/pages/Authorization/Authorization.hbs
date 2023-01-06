@@ -1,0 +1,15 @@
+<form class="authorization-form" action="">
+    <h1>Вход</h1>
+    <div class="input-wrapper">
+        {{>input id="login" type="text" placeholder="" value=""}}
+        <label class="placeholder" for="login">Логин</label>
+    </div>
+    <div class="input-wrapper">
+        {{>input id="password" type="password"}}
+        <label class="placeholder" for="password">Пароль</label>
+    </div>
+    <div class="button-wrapper">
+        {{>button class="" value="Авторизоваться"}}
+        {{>button class="_bg-wite" value="Нет аккаунта?"}}
+    </div>
+</form>

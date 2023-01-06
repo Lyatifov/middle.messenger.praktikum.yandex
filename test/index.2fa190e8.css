@@ -1,0 +1,90 @@
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap";
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  text-decoration: none;
+}
+
+article {
+  height: 100vh;
+  display: flex;
+}
+
+.authorization-form {
+  width: 340px;
+  height: 450px;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 12px;
+  flex-direction: column;
+  margin: auto;
+  padding: 30px;
+  display: flex;
+  box-shadow: 0 0 6px #00000024;
+}
+
+.authorization-form h1 {
+  text-align: center;
+  color: #1e1e1e;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.authorization-form .input-wrapper {
+  margin-top: 30px;
+  position: relative;
+}
+
+.authorization-form .input-wrapper .placeholder {
+  color: #999;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+  transition: transform .5s;
+  position: absolute;
+  bottom: 7px;
+  left: 0;
+}
+
+.authorization-form .input-wrapper .inputField:focus ~ .placeholder, .authorization-form .input-wrapper .inputField:not(:placeholder-shown) ~ .placeholder {
+  transition: transform .5s;
+  transform: translateY(-23px)scale(.8);
+}
+
+.authorization-form .button-wrapper {
+  margin-top: auto;
+}
+
+.button, .inputField {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+}
+
+.button {
+  width: 280px;
+  height: 37px;
+  color: #fff;
+  background: #3369f3;
+  border: 0;
+  border-radius: 8px;
+}
+
+._bg-wite {
+  color: #3369f3;
+  background: #fff;
+  font-size: 11px;
+  line-height: 11px;
+}
+
+.inputField {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #3369f3;
+  outline: none;
+  padding: 7px 0;
+}
+
