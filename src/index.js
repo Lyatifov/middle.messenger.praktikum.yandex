@@ -1,26 +1,22 @@
-import template from "./index.hbs"
-import "./index.scss"
-// import MyButton from "./components/UI/MyButton/MyButton"
-import page1 from "./pages/page1/page1"
-import Authorization from "./pages/Authorization/Authorization"
+import template from "./index.hbs";
+import "./index.scss";
+import Authorization from "./pages/Authorization/Authorization";
+import Registration from "./pages/Registration/Registration";
+import Error from "./pages/Error/Error";
+import Chats from "./pages/Chats/Chats"
 
-const root = document.getElementById('root')
-
-
+const root = document.getElementById("root");
 
 root.innerHTML = template({
-    Authorization: Authorization
-})
-
-
-
-
-
+    Authorization: Authorization,
+    Registration: Registration,
+    Error: Error,
+    Chats: Chats,
+});
 
 // root.innerHTML = template({
 //     page1: page1()
 // })
-
 
 // отслеживание URL //
 
@@ -54,7 +50,6 @@ root.innerHTML = template({
 
 //=======================//
 
-
 // const comp = Handlebars.compile(template)
 // const res = comp({
 //     title: "Title",
@@ -62,8 +57,6 @@ root.innerHTML = template({
 // })
 
 // console.log(MyButton(("idbtn1", "Click Me!")));
-
-
 
 // window.createButton = (id, value) => {
 //     const htmlTpl = document.createElement('template')

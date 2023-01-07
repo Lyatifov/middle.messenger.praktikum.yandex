@@ -1,0 +1,30 @@
+<main>
+    <section class="chats-list">
+        <header>
+            <div class="a-wrapper">
+                <a href="" >Профиль
+                    <div class="arrow-top"></div>
+                    <div class="arrow-bottom"></div>
+                </a>
+            </div>
+            <form class="search">
+                <button type="submit">
+                    <span class="lupa"></span>
+                </button>
+                <input type="text" placeholder="Поиск" />
+            </form>
+        </header>
+        {{#each chatList}}
+            {{>chat}}
+        {{/each}}
+    </section>
+    <section class="chat">
+        <header></header>
+        <section>
+
+            <article></article>
+
+        </section>
+        <footer></footer>
+    </section>
+</main>

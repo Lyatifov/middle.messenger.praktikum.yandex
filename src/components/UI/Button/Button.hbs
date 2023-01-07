@@ -1,5 +1,5 @@
 <button 
-    id="{{id}}"
+    {{#if id}}id="{{id}}"{{else}}{{/if}}    
     class="{{#if class}}button {{class}}{{else}}button{{/if}}"
 >
     {{value}}

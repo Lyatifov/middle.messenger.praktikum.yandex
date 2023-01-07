@@ -1,0 +1,11 @@
+<form class="window-form" action={{action}}>
+    <h1>{{title}}</h1>
+    {{#each inputList}}
+        {{>inputBlock id=id type=type title=title error=error}}
+    {{/each}}
+    <div class="button-wrapper">
+        {{#each buttonList}}
+            {{>button class=class value=value}}
+        {{/each}}
+    </div>
+</form>

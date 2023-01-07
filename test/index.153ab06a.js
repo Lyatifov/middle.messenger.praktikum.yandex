@@ -536,15 +536,21 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _indexHbs = require("./index.hbs");
 var _indexHbsDefault = parcelHelpers.interopDefault(_indexHbs);
 var _indexScss = require("./index.scss");
-// import MyButton from "./components/UI/MyButton/MyButton"
-var _page1 = require("./pages/page1/page1");
-var _page1Default = parcelHelpers.interopDefault(_page1);
 var _authorization = require("./pages/Authorization/Authorization");
 var _authorizationDefault = parcelHelpers.interopDefault(_authorization);
+var _registration = require("./pages/Registration/Registration");
+var _registrationDefault = parcelHelpers.interopDefault(_registration);
+var _error = require("./pages/Error/Error");
+var _errorDefault = parcelHelpers.interopDefault(_error);
+var _chats = require("./pages/Chats/Chats");
+var _chatsDefault = parcelHelpers.interopDefault(_chats);
 const root = document.getElementById("root");
 root.innerHTML = (0, _indexHbsDefault.default)({
-    Authorization: (0, _authorizationDefault.default)
-}) // root.innerHTML = template({
+    Authorization: (0, _authorizationDefault.default),
+    Registration: (0, _registrationDefault.default),
+    Error: (0, _errorDefault.default),
+    Chats: (0, _chatsDefault.default)
+}); // root.innerHTML = template({
  //     page1: page1()
  // })
  // отслеживание URL //
@@ -582,9 +588,8 @@ root.innerHTML = (0, _indexHbsDefault.default)({
  //     htmlTpl.innerHTML = MyButton(id, value)
  //     root.appendChild(htmlTpl.content)
  // }
-;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh","./index.hbs":"4a4hg","./pages/page1/page1":"17dzp","./pages/Authorization/Authorization":"3GSNh","./index.scss":"1i0iC"}],"j7FRh":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh","./index.hbs":"4a4hg","./pages/Authorization/Authorization":"3GSNh","./index.scss":"1i0iC","./pages/Registration/Registration":"csLAz","./pages/Error/Error":"hfnoh","./pages/Chats/Chats":"55qYk"}],"j7FRh":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -629,21 +634,21 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return "<article>\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "Authorization") || (depth0 != null ? lookupProperty(depth0, "Authorization") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
-            "name": "Authorization",
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "Chats") || (depth0 != null ? lookupProperty(depth0, "Chats") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "Chats",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 2,
-                    "column": 4
+                    "line": 1,
+                    "column": 0
                 },
                 "end": {
-                    "line": 2,
-                    "column": 23
+                    "line": 1,
+                    "column": 11
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n</article>";
+        }) : helper)) != null ? stack1 : "") + "\r\n";
     },
     "useData": true
 });
@@ -11966,28 +11971,83 @@ PrintVisitor.prototype.HashPair = function(pair) {
 },{"86452b284f2ff9c4":"6BQ4C"}],"9C0N7":[function(require,module,exports) {
 "use strict";
 
-},{}],"17dzp":[function(require,module,exports) {
-// import Handlebars from 'handlebars'
+},{}],"3GSNh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _authorizationHbs = require("./Authorization.hbs");
+var _authorizationHbsDefault = parcelHelpers.interopDefault(_authorizationHbs);
 var _button = require("../../components/UI/Button/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
-var _page1Hbs = require("./page1.hbs");
-var _page1HbsDefault = parcelHelpers.interopDefault(_page1Hbs);
-exports.default = (params)=>{
-    const buttonId = "123", buttonValue = "Click heare!";
-    const res = (0, _page1HbsDefault.default)({
-        title: "students",
-        button: MyButton(buttonId, buttonValue)
+var _inputBlock = require("../../components/InputBlock/InputBlock");
+var _inputBlockDefault = parcelHelpers.interopDefault(_inputBlock);
+var _windowForm = require("../../components/WindowForm/WindowForm");
+var _windowFormDefault = parcelHelpers.interopDefault(_windowForm);
+exports.default = ()=>{
+    const data = {
+        title: "Вход",
+        action: "",
+        inputList: [
+            {
+                id: "login",
+                title: "Логин",
+                type: "",
+                error: "Неверный логин"
+            },
+            {
+                id: "password",
+                title: "Пароль",
+                type: "password",
+                error: ""
+            }
+        ],
+        buttonList: [
+            {
+                class: "",
+                value: "Авторизоваться"
+            },
+            {
+                class: "_bg-wite",
+                value: "Нет аккаунта?"
+            }
+        ]
+    };
+    const res = (0, _authorizationHbsDefault.default)({
+        ...data,
+        WindowForm: (0, _windowFormDefault.default)
     });
-    // button.onclick(() => {
-    //     console.log('click');
-    //     history.pushState(null, null, '/about')
-    // })
     return res;
 };
 
-},{"../../components/UI/Button/Button":"1XdRP","./page1.hbs":"ojAnu","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"1XdRP":[function(require,module,exports) {
+},{"./Authorization.hbs":"lga0D","../../components/UI/Button/Button":"1XdRP","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh","../../components/InputBlock/InputBlock":"iSNyi","../../components/WindowForm/WindowForm":"kuKR3"}],"lga0D":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebars = require("handlebars");
+var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
+const templateFunction = (0, _handlebarsDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return "<main>\r\n" + ((stack1 = container.invokePartial(lookupProperty(partials, "windowForm"), depth0, {
+            "name": "windowForm",
+            "data": data,
+            "indent": "    ",
+            "helpers": helpers,
+            "partials": partials,
+            "decorators": container.decorators
+        })) != null ? stack1 : "") + "</main>\r\n";
+    },
+    "usePartial": true,
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars":"dH8Fg","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"1XdRP":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _handlebars = require("handlebars");
 var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
@@ -12002,6 +12062,30 @@ var _handlebars = require("handlebars");
 var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
 const templateFunction = (0, _handlebarsDefault.default).template({
     "1": function(container, depth0, helpers, partials, data) {
+        var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return 'id="' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "id") || (depth0 != null ? lookupProperty(depth0, "id") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "id",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 18
+                },
+                "end": {
+                    "line": 2,
+                    "column": 24
+                }
+            }
+        }) : helper)) + '"';
+    },
+    "3": function(container, depth0, helpers, partials, data) {
+        return "";
+    },
+    "5": function(container, depth0, helpers, partials, data) {
         var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
@@ -12022,7 +12106,7 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             }
         }) : helper));
     },
-    "3": function(container, depth0, helpers, partials, data) {
+    "7": function(container, depth0, helpers, partials, data) {
         return "button";
     },
     "compiler": [
@@ -12030,29 +12114,31 @@ const templateFunction = (0, _handlebarsDefault.default).template({
         ">= 4.3.0"
     ],
     "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", alias4 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, lookupProperty = container.lookupProperty || function(parent, propertyName) {
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<button \r\n    id="' + alias4((helper = (helper = lookupProperty(helpers, "id") || (depth0 != null ? lookupProperty(depth0, "id") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "id",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 2,
-                    "column": 8
-                },
-                "end": {
-                    "line": 2,
-                    "column": 14
-                }
-            }
-        }) : helper)) + '"\r\n    class="' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "class") : depth0, {
+        return "<button \r\n    " + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "id") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(1, data, 0),
             "inverse": container.program(3, data, 0),
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 4
+                },
+                "end": {
+                    "line": 2,
+                    "column": 40
+                }
+            }
+        })) != null ? stack1 : "") + '    \r\n    class="' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "class") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(5, data, 0),
+            "inverse": container.program(7, data, 0),
             "data": data,
             "loc": {
                 "start": {
@@ -12064,7 +12150,7 @@ const templateFunction = (0, _handlebarsDefault.default).template({
                     "column": 61
                 }
             }
-        })) != null ? stack1 : "") + '"\r\n>\r\n    ' + alias4((helper = (helper = lookupProperty(helpers, "value") || (depth0 != null ? lookupProperty(depth0, "value") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        })) != null ? stack1 : "") + '"\r\n>\r\n    ' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "value") || (depth0 != null ? lookupProperty(depth0, "value") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(alias1, {
             "name": "value",
             "hash": {},
             "data": data,
@@ -12084,22 +12170,313 @@ const templateFunction = (0, _handlebarsDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars":"dH8Fg","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"ojAnu":[function(require,module,exports) {
+},{"handlebars":"dH8Fg","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"iSNyi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _handlebars = require("handlebars");
+var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
+var _inputBlockHbs = require("./InputBlock.hbs");
+var _inputBlockHbsDefault = parcelHelpers.interopDefault(_inputBlockHbs);
+(0, _handlebarsDefault.default).registerPartial("inputBlock", (0, _inputBlockHbsDefault.default));
+
+},{"handlebars":"dH8Fg","./InputBlock.hbs":"3gMJz","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"3gMJz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
 var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
 const templateFunction = (0, _handlebarsDefault.default).template({
+    "1": function(container, depth0, helpers, partials, data) {
+        var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return 'id="' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "id") || (depth0 != null ? lookupProperty(depth0, "id") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "id",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 18
+                },
+                "end": {
+                    "line": 3,
+                    "column": 24
+                }
+            }
+        }) : helper)) + '"';
+    },
+    "3": function(container, depth0, helpers, partials, data) {
+        return "";
+    },
+    "5": function(container, depth0, helpers, partials, data) {
+        var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return "input " + container.escapeExpression((helper = (helper = lookupProperty(helpers, "class") || (depth0 != null ? lookupProperty(depth0, "class") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "class",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 4,
+                    "column": 30
+                },
+                "end": {
+                    "line": 4,
+                    "column": 39
+                }
+            }
+        }) : helper));
+    },
+    "7": function(container, depth0, helpers, partials, data) {
+        return "input";
+    },
+    "9": function(container, depth0, helpers, partials, data) {
+        var helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", alias4 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '        <label class="input-error" for=' + alias4((helper = (helper = lookupProperty(helpers, "id") || (depth0 != null ? lookupProperty(depth0, "id") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "id",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 11,
+                    "column": 39
+                },
+                "end": {
+                    "line": 11,
+                    "column": 45
+                }
+            }
+        }) : helper)) + ">" + alias4((helper = (helper = lookupProperty(helpers, "error") || (depth0 != null ? lookupProperty(depth0, "error") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "error",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 11,
+                    "column": 46
+                },
+                "end": {
+                    "line": 11,
+                    "column": 55
+                }
+            }
+        }) : helper)) + "</label>\r\n";
+    },
     "compiler": [
         8,
         ">= 4.3.0"
     ],
     "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", alias4 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return "<div>\r\n    <h1>" + container.escapeExpression((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        return '<div class="input-block">\r\n    <input \r\n    ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "id") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(1, data, 0),
+            "inverse": container.program(3, data, 0),
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 4
+                },
+                "end": {
+                    "line": 3,
+                    "column": 40
+                }
+            }
+        })) != null ? stack1 : "") + '\r\n    class="' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "class") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(5, data, 0),
+            "inverse": container.program(7, data, 0),
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 4,
+                    "column": 11
+                },
+                "end": {
+                    "line": 4,
+                    "column": 59
+                }
+            }
+        })) != null ? stack1 : "") + '" \r\n    type="' + alias4((helper = (helper = lookupProperty(helpers, "type") || (depth0 != null ? lookupProperty(depth0, "type") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "type",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 10
+                },
+                "end": {
+                    "line": 5,
+                    "column": 18
+                }
+            }
+        }) : helper)) + '" \r\n    placeholder="' + alias4((helper = (helper = lookupProperty(helpers, "placeholder") || (depth0 != null ? lookupProperty(depth0, "placeholder") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "placeholder",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 17
+                },
+                "end": {
+                    "line": 6,
+                    "column": 32
+                }
+            }
+        }) : helper)) + ' "\r\n    value="' + alias4((helper = (helper = lookupProperty(helpers, "value") || (depth0 != null ? lookupProperty(depth0, "value") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "value",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 11
+                },
+                "end": {
+                    "line": 7,
+                    "column": 20
+                }
+            }
+        }) : helper)) + '"\r\n    >\r\n    <label class="placeholder" for=' + alias4((helper = (helper = lookupProperty(helpers, "id") || (depth0 != null ? lookupProperty(depth0, "id") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "id",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 35
+                },
+                "end": {
+                    "line": 9,
+                    "column": 41
+                }
+            }
+        }) : helper)) + ">" + alias4((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "title",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 42
+                },
+                "end": {
+                    "line": 9,
+                    "column": 51
+                }
+            }
+        }) : helper)) + "</label>\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "error") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(9, data, 0),
+            "inverse": container.program(3, data, 0),
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 10,
+                    "column": 4
+                },
+                "end": {
+                    "line": 13,
+                    "column": 11
+                }
+            }
+        })) != null ? stack1 : "") + "</div>";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars":"dH8Fg","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"kuKR3":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _handlebars = require("handlebars");
+var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
+var _windowFormHbs = require("./WindowForm.hbs");
+var _windowFormHbsDefault = parcelHelpers.interopDefault(_windowFormHbs);
+// import InputForm from "../InputBlock/InputBlock"
+(0, _handlebarsDefault.default).registerPartial("windowForm", (0, _windowFormHbsDefault.default));
+
+},{"handlebars":"dH8Fg","./WindowForm.hbs":"1XbQO","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"1XbQO":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebars = require("handlebars");
+var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
+const templateFunction = (0, _handlebarsDefault.default).template({
+    "1": function(container, depth0, helpers, partials, data) {
+        var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return (stack1 = container.invokePartial(lookupProperty(partials, "inputBlock"), depth0, {
+            "name": "inputBlock",
+            "hash": {
+                "error": depth0 != null ? lookupProperty(depth0, "error") : depth0,
+                "title": depth0 != null ? lookupProperty(depth0, "title") : depth0,
+                "type": depth0 != null ? lookupProperty(depth0, "type") : depth0,
+                "id": depth0 != null ? lookupProperty(depth0, "id") : depth0
+            },
+            "data": data,
+            "indent": "        ",
+            "helpers": helpers,
+            "partials": partials,
+            "decorators": container.decorators
+        })) != null ? stack1 : "";
+    },
+    "3": function(container, depth0, helpers, partials, data) {
+        var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return (stack1 = container.invokePartial(lookupProperty(partials, "button"), depth0, {
+            "name": "button",
+            "hash": {
+                "value": depth0 != null ? lookupProperty(depth0, "value") : depth0,
+                "class": depth0 != null ? lookupProperty(depth0, "class") : depth0
+            },
+            "data": data,
+            "indent": "            ",
+            "helpers": helpers,
+            "partials": partials,
+            "decorators": container.decorators
+        })) != null ? stack1 : "";
+    },
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", alias4 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '<form class="window-form" action=' + alias4((helper = (helper = lookupProperty(helpers, "action") || (depth0 != null ? lookupProperty(depth0, "action") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "action",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 33
+                },
+                "end": {
+                    "line": 1,
+                    "column": 43
+                }
+            }
+        }) : helper)) + ">\r\n    <h1>" + alias4((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "title",
             "hash": {},
             "data": data,
@@ -12113,44 +12490,117 @@ const templateFunction = (0, _handlebarsDefault.default).template({
                     "column": 17
                 }
             }
-        }) : helper)) + "</h1>\r\n\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "button",
+        }) : helper)) + "</h1>\r\n" + ((stack1 = lookupProperty(helpers, "each").call(alias1, depth0 != null ? lookupProperty(depth0, "inputList") : depth0, {
+            "name": "each",
             "hash": {},
+            "fn": container.program(1, data, 0),
+            "inverse": container.noop,
             "data": data,
             "loc": {
                 "start": {
-                    "line": 4,
+                    "line": 3,
                     "column": 4
                 },
                 "end": {
-                    "line": 4,
-                    "column": 18
+                    "line": 5,
+                    "column": 13
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n\r\n</div>";
+        })) != null ? stack1 : "") + '    <div class="button-wrapper">\r\n' + ((stack1 = lookupProperty(helpers, "each").call(alias1, depth0 != null ? lookupProperty(depth0, "buttonList") : depth0, {
+            "name": "each",
+            "hash": {},
+            "fn": container.program(3, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 8
+                },
+                "end": {
+                    "line": 9,
+                    "column": 17
+                }
+            }
+        })) != null ? stack1 : "") + "    </div>\r\n</form>";
     },
+    "usePartial": true,
     "useData": true
 });
 exports.default = templateFunction;
 
-},{"handlebars":"dH8Fg","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"3GSNh":[function(require,module,exports) {
+},{"handlebars":"dH8Fg","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"1i0iC":[function() {},{}],"csLAz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _authorizationHbs = require("./Authorization.hbs");
-var _authorizationHbsDefault = parcelHelpers.interopDefault(_authorizationHbs);
-var _input = require("../../components/UI/Input/Input");
-var _inputDefault = parcelHelpers.interopDefault(_input);
+var _registrationHbs = require("./Registration.hbs");
+var _registrationHbsDefault = parcelHelpers.interopDefault(_registrationHbs);
 var _button = require("../../components/UI/Button/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
+var _inputBlock = require("../../components/InputBlock/InputBlock");
+var _inputBlockDefault = parcelHelpers.interopDefault(_inputBlock);
+var _windowForm = require("../../components/WindowForm/WindowForm");
+var _windowFormDefault = parcelHelpers.interopDefault(_windowForm);
 exports.default = ()=>{
-    const res = (0, _authorizationHbsDefault.default)({
-        input: (0, _inputDefault.default),
-        button: (0, _buttonDefault.default)
+    const data = {
+        title: "Регистрация",
+        action: "",
+        inputList: [
+            {
+                id: "email",
+                title: "Почта",
+                type: ""
+            },
+            {
+                id: "login",
+                title: "Логин",
+                type: ""
+            },
+            {
+                id: "firstName",
+                title: "Имя",
+                type: ""
+            },
+            {
+                id: "lastName",
+                title: "Фамилия",
+                type: ""
+            },
+            {
+                id: "phone",
+                title: "Телефон",
+                type: ""
+            },
+            {
+                id: "password",
+                title: "Пароль",
+                type: "password"
+            },
+            {
+                id: "repetitePassword",
+                title: "Пароль (ещё раз)",
+                type: "password",
+                error: "Пароли не совподают"
+            }
+        ],
+        buttonList: [
+            {
+                class: "",
+                value: "Зарегистрироваться"
+            },
+            {
+                class: "_bg-wite",
+                value: "Войти"
+            }
+        ]
+    };
+    const res = (0, _registrationHbsDefault.default)({
+        ...data,
+        WindowForm: (0, _windowFormDefault.default)
     });
     return res;
 };
 
-},{"./Authorization.hbs":"lga0D","../../components/UI/Input/Input":"2Rs17","../../components/UI/Button/Button":"1XdRP","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"lga0D":[function(require,module,exports) {
+},{"./Registration.hbs":"bIcFX","../../components/UI/Button/Button":"1XdRP","../../components/InputBlock/InputBlock":"iSNyi","../../components/WindowForm/WindowForm":"kuKR3","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"bIcFX":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -12165,183 +12615,295 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<form class="authorization-form" action="">\r\n    <h1>Вход</h1>\r\n    <div class="input-wrapper">\r\n' + ((stack1 = container.invokePartial(lookupProperty(partials, "input"), depth0, {
-            "name": "input",
-            "hash": {
-                "value": "",
-                "placeholder": "",
-                "type": "text",
-                "id": "login"
-            },
+        return "<main>\r\n" + ((stack1 = container.invokePartial(lookupProperty(partials, "windowForm"), depth0, {
+            "name": "windowForm",
             "data": data,
-            "indent": "        ",
+            "indent": "    ",
             "helpers": helpers,
             "partials": partials,
             "decorators": container.decorators
-        })) != null ? stack1 : "") + '        <label class="placeholder" for="login">Логин</label>\r\n    </div>\r\n    <div class="input-wrapper">\r\n' + ((stack1 = container.invokePartial(lookupProperty(partials, "input"), depth0, {
-            "name": "input",
-            "hash": {
-                "type": "password",
-                "id": "password"
-            },
-            "data": data,
-            "indent": "        ",
-            "helpers": helpers,
-            "partials": partials,
-            "decorators": container.decorators
-        })) != null ? stack1 : "") + '        <label class="placeholder" for="password">Пароль</label>\r\n    </div>\r\n    <div class="button-wrapper">\r\n' + ((stack1 = container.invokePartial(lookupProperty(partials, "button"), depth0, {
-            "name": "button",
-            "hash": {
-                "value": "Авторизоваться",
-                "class": ""
-            },
-            "data": data,
-            "indent": "        ",
-            "helpers": helpers,
-            "partials": partials,
-            "decorators": container.decorators
-        })) != null ? stack1 : "") + ((stack1 = container.invokePartial(lookupProperty(partials, "button"), depth0, {
-            "name": "button",
-            "hash": {
-                "value": "Нет аккаунта?",
-                "class": "_bg-wite"
-            },
-            "data": data,
-            "indent": "        ",
-            "helpers": helpers,
-            "partials": partials,
-            "decorators": container.decorators
-        })) != null ? stack1 : "") + "    </div>\r\n</form>";
+        })) != null ? stack1 : "") + "</main>\r\n";
     },
     "usePartial": true,
     "useData": true
 });
 exports.default = templateFunction;
 
-},{"handlebars":"dH8Fg","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"2Rs17":[function(require,module,exports) {
+},{"handlebars":"dH8Fg","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"hfnoh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _errorHbs = require("./Error.hbs");
+var _errorHbsDefault = parcelHelpers.interopDefault(_errorHbs);
+exports.default = (code)=>{
+    const error500 = {
+        title: "500",
+        text: "Мы уже фиксим"
+    };
+    const error404 = {
+        title: "404",
+        text: "Не туда попали"
+    };
+    if (code === 500) {
+        const res = (0, _errorHbsDefault.default)({
+            ...error500
+        });
+        return res;
+    } else {
+        const res1 = (0, _errorHbsDefault.default)({
+            ...error404
+        });
+        return res1;
+    }
+};
+
+},{"./Error.hbs":"96xUU","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"96xUU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
 var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
-var _inputHbs = require("./Input.hbs");
-var _inputHbsDefault = parcelHelpers.interopDefault(_inputHbs);
-(0, _handlebarsDefault.default).registerPartial("input", (0, _inputHbsDefault.default));
+const templateFunction = (0, _handlebarsDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", alias4 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '<main>\r\n    <div class="error-wrapper">\r\n        <h1>' + alias4((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "title",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 12
+                },
+                "end": {
+                    "line": 3,
+                    "column": 21
+                }
+            }
+        }) : helper)) + "</h1>\r\n        <p>" + alias4((helper = (helper = lookupProperty(helpers, "text") || (depth0 != null ? lookupProperty(depth0, "text") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "text",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 4,
+                    "column": 11
+                },
+                "end": {
+                    "line": 4,
+                    "column": 19
+                }
+            }
+        }) : helper)) + '</p>\r\n        <a href="#">Назад к чатам</a>\r\n    </div>\r\n</main>';
+    },
+    "useData": true
+});
+exports.default = templateFunction;
 
-},{"handlebars":"dH8Fg","./Input.hbs":"eddx6","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"eddx6":[function(require,module,exports) {
+},{"handlebars":"dH8Fg","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"55qYk":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _chatsHbs = require("./Chats.hbs");
+var _chatsHbsDefault = parcelHelpers.interopDefault(_chatsHbs);
+var _chat = require("../../components/Chat/Chat");
+var _chatDefault = parcelHelpers.interopDefault(_chat);
+exports.default = ()=>{
+    const data = {
+        chatList: [
+            {
+                id: "1",
+                name: "Андрей",
+                img: "https://w7.pngwing.com/pngs/52/368/png-transparent-user-profile-computer-icons-avatar-avatar-heroes-monochrome-desktop-wallpaper.png",
+                lastMessage: "Изображение",
+                countNewMessage: "2",
+                time: "10:49"
+            },
+            {
+                id: "2",
+                name: "Илья",
+                img: "https://w7.pngwing.com/pngs/52/368/png-transparent-user-profile-computer-icons-avatar-avatar-heroes-monochrome-desktop-wallpaper.png",
+                lastMessage: "Друзья, у меня для вас особенный выпуск новостей! Бла бла бла бла бла бла бал бал бал бал бла!",
+                countNewMessage: "15",
+                time: "15:12"
+            }
+        ]
+    };
+    const res = (0, _chatsHbsDefault.default)({
+        ...data,
+        chat: (0, _chatDefault.default)
+    });
+    return res;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh","./Chats.hbs":"kGfcR","../../components/Chat/Chat":"7GSBb"}],"kGfcR":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
 var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
 const templateFunction = (0, _handlebarsDefault.default).template({
     "1": function(container, depth0, helpers, partials, data) {
-        var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return "inputField " + container.escapeExpression((helper = (helper = lookupProperty(helpers, "class") || (depth0 != null ? lookupProperty(depth0, "class") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
-            "name": "class",
-            "hash": {},
+        return (stack1 = container.invokePartial(lookupProperty(partials, "chat"), depth0, {
+            "name": "chat",
             "data": data,
-            "loc": {
-                "start": {
-                    "line": 3,
-                    "column": 35
-                },
-                "end": {
-                    "line": 3,
-                    "column": 44
-                }
-            }
-        }) : helper));
-    },
-    "3": function(container, depth0, helpers, partials, data) {
-        return "inputField";
+            "indent": "            ",
+            "helpers": helpers,
+            "partials": partials,
+            "decorators": container.decorators
+        })) != null ? stack1 : "";
     },
     "compiler": [
         8,
         ">= 4.3.0"
     ],
     "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", alias4 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<input \r\n    id="' + alias4((helper = (helper = lookupProperty(helpers, "id") || (depth0 != null ? lookupProperty(depth0, "id") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        return '<main>\r\n    <section class="chats-list">\r\n        <header>\r\n            <div class="a-wrapper">\r\n                <a href="" >Профиль\r\n                    <div class="arrow-top"></div>\r\n                    <div class="arrow-bottom"></div>\r\n                </a>\r\n            </div>\r\n            <form class="search">\r\n                <button type="submit">\r\n                    <span class="lupa"></span>\r\n                </button>\r\n                <input type="text" placeholder="Поиск" />\r\n            </form>\r\n        </header>\r\n' + ((stack1 = lookupProperty(helpers, "each").call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? lookupProperty(depth0, "chatList") : depth0, {
+            "name": "each",
+            "hash": {},
+            "fn": container.program(1, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 17,
+                    "column": 8
+                },
+                "end": {
+                    "line": 19,
+                    "column": 17
+                }
+            }
+        })) != null ? stack1 : "") + '    </section>\r\n    <section class="chat">\r\n        <header></header>\r\n        <section>\r\n\r\n            <article></article>\r\n\r\n        </section>\r\n        <footer></footer>\r\n    </section>\r\n</main>';
+    },
+    "usePartial": true,
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars":"dH8Fg","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"7GSBb":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _handlebars = require("handlebars");
+var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
+var _chatHbs = require("./Chat.hbs");
+var _chatHbsDefault = parcelHelpers.interopDefault(_chatHbs);
+(0, _handlebarsDefault.default).registerPartial("chat", (0, _chatHbsDefault.default));
+
+},{"handlebars":"dH8Fg","./Chat.hbs":"dWOZ9","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"dWOZ9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebars = require("handlebars");
+var _handlebarsDefault = parcelHelpers.interopDefault(_handlebars);
+const templateFunction = (0, _handlebarsDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", alias4 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '<article id="' + alias4((helper = (helper = lookupProperty(helpers, "id") || (depth0 != null ? lookupProperty(depth0, "id") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "id",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 2,
-                    "column": 8
+                    "line": 1,
+                    "column": 13
                 },
                 "end": {
-                    "line": 2,
-                    "column": 14
+                    "line": 1,
+                    "column": 19
                 }
             }
-        }) : helper)) + '"\r\n    class="' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "class") : depth0, {
-            "name": "if",
-            "hash": {},
-            "fn": container.program(1, data, 0),
-            "inverse": container.program(3, data, 0),
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 3,
-                    "column": 11
-                },
-                "end": {
-                    "line": 3,
-                    "column": 69
-                }
-            }
-        })) != null ? stack1 : "") + '" \r\n    type="' + alias4((helper = (helper = lookupProperty(helpers, "type") || (depth0 != null ? lookupProperty(depth0, "type") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "type",
+        }) : helper)) + '" class="chat">\r\n    <section class="section-1">\r\n        <img src="' + alias4((helper = (helper = lookupProperty(helpers, "img") || (depth0 != null ? lookupProperty(depth0, "img") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "img",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 4,
-                    "column": 10
-                },
-                "end": {
-                    "line": 4,
+                    "line": 3,
                     "column": 18
-                }
-            }
-        }) : helper)) + '" \r\n    placeholder="' + alias4((helper = (helper = lookupProperty(helpers, "placeholder") || (depth0 != null ? lookupProperty(depth0, "placeholder") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "placeholder",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 5,
-                    "column": 17
                 },
                 "end": {
-                    "line": 5,
-                    "column": 32
+                    "line": 3,
+                    "column": 25
                 }
             }
-        }) : helper)) + ' "\r\n    value="' + alias4((helper = (helper = lookupProperty(helpers, "value") || (depth0 != null ? lookupProperty(depth0, "value") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "value",
+        }) : helper)) + '" alt="" class="img-interlocutor" />\r\n    </section>\r\n    <section class="section-2">\r\n        <h2 class="name-interlocutor">' + alias4((helper = (helper = lookupProperty(helpers, "name") || (depth0 != null ? lookupProperty(depth0, "name") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "name",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
                     "line": 6,
-                    "column": 11
+                    "column": 38
                 },
                 "end": {
                     "line": 6,
-                    "column": 20
+                    "column": 46
                 }
             }
-        }) : helper)) + '"\r\n>';
+        }) : helper)) + '</h2>\r\n        <p class="massage">' + alias4((helper = (helper = lookupProperty(helpers, "lastMessage") || (depth0 != null ? lookupProperty(depth0, "lastMessage") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "lastMessage",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 27
+                },
+                "end": {
+                    "line": 7,
+                    "column": 42
+                }
+            }
+        }) : helper)) + '</p>\r\n    </section>\r\n    <section class="section-3">\r\n        <time class="massage-time">' + alias4((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "time",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 10,
+                    "column": 35
+                },
+                "end": {
+                    "line": 10,
+                    "column": 43
+                }
+            }
+        }) : helper)) + '</time>\r\n        <div class="massage-counter">' + alias4((helper = (helper = lookupProperty(helpers, "countNewMessage") || (depth0 != null ? lookupProperty(depth0, "countNewMessage") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "countNewMessage",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 11,
+                    "column": 37
+                },
+                "end": {
+                    "line": 11,
+                    "column": 56
+                }
+            }
+        }) : helper)) + "</div>\r\n    </section>\r\n</article>";
     },
     "useData": true
 });
 exports.default = templateFunction;
 
-},{"handlebars":"dH8Fg","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"1i0iC":[function() {},{}]},["cxg2t","b9BDZ"], "b9BDZ", "parcelRequireab20")
+},{"handlebars":"dH8Fg","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}]},["cxg2t","b9BDZ"], "b9BDZ", "parcelRequireab20")
 

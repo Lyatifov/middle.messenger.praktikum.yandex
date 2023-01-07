@@ -1,11 +1,10 @@
-const express = require('express')
+const express = require("express");
 
-const app = express(),
-    PORT = 3000
+const app = express();
+const PORT = 3000;
 
-app.use(express.static(`${__dirname}/src/`))
+app.use(express.static(`${__dirname}/src/`));
 
 app.listen(PORT, () => {
     console.log(`Server started in http://localhost:${PORT}`);
-})
-
+});
