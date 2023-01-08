@@ -14,17 +14,38 @@
                 <input type="text" placeholder="Поиск" />
             </form>
         </header>
-        {{#each chatList}}
-            {{>chat}}
-        {{/each}}
-    </section>
-    <section class="chat">
-        <header></header>
-        <section>
-
-            <article></article>
-
+        <section class="wrapper-chats">
+            {{#each chatList}}
+                {{>chat}}
+            {{/each}}
         </section>
-        <footer></footer>
     </section>
+        {{#if name}}
+            <section class="message-list">
+                <header>
+                    <img src="{{img}}" alt="" class="img-interlocutor" />
+                    <h2 class="name-interlocutor">{{name}}</h2>
+                    <a href="" class="option">
+                        <div class="point"></div>
+                        <div class="point"></div>
+                        <div class="point"></div>
+                    </a>
+                </header>
+                <div id="wrapper-messages-container" class="wrapper-messages-container">
+                    <section id="wrapper-messages" class="wrapper-messages">
+                    </section>
+                </div>
+                <footer>
+                    <form>
+                        <button class="button-attach">&#128206;</button>
+                        <input type="text" placeholder="Сообщение">                
+                        <button class="sending-button">&#10230;</button>
+                    </form>
+                </footer>
+            </section>
+        {{else}}
+            <section class="empty-list">
+                <article class="empty-text">Выберите чат чтобы отправить сообщение</article>
+            </section>
+        {{/if}}
 </main>

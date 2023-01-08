@@ -3,7 +3,10 @@ import "./index.scss";
 import Authorization from "./pages/Authorization/Authorization";
 import Registration from "./pages/Registration/Registration";
 import Error from "./pages/Error/Error";
-import Chats from "./pages/Chats/Chats"
+import Chats from "./pages/Chats/Chats";
+import targetChat from "./core/messages/messages";
+import Message from "./components/Message/Message";
+import Profile from "./pages/Profile/Profile";
 
 const root = document.getElementById("root");
 
@@ -12,7 +15,18 @@ root.innerHTML = template({
     Registration: Registration,
     Error: Error,
     Chats: Chats,
+    Profile: Profile,
 });
+
+// const wrapperMessages = document.getElementById("wrapper-messages");
+// targetChat.messageList.map((item) => {
+//     let message = Message(item);
+//     wrapperMessages.innerHTML += message;
+// });
+// const wrapperMessagesContainer = document.getElementById(
+//     "wrapper-messages-container"
+// );
+// wrapperMessagesContainer.scrollTop = wrapperMessagesContainer.scrollHeight;
 
 // root.innerHTML = template({
 //     page1: page1()
