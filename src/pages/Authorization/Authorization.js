@@ -1,40 +1,37 @@
-import template from "./Authorization.hbs"
-import Button from "../../components/UI/Button/Button"
-import InputBlock from "../../components/InputBlock/InputBlock"
-import WindowForm from "../../components/WindowForm/WindowForm"
+import WindowForm from "../../components/WindowForm/WindowForm";
+import PORT from "../../index";
+import ChangeRouter from "../../core/Router/Router";
 
 export default () => {
     const data = {
         title: "Вход",
-        action: "",
         inputList: [
             {
                 id: "login",
                 title: "Логин",
                 type: "",
-                error: "Неверный логин"
+                error: "Неверный логин",
             },
             {
                 id: "password",
                 title: "Пароль",
                 type: "password",
-                error: ""
+                error: "",
             },
         ],
         buttonList: [
             {
-                class: "",
-                value: "Авторизоваться"
+                className: "",
+                value: "Авторизоваться",
+                link: `http://localhost:${PORT}/chats`,
             },
             {
-                class: "_bg-wite",
-                value: "Нет аккаунта?"
+                className: "_bg-wite",
+                value: "Нет аккаунта?",
+                link: `http://localhost:${PORT}/registration`,
             },
-        ]
-    }
-    const res = template({
-        ...data,
-        WindowForm: WindowForm,
-    })
-    return res
-}
+        ],
+    };
+    const res = WindowForm(data);
+    return res;
+};

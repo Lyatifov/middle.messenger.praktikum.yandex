@@ -1,6 +1,10 @@
 <button 
-    {{#if id}}id="{{id}}"{{else}}{{/if}}    
-    class="{{#if class}}button {{class}}{{else}}button{{/if}}"
+    {{#if id}}id="{{id}}"{{else}}{{/if}}
+    class="{{#if className}}button {{className}}{{else}}button{{/if}}"
+    {{#if link}}
+    onclick="ChangeRouter('{{link}}')"
+    {{else}}
+    {{/if}}
 >
     {{value}}
 </button>

@@ -11,6 +11,15 @@
     list-style-type: none;
 }
 
+a,
+button {
+    cursor: pointer;
+}
+
+.hide-page {
+    display: none;
+}
+
 main {
     height: 100vh;
     display: flex;
@@ -103,6 +112,7 @@ main {
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
+    cursor: pointer;
 }
 .button {
     border: 0;
@@ -111,6 +121,7 @@ main {
     height: 37px;
     background: #3369f3;
     color: #ffffff;
+    margin: auto;
 }
 ._bg-wite {
     background: white;
@@ -443,6 +454,7 @@ main {
         }
     }
 }
+
 .profile-page {
     display: flex;
     flex-direction: column;
@@ -489,6 +501,7 @@ main {
             color: #1e1e1e;
             border-bottom: 1px solid #eaeaea;
             .edit {
+                padding: 0 5px;
                 color: black !important;
                 background: #e8e8e8;
                 border-radius: 16px;
@@ -529,7 +542,7 @@ main {
                 background: black;
                 top: 0;
             }
-            label {
+            .profile-img-label {
                 z-index: 2;
                 color: #ffffff;
                 top: 50%;
@@ -537,7 +550,7 @@ main {
                 transform: translate(-50%, -50%);
                 text-align: center;
             }
-            label,
+            .profile-img-label,
             .profile-img-editor {
                 position: absolute;
                 opacity: 0;
@@ -546,14 +559,14 @@ main {
             }
         }
         .profile-img-wrapper:hover {
-            label,
+            .profile-img-label,
             .profile-img-editor {
                 transition: 0.5s;
             }
             .profile-img-editor {
                 opacity: 0.5;
             }
-            label {
+            .profile-img-label {
                 opacity: 1;
             }
         }
@@ -564,5 +577,102 @@ main {
             line-height: 16px;
         }
         text-align: left;
+    }
+}
+
+.modal-window_active {
+    .background {
+        top: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000000;
+        opacity: 0.4;
+        z-index: 4;
+    }
+    .button-for-remove-image,
+    .modal-form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .modal-form {
+        z-index: 5;
+        box-sizing: border-box;
+        padding: 30px 20px;
+        width: 340px;
+        height: 300px;
+        background: #ffffff;
+        box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        h1 {
+            font-size: 15px;
+            line-height: 20px;
+        }
+        .load-file-wrapper {
+            margin: auto;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 150px;
+            max-height: 150px;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 50%;
+            position: relative;
+            img {
+                height: 100%;
+                width: auto;
+                object-fit: cover;
+            }
+            .drop-zone {
+                box-sizing: border-box;
+                margin: auto;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                font-size: 100px;
+                font-weight: bold;
+                border: 6px solid #3369f3;
+                user-select: none;
+                cursor: pointer;
+                border-radius: 50%;
+                color: #3369f3;
+            }
+            ._none {
+                display: none;
+            }
+            .button-for-remove-image {
+                opacity: 0;
+                padding: 5px;
+                width: auto;
+                height: auto;
+                cursor: pointer;
+                border-radius: 50%;
+                font-size: 50px;
+                transition: 0.5s;
+                background: none;
+            }
+        }
+        .load-file-wrapper:hover {
+            .button-for-remove-image {
+                opacity: 1;
+                background: none;
+                transition: 0.5s;
+            }
+        }
+    }
+}
+.modal-window {
+    .modal-form,
+    .background {
+        display: none;
     }
 }

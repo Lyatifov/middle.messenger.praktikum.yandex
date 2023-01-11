@@ -10,6 +10,14 @@
   list-style-type: none;
 }
 
+a, button {
+  cursor: pointer;
+}
+
+.hide-page {
+  display: none;
+}
+
 main {
   height: 100vh;
   display: flex;
@@ -108,6 +116,7 @@ main {
 }
 
 .button, .input {
+  cursor: pointer;
   font-size: 13px;
   font-weight: 500;
   line-height: 13px;
@@ -120,6 +129,7 @@ main {
   background: #3369f3;
   border: 0;
   border-radius: 8px;
+  margin: auto;
 }
 
 ._bg-wite {
@@ -550,6 +560,7 @@ main {
 .profile-page section li .edit {
   background: #e8e8e8;
   border-radius: 16px;
+  padding: 0 5px;
   color: #000 !important;
 }
 
@@ -590,7 +601,7 @@ main {
   top: 0;
 }
 
-.profile-page section .profile-img-wrapper label {
+.profile-page section .profile-img-wrapper .profile-img-label {
   z-index: 2;
   color: #fff;
   text-align: center;
@@ -599,14 +610,14 @@ main {
   transform: translate(-50%, -50%);
 }
 
-.profile-page section .profile-img-wrapper label, .profile-page section .profile-img-wrapper .profile-img-editor {
+.profile-page section .profile-img-wrapper .profile-img-label, .profile-page section .profile-img-wrapper .profile-img-editor {
   opacity: 0;
   cursor: pointer;
   transition: all .5s;
   position: absolute;
 }
 
-.profile-page section .profile-img-wrapper:hover label, .profile-page section .profile-img-wrapper:hover .profile-img-editor {
+.profile-page section .profile-img-wrapper:hover .profile-img-label, .profile-page section .profile-img-wrapper:hover .profile-img-editor {
   transition: all .5s;
 }
 
@@ -614,7 +625,7 @@ main {
   opacity: .5;
 }
 
-.profile-page section .profile-img-wrapper:hover label {
+.profile-page section .profile-img-wrapper:hover .profile-img-label {
   opacity: 1;
 }
 
@@ -623,5 +634,105 @@ main {
   font-size: 16px;
   font-weight: 600;
   line-height: 16px;
+}
+
+.modal-window_active .background {
+  width: 100%;
+  height: 100%;
+  opacity: .4;
+  z-index: 4;
+  background: #000;
+  position: absolute;
+  top: 0;
+}
+
+.modal-window_active .button-for-remove-image, .modal-window_active .modal-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-window_active .modal-form {
+  z-index: 5;
+  box-sizing: border-box;
+  width: 340px;
+  height: 300px;
+  text-align: center;
+  background: #fff;
+  border-radius: 12px;
+  flex-direction: column;
+  padding: 30px 20px;
+  display: flex;
+  box-shadow: 0 0 6px #00000024;
+}
+
+.modal-window_active .modal-form h1 {
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.modal-window_active .modal-form .load-file-wrapper {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 150px;
+  max-height: 150px;
+  height: 100%;
+  border-radius: 50%;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: auto;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-window_active .modal-form .load-file-wrapper img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+}
+
+.modal-window_active .modal-form .load-file-wrapper .drop-zone {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  color: #3369f3;
+  border: 6px solid #3369f3;
+  border-radius: 50%;
+  justify-content: center;
+  margin: auto;
+  font-size: 100px;
+  font-weight: bold;
+  display: flex;
+}
+
+.modal-window_active .modal-form .load-file-wrapper ._none {
+  display: none;
+}
+
+.modal-window_active .modal-form .load-file-wrapper .button-for-remove-image {
+  opacity: 0;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+  background: none;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 50px;
+  transition: all .5s;
+}
+
+.modal-window_active .modal-form .load-file-wrapper:hover .button-for-remove-image {
+  opacity: 1;
+  background: none;
+  transition: all .5s;
+}
+
+.modal-window .modal-form, .modal-window .background {
+  display: none;
 }
 

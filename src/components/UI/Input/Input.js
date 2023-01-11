@@ -1,4 +1,4 @@
-import template from "./Button.hbs";
+import template from "./Input.hbs";
 
 export default (data) => {
     const res = template({

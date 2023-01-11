@@ -1,11 +1,13 @@
 import template from "./Profile.hbs";
-import InputForm from "./../../components/InputProfile/InputProfile";
+import ProfileData from "./../../components/ProfileData/ProfileData";
+import PORT from "../../index";
+import ChangeRouter from "../../core/Router/Router";
 
-export default () => {
+export default (edit) => {
     const data = {
         nickName: "Иван",
         img: "https://w7.pngwing.com/pngs/52/368/png-transparent-user-profile-computer-icons-avatar-avatar-heroes-monochrome-desktop-wallpaper.png",
-        list: [
+        listData: [
             {
                 id: "email",
                 value: "pochta@yandex.ru",
@@ -37,12 +39,32 @@ export default () => {
                 title: "Телефон",
             },
         ],
+        listPassword: [
+            {
+                id: "oldPassword",
+                value: "?????????????",
+                title: "Старый пароль",
+                type: "password",
+            },
+            {
+                id: "newPassword",
+                value: "?????????????",
+                title: "Новый пароль",
+                type: "password",
+            },
+            {
+                id: "repeatNewPassword",
+                value: "?????????????",
+                title: "Повторите новый пароль",
+                type: "password",
+            },
+        ],
     };
-
-    let edit = true;
+    const rout = `http://localhost:${PORT}/chats`;
     const res = template({
+        rout,
         ...data,
-        edit
+        ProfileData: ProfileData(edit, data),
     });
     return res;
 };

@@ -1,79 +1,65 @@
-import template from "./index.hbs";
 import "./index.scss";
 import Authorization from "./pages/Authorization/Authorization";
 import Registration from "./pages/Registration/Registration";
 import Error from "./pages/Error/Error";
 import Chats from "./pages/Chats/Chats";
 import targetChat from "./core/messages/messages";
+import FileReader from "./core/FileReader/FileReader";
 import Message from "./components/Message/Message";
 import Profile from "./pages/Profile/Profile";
+import ModalWindow from "./components/ModalWindow/ModalWindow";
+import ModalWindowController from "./core/ModalWindow/ModalWindow";
+import ChangeRouter from "./core/Router/Router";
 
-const root = document.getElementById("root");
+const root = document.getElementById("root"),
+    PORT = 3000;
 
-root.innerHTML = template({
-    Authorization: Authorization,
-    Registration: Registration,
-    Error: Error,
-    Chats: Chats,
-    Profile: Profile,
-});
+// let activeModalWindow = true,
+//     oldUrl = "";
 
-// const wrapperMessages = document.getElementById("wrapper-messages");
-// targetChat.messageList.map((item) => {
-//     let message = Message(item);
-//     wrapperMessages.innerHTML += message;
-// });
-// const wrapperMessagesContainer = document.getElementById(
-//     "wrapper-messages-container"
-// );
-// wrapperMessagesContainer.scrollTop = wrapperMessagesContainer.scrollHeight;
-
-// root.innerHTML = template({
-//     page1: page1()
-// })
-
-// отслеживание URL //
-
-// history.pushState(null, null, '/about')
-// document.URL
-
-// const observeUrlChange = () => {
-//     const oldHref = document.location.href
-//     const body = document.querySelector("body")
-//     const observer = new MutationObserver(mutations => {
-//         mutations.forEach(() => {
-//             if (oldHref !== document.location.href) {
-//                 oldHref = document.location.href
-//                 /* Changed ! your code here */
+// function ChangeRouter(newUrl) {
+//     if (newUrl !== oldUrl) {
+//         const edit = {
+//             dataEdit: false,
+//             passwordEdit: false,
+//         };
+//         if (newUrl === `http://localhost:${PORT}/auth`) {
+//             root.innerHTML = Authorization();
+//         } else if (newUrl === `http://localhost:${PORT}/profile`) {
+//             root.innerHTML = Profile(edit).concat(
+//                 ModalWindow("Загрузите файл")
+//             );
+//             ModalWindowController(activeModalWindow);
+//             FileReader();
+//         } else if (newUrl.includes(`http://localhost:${PORT}/profile`)) {
+//             if (newUrl.includes("/edit/password")) {
+//                 edit.passwordEdit = true;
+//                 edit.dataEdit = true;
+//             } else if (newUrl.includes("/edit/data")) {
+//                 edit.dataEdit = true;
+//             } else {
+//                 root.innerHTML = Error();
+//                 return;
 //             }
-//         })
-//     })
-//     observer.observe(body, { childList: true, subtree: true })
-// };
-// window.onload = observeUrlChange;
-
-//=======================//
-
-// добавление эвента существующему элементу //
-
-// const button = document.getElementById(123)
-
-// button.addEventListener("click", () => {
-//     console.log("click!")
-// })
-
-//=======================//
-
-// const comp = Handlebars.compile(template)
-// const res = comp({
-//     title: "Title",
-//     // button: MyButton(("idbtn1", "Click Me!"))
-// })
-
-// console.log(MyButton(("idbtn1", "Click Me!")));
-
-// window.createButton = (id, value) => {
-//     const htmlTpl = document.createElement('template')
-//     htmlTpl.innerHTML = MyButton(id, value)
-//     root.appendChild(htmlTpl.content)
+//             root.innerHTML = Profile(edit).concat(
+//                 ModalWindow("Загрузите файл")
+//             );
+//             ModalWindowController(activeModalWindow);
+//             FileReader();
+//         } else if (newUrl === `http://localhost:${PORT}/chats`) {
+//             root.innerHTML = Chats();
+//         } else if (newUrl === `http://localhost:${PORT}/registration`) {
+//             root.innerHTML = Registration();
+//         } else {
+//             root.innerHTML = Error();
+//             return;
+//         }
+//     }
+//     oldUrl = newUrl;
+//     const tail = newUrl.replace(`http://localhost:${PORT}`, "");
+//     history.pushState(null, null, tail);
 // }
+
+ChangeRouter(document.location.href);
+
+export default PORT;

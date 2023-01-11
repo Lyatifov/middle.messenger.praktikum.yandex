@@ -1,42 +1,17 @@
 <main class="profile-page">
-    <aside>
+    <aside id="profileBackPage">
         <div>
-            <button>&#10230;</button>
+            <button onclick="ChangeRouter('{{rout}}')">&#10230;</button>
         </div>
-        
     </aside>
     <section>
         <div class="profile-img-wrapper">
             <img class="profile-img" src="{{img}}" alt="" />
-            <div class="profile-img-editor"></div>
-            <label>Поменять аватар</label>
+            <label id="profileImgLabel" class="profile-img-label">Поменять
+                аватар</label>
+            <div id="profileImgEditor" class="profile-img-editor"></div>
         </div>
         <h2 class="profile-nickname">{{nickName}}</h2>
     </section>
-    <section>
-        <ul>
-            {{#if edit}}
-                {{#each list}}
-                    {{>inputProfile edit="true"}}
-                {{/each}}
-            {{else}}
-                {{#each list}}
-                    {{>inputProfile}}
-                {{/each}}
-            {{/if}}
-        </ul>
-    </section>
-    <section>
-        <ul>
-            <li>
-                <a href="">Изменить данные</a>
-            </li>
-            <li>
-                <a href="">Изменить пароль</a>
-            </li>
-            <li>
-                <a href="" class="a-redtext">Выйти</a>
-            </li>
-        </ul>
-    </section>
+    {{{ProfileData}}}
 </main>

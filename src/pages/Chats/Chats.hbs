@@ -2,7 +2,7 @@
     <section class="chats-list">
         <header>
             <div class="a-wrapper">
-                <a href="" >Профиль
+                <a onclick="ChangeRouter('{{rout}}')">Профиль
                     <div class="arrow-top"></div>
                     <div class="arrow-bottom"></div>
                 </a>
@@ -15,37 +15,39 @@
             </form>
         </header>
         <section class="wrapper-chats">
-            {{#each chatList}}
-                {{>chat}}
-            {{/each}}
+            {{{chatList}}}
         </section>
     </section>
-        {{#if name}}
-            <section class="message-list">
-                <header>
-                    <img src="{{img}}" alt="" class="img-interlocutor" />
-                    <h2 class="name-interlocutor">{{name}}</h2>
-                    <a href="" class="option">
-                        <div class="point"></div>
-                        <div class="point"></div>
-                        <div class="point"></div>
-                    </a>
-                </header>
-                <div id="wrapper-messages-container" class="wrapper-messages-container">
-                    <section id="wrapper-messages" class="wrapper-messages">
-                    </section>
-                </div>
-                <footer>
-                    <form>
-                        <button class="button-attach">&#128206;</button>
-                        <input type="text" placeholder="Сообщение">                
-                        <button class="sending-button">&#10230;</button>
-                    </form>
-                </footer>
-            </section>
-        {{else}}
-            <section class="empty-list">
-                <article class="empty-text">Выберите чат чтобы отправить сообщение</article>
-            </section>
-        {{/if}}
+    {{#if name}}
+        <section class="message-list">
+            <header>
+                <img src="{{img}}" alt="" class="img-interlocutor" />
+                <h2 class="name-interlocutor">{{name}}</h2>
+                <a href="" class="option">
+                    <div class="point"></div>
+                    <div class="point"></div>
+                    <div class="point"></div>
+                </a>
+            </header>
+            <div
+                id="wrapper-messages-container"
+                class="wrapper-messages-container"
+            >
+                <section id="wrapper-messages" class="wrapper-messages">
+                    {{{Message}}}
+                </section>
+            </div>
+            <footer>
+                <form>
+                    <button class="button-attach">&#128206;</button>
+                    <input type="text" placeholder="Сообщение" />
+                    <button class="sending-button">&#10230;</button>
+                </form>
+            </footer>
+        </section>
+    {{else}}
+        <section class="empty-list">
+            <article class="empty-text">Выберите чат чтобы отправить сообщение</article>
+        </section>
+    {{/if}}
 </main>

@@ -1,7 +1,6 @@
-import template from "./Registration.hbs";
-import Button from "../../components/UI/Button/Button";
-import InputBlock from "../../components/InputBlock/InputBlock";
 import WindowForm from "../../components/WindowForm/WindowForm";
+import PORT from "../../index";
+import ChangeRouter from "../../core/Router/Router";
 
 export default () => {
     const data = {
@@ -47,19 +46,18 @@ export default () => {
         ],
         buttonList: [
             {
-                class: "",
+                className: "",
                 value: "Зарегистрироваться",
+                link: `http://localhost:${PORT}/registration`,
             },
             {
-                class: "_bg-wite",
+                className: "_bg-wite",
                 value: "Войти",
+                link: `http://localhost:${PORT}/auth`,
             },
         ],
     };
 
-    const res = template({
-        ...data,
-        WindowForm: WindowForm,
-    });
+    const res = WindowForm(data);
     return res;
 };

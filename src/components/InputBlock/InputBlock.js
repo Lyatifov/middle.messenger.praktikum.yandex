@@ -1,4 +1,10 @@
-import Handlebars from "handlebars";
 import template from "./InputBlock.hbs";
+import Input from "../UI/Input/Input";
 
-Handlebars.registerPartial("inputBlock", template);
+export default (data) => {
+    const res = template({
+        input: Input(data),
+        ...data,
+    });
+    return res;
+};

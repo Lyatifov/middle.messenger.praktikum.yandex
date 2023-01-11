@@ -1,11 +1,5 @@
 <div class="input-block">
-    <input 
-    {{#if id}}id="{{id}}"{{else}}{{/if}}
-    class="{{#if class}}input {{class}}{{else}}input{{/if}}" 
-    type="{{type}}" 
-    placeholder="{{placeholder}} "
-    value="{{value}}"
-    >
+    {{{input}}}
     <label class="placeholder" for={{id}}>{{title}}</label>
     {{#if error}}
         <label class="input-error" for={{id}}>{{error}}</label>

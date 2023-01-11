@@ -1,0 +1,11 @@
+<li>
+    <label for="{{id}}">{{title}}</label>
+    <input id="{{id}}" 
+    {{#if type}}type="{{type}}"{{else}}type="text"{{/if}} 
+    value="{{value}}" 
+    {{#if dataEdit}}
+    class="edit"
+    {{else}} 
+    disabled="disabled"
+    {{/if}} />
+</li>
