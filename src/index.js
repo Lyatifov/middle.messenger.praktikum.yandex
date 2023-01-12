@@ -19,13 +19,13 @@ function ChangeRouter(url) {
         dataEdit: false,
         passwordEdit: false,
     };
-    if (url === `http://localhost:${PORT}/auth`) {
+    if (url === `/auth`) {
         root.innerHTML = Authorization();
-    } else if (url === `http://localhost:${PORT}/profile`) {
+    } else if (url === `/profile`) {
         root.innerHTML = Profile(edit).concat(ModalWindow("Загрузите файл"));
         ModalWindowController(activeModalWindow);
         FileReader();
-    } else if (url.includes(`http://localhost:${PORT}/profile`)) {
+    } else if (url.includes(`/profile`)) {
         if (url.includes("/edit/password")) {
             edit.passwordEdit = true;
             edit.dataEdit = true;
@@ -38,9 +38,9 @@ function ChangeRouter(url) {
         root.innerHTML = Profile(edit).concat(ModalWindow("Загрузите файл"));
         ModalWindowController(activeModalWindow);
         FileReader();
-    } else if (url === `http://localhost:${PORT}/chats`) {
+    } else if (url === `/chats`) {
         root.innerHTML = Chats();
-    } else if (url === `http://localhost:${PORT}/registration`) {
+    } else if (url === `/registration`) {
         root.innerHTML = Registration();
     } else {
         root.innerHTML = Error();
@@ -49,9 +49,9 @@ function ChangeRouter(url) {
     if (document.getElementById("backToChat")) {
         const buttonBackToChat = document.getElementById("backToChat");
         buttonBackToChat.onclick = () => {
-            window.location.href = `http://localhost:${PORT}/chats`;
+            location.href = `/chats`;
         };
     }
 }
 
-window.onload = ChangeRouter(document.location.href);
+window.onload = ChangeRouter(window.location.pathname);

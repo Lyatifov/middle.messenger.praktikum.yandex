@@ -562,12 +562,12 @@ function ChangeRouter(url) {
         dataEdit: false,
         passwordEdit: false
     };
-    if (url === `http://localhost:${PORT}/auth`) root.innerHTML = (0, _authorizationDefault.default)();
-    else if (url === `http://localhost:${PORT}/profile`) {
+    if (url === `/auth`) root.innerHTML = (0, _authorizationDefault.default)();
+    else if (url === `/profile`) {
         root.innerHTML = (0, _profileDefault.default)(edit).concat((0, _modalWindowDefault.default)("Загрузите файл"));
         (0, _modalWindowDefault1.default)(activeModalWindow);
         (0, _fileReaderDefault.default)();
-    } else if (url.includes(`http://localhost:${PORT}/profile`)) {
+    } else if (url.includes(`/profile`)) {
         if (url.includes("/edit/password")) {
             edit.passwordEdit = true;
             edit.dataEdit = true;
@@ -579,8 +579,8 @@ function ChangeRouter(url) {
         root.innerHTML = (0, _profileDefault.default)(edit).concat((0, _modalWindowDefault.default)("Загрузите файл"));
         (0, _modalWindowDefault1.default)(activeModalWindow);
         (0, _fileReaderDefault.default)();
-    } else if (url === `http://localhost:${PORT}/chats`) root.innerHTML = (0, _chatsDefault.default)();
-    else if (url === `http://localhost:${PORT}/registration`) root.innerHTML = (0, _registrationDefault.default)();
+    } else if (url === `/chats`) root.innerHTML = (0, _chatsDefault.default)();
+    else if (url === `/registration`) root.innerHTML = (0, _registrationDefault.default)();
     else {
         root.innerHTML = (0, _errorDefault.default)();
         return;
@@ -588,11 +588,11 @@ function ChangeRouter(url) {
     if (document.getElementById("backToChat")) {
         const buttonBackToChat = document.getElementById("backToChat");
         buttonBackToChat.onclick = ()=>{
-            window.location.href = `http://localhost:${PORT}/chats`;
+            location.href = `/chats`;
         };
     }
 }
-window.onload = ChangeRouter(document.location.href);
+window.onload = ChangeRouter(window.location.pathname);
 
 },{"./index.scss":"1i0iC","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh","./pages/Authorization/Authorization":"3GSNh","./pages/Registration/Registration":"csLAz","./pages/Error/Error":"hfnoh","./pages/Chats/Chats":"55qYk","./core/messages/messages":"elCps","./core/FileReader/FileReader":"65itb","./components/Message/Message":"c5vJE","./pages/Profile/Profile":"8hEaD","./components/ModalWindow/ModalWindow":"5RwOq","./core/ModalWindow/ModalWindow":"7cKeR"}],"1i0iC":[function() {},{}],"j7FRh":[function(require,module,exports) {
 exports.interopDefault = function(a) {
@@ -650,12 +650,12 @@ exports.default = ()=>{
             {
                 className: "",
                 value: "Авторизоваться",
-                link: `http://localhost:3000/chats`
+                link: `/chats`
             },
             {
                 className: "_bg-wite",
                 value: "Нет аккаунта?",
-                link: `http://localhost:3000/registration`
+                link: `/registration`
             }
         ]
     };
@@ -12139,18 +12139,18 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return "    onclick=\"window.location.href = '" + container.escapeExpression((helper = (helper = lookupProperty(helpers, "link") || (depth0 != null ? lookupProperty(depth0, "link") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+        return "    onclick=\"location.href = '" + container.escapeExpression((helper = (helper = lookupProperty(helpers, "link") || (depth0 != null ? lookupProperty(depth0, "link") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
             "name": "link",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 37
+                    "column": 30
                 },
                 "end": {
                     "line": 5,
-                    "column": 45
+                    "column": 38
                 }
             }
         }) : helper)) + "'\"\r\n";
@@ -12669,7 +12669,7 @@ var _errorHbsDefault = parcelHelpers.interopDefault(_errorHbs);
 var _button = require("../../components/UI/Button/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 exports.default = (code)=>{
-    const rout = `http://localhost:3000/chats`;
+    const rout = `/chats`;
     const error500 = {
         title: "500",
         text: "Мы уже фиксим",
@@ -13369,7 +13369,7 @@ exports.default = (edit)=>{
             }
         ]
     };
-    const rout = `http://localhost:3000/chats`;
+    const rout = `/chats`;
     const res = (0, _profileHbsDefault.default)({
         rout,
         ...data,
@@ -13393,7 +13393,7 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<main class="profile-page">\r\n    <aside id="profileBackPage">\r\n        <div>\r\n            <button\r\n                onclick="window.location.href = \'http://localhost:3000/chats\'"\r\n            >&#10230;</button>\r\n        </div>\r\n    </aside>\r\n    <section>\r\n        <div class="profile-img-wrapper">\r\n            <img class="profile-img" src="' + alias4((helper = (helper = lookupProperty(helpers, "img") || (depth0 != null ? lookupProperty(depth0, "img") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        return '<main class="profile-page">\r\n    <aside id="profileBackPage">\r\n        <div>\r\n            <button\r\n                onclick="location.href = \'/chats\'"\r\n            >&#10230;</button>\r\n        </div>\r\n    </aside>\r\n    <section>\r\n        <div class="profile-img-wrapper">\r\n            <img class="profile-img" src="' + alias4((helper = (helper = lookupProperty(helpers, "img") || (depth0 != null ? lookupProperty(depth0, "img") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "img",
             "hash": {},
             "data": data,
@@ -13453,7 +13453,7 @@ var _inputDataControllerDefault = parcelHelpers.interopDefault(_inputDataControl
 var _button = require("../UI/Button/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 exports.default = (edit, data)=>{
-    const link = `http://localhost:3000/profile`;
+    const link = `/profile`;
     const res = (0, _profileDataHbsDefault.default)({
         InputDataEdit: (0, _inputDataEditDefault.default)(edit, data),
         InputDataController: (0, _inputDataControllerDefault.default)(edit, link)
@@ -13686,9 +13686,9 @@ var _index = require("../../../index");
 var _indexDefault = parcelHelpers.interopDefault(_index);
 exports.default = (edit, link)=>{
     const links = {
-        password: `http://localhost:3000/profile/edit/password`,
-        data: `http://localhost:3000/profile/edit/data`,
-        exit: `http://localhost:3000/auth`
+        password: `/profile/edit/password`,
+        data: `/profile/edit/data`,
+        exit: `/auth`
     };
     const res = (0, _inputDataControllerHbsDefault.default)({
         ...edit,

@@ -58,7 +58,7 @@ export default (edit) => {
             },
         ],
     };
-    const rout = `http://localhost:3000/chats`;
+    const rout = `/chats`;
     const res = template({
         rout,
         ...data,

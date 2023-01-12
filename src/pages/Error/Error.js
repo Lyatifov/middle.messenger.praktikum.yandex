@@ -2,7 +2,7 @@ import template from "./Error.hbs";
 import Button from "../../components/UI/Button/Button";
 
 export default (code) => {
-    const rout = `http://localhost:3000/chats`;
+    const rout = `/chats`;
     const error500 = {
         title: "500",
         text: "Мы уже фиксим",

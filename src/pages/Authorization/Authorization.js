@@ -21,12 +21,12 @@ export default () => {
             {
                 className: "",
                 value: "Авторизоваться",
-                link: `http://localhost:3000/chats`,
+                link: `/chats`,
             },
             {
                 className: "_bg-wite",
                 value: "Нет аккаунта?",
-                link: `http://localhost:3000/registration`,
+                link: `/registration`,
             },
         ],
     };
