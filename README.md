@@ -9,7 +9,7 @@ A special application for instantaneous text messages, photos, pictures, videos,
 
 #### Get all items
 
-| Command        | Description                      |
-| :------------- | :------------------------------- |
-| npm run build  | Makes a build                    |
-| npm run server | Starts local server at 3000 port |
+| Command       | Description                      |
+| :------------ | :------------------------------- |
+| npm run build | Makes a build                    |
+| npm run start | Starts local server at 3000 port |
