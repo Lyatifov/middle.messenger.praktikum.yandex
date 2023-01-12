@@ -5,7 +5,7 @@ A special application for instantaneous text messages, photos, pictures, videos,
 ## Links
 
 -   [Design template (Figma)](https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0%3A1&t=GHg4NnDYrD2FE8Uv-0)
--   [Deployed example (Netlify)](https://github.com/yandex-praktikum/middle.messenger.praktikum.yandex)
+-   [Deployed example (Netlify)](https://lucky-kangaroo-41628e.netlify.app)
 
 #### Get all items
 

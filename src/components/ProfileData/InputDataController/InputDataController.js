@@ -4,9 +4,9 @@ import PORT from "../../../index";
 
 export default (edit, link) => {
     const links = {
-        password: `http://localhost:3000/profile/edit/password`,
-        data: `http://localhost:3000/profile/edit/data`,
-        exit: `http://localhost:3000/auth`,
+        password: `/profile/edit/password`,
+        data: `/profile/edit/data`,
+        exit: `/auth`,
     };
     const res = template({
         ...edit,
