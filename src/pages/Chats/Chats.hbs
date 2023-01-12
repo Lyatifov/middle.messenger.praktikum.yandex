@@ -21,7 +21,11 @@
     {{#if name}}
         <section class="message-list">
             <header>
-                <img src="{{img}}" alt="" class="img-interlocutor" />
+                <img
+                    src="{{img}}"
+                    alt="Изображение Вашего собеседника {{name}}"
+                    class="img-interlocutor"
+                />
                 <h2 class="name-interlocutor">{{name}}</h2>
                 <a href="" class="option">
                     <div class="point"></div>
@@ -40,7 +44,7 @@
             <footer>
                 <form>
                     <button class="button-attach">&#128206;</button>
-                    <input type="text" placeholder="Сообщение" />
+                    <input type="text" placeholder="Сообщение" name="message" />
                     <button class="sending-button">&#10230;</button>
                 </form>
             </footer>

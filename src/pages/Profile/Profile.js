@@ -17,17 +17,17 @@ export default (edit) => {
                 title: "Логин",
             },
             {
-                id: "firstName",
+                id: "first_name",
                 value: "Иван",
                 title: "Имя",
             },
             {
-                id: "lastName",
+                id: "second_name",
                 value: "Иван",
                 title: "Фамилия",
             },
             {
-                id: "nickname",
+                id: "display_name",
                 value: "Иванов",
                 title: "Имя в чате",
             },

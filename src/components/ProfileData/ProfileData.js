@@ -7,7 +7,9 @@ export default (edit, data) => {
     const link = `/profile`;
     const res = template({
         InputDataEdit: InputDataEdit(edit, data),
-        InputDataController: InputDataController(edit, link),
+        ...edit,
+        Button: Button({ value: "Сохранить", link }),
+        InputDataController: InputDataController(edit),
     });
     return res;
 };
