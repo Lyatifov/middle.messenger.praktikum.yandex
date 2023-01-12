@@ -16,12 +16,12 @@ export default () => {
                 type: "",
             },
             {
-                id: "firstName",
+                id: "first_name",
                 title: "Имя",
                 type: "",
             },
             {
-                id: "lastName",
+                id: "second_name",
                 title: "Фамилия",
                 type: "",
             },

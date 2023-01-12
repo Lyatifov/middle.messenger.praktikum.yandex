@@ -188,7 +188,7 @@ main {
 
 .chats-list header .search {
   color: #999;
-  background: #efefef;
+  background: #eaeaea;
   border-radius: 5px;
   display: flex;
   position: relative;
@@ -428,7 +428,7 @@ main {
 }
 
 .message-list .wrapper-messages-container .wrapper-messages .interlocutor-message {
-  background: #f8f8f8;
+  background: #eaeaea;
   border-radius: 0 20px 20px;
   align-self: flex-start;
 }
@@ -473,7 +473,7 @@ main {
   box-sizing: border-box;
   color: #999;
   width: 100%;
-  background: #efefef;
+  background: #eaeaea;
   border-radius: 30px;
   padding: 10px 20px;
   font-size: 12px;
@@ -512,7 +512,7 @@ main {
 .profile-page aside {
   width: 40px;
   height: 100%;
-  background: #fbfbfb;
+  background: #f8f8f8;
   border-right: 2px solid #eaeaea;
   position: fixed;
   left: 0;
@@ -542,6 +542,15 @@ main {
   display: flex;
 }
 
+.profile-page section form {
+  flex-direction: column;
+  display: flex;
+}
+
+.profile-page section form .button {
+  margin-top: 40px;
+}
+
 .profile-page section ul {
   flex-direction: column;
   display: flex;
@@ -558,10 +567,10 @@ main {
 }
 
 .profile-page section li .edit {
-  background: #e8e8e8;
+  background: #eaeaea;
   border-radius: 16px;
   padding: 0 5px;
-  color: #000 !important;
+  color: #858585 !important;
 }
 
 .profile-page section li input {
@@ -579,7 +588,7 @@ main {
 }
 
 .profile-page section .a-redtext {
-  color: red;
+  color: #ff2f2f;
 }
 
 .profile-page section .profile-img-wrapper, .profile-page section .profile-img, .profile-page section .profile-img-editor {
@@ -597,7 +606,7 @@ main {
 }
 
 .profile-page section .profile-img-wrapper .profile-img-editor {
-  background: #000;
+  background: #858585;
   top: 0;
 }
 

@@ -44,6 +44,7 @@ export default () => {
         };
         const imageElement = document.createElement("img"),
             buttonForRemoveImage = document.createElement("button");
+        imageElement.alt = "Ваше новое изображение";
         buttonForRemoveImage.className = "button-for-remove-image";
         buttonForRemoveImage.innerHTML = "&#10060;";
         buttonForRemoveImage.onclick = removeImage;
