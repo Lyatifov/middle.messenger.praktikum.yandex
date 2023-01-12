@@ -1,7 +1,5 @@
 import template from "./Error.hbs";
 import Button from "../../components/UI/Button/Button";
-import ChangeRouter from "../../core/Router/Router";
-import PORT from "../../index";
 
 export default (code) => {
     const rout = `http://localhost:3000/chats`;

@@ -1,6 +1,4 @@
 import WindowForm from "../../components/WindowForm/WindowForm";
-import PORT from "../../index";
-import ChangeRouter from "../../core/Router/Router";
 
 export default () => {
     const data = {
@@ -23,12 +21,12 @@ export default () => {
             {
                 className: "",
                 value: "Авторизоваться",
-                link: `http://localhost:${PORT}/chats`,
+                link: `http://localhost:3000/chats`,
             },
             {
                 className: "_bg-wite",
                 value: "Нет аккаунта?",
-                link: `http://localhost:${PORT}/registration`,
+                link: `http://localhost:3000/registration`,
             },
         ],
     };

@@ -6,8 +6,9 @@ import FileReader from "../FileReader/FileReader";
 import Profile from "../../pages/Profile/Profile";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import ModalWindowController from "../ModalWindow/ModalWindow";
-import PORT from "../../index";
 
+const PORT = 3000;
+const root = document.getElementById("root");
 let activeModalWindow = true,
     oldUrl = "";
 

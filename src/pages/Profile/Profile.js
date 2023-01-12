@@ -1,7 +1,5 @@
 import template from "./Profile.hbs";
 import ProfileData from "./../../components/ProfileData/ProfileData";
-import PORT from "../../index";
-import ChangeRouter from "../../core/Router/Router";
 
 export default (edit) => {
     const data = {
@@ -60,7 +58,7 @@ export default (edit) => {
             },
         ],
     };
-    const rout = `http://localhost:${PORT}/chats`;
+    const rout = `http://localhost:3000/chats`;
     const res = template({
         rout,
         ...data,
