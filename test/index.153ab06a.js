@@ -12743,7 +12743,9 @@ const templateFunction = (0, _handlebarsDefault.default).template({
                     "column": 49
                 }
             }
+
         }) : helper)) + "')\">Назад к чатам</a>\r\n    </div>\r\n</main>\r\n";
+
     },
     "useData": true
 });
@@ -13800,6 +13802,7 @@ const templateFunction = (0, _handlebarsDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
+      
         return "\r\n    <ul>\r\n        <li>\r\n            <a onclick=\"window.ChangeRouter('" + alias4((helper = (helper = lookupProperty(helpers, "data") || (depth0 != null ? lookupProperty(depth0, "data") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "data",
             "hash": {},
