@@ -46,12 +46,12 @@ export default () => {
             {
                 className: "",
                 value: "Зарегистрироваться",
-                link: `http://localhost:3000/registration`,
+                link: `/registration`,
             },
             {
                 className: "_bg-wite",
                 value: "Войти",
-                link: `http://localhost:3000/auth`,
+                link: `/auth`,
             },
         ],
     };

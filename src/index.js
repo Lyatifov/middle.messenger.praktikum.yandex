@@ -10,11 +10,11 @@ import Profile from "./pages/Profile/Profile";
 import ModalWindow from "./components/ModalWindow/ModalWindow";
 import ModalWindowController from "./core/ModalWindow/ModalWindow";
 
-const PORT = 3000;
 const root = document.getElementById("root");
 let activeModalWindow = true;
 
-function ChangeRouter(url) {
+window.ChangeRouter = (url) => {
+    console.log(url);
     const edit = {
         dataEdit: false,
         passwordEdit: false,
@@ -52,6 +52,11 @@ function ChangeRouter(url) {
             location.href = `/chats`;
         };
     }
-}
+    history.pushState(null, null, url);
+};
 
-window.onload = ChangeRouter(window.location.pathname);
+ChangeRouter(window.location.pathname);
+
+if (window.performance) {
+    console.info("window.performance works fine on this browser");
+}

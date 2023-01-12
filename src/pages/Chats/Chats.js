@@ -4,7 +4,7 @@ import Message from "../../components/Message/Message";
 import { messages, chats } from "../../core/messages/messages";
 
 export default (Router) => {
-    const rout = `http://localhost:3000/profile`;
+    const rout = `/profile`;
     let chatList = "";
     chats.chatList.map((item) => {
         chatList += Chat(item);
