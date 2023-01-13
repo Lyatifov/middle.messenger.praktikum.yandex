@@ -1,0 +1,10 @@
+<button 
+    {{#if id}}id="{{id}}"{{else}}{{/if}}
+    class="{{#if className}}button {{className}}{{else}}button{{/if}}"
+    {{#if link}}
+    onclick="window.ChangeRouter('{{link}}')"
+    {{else}}
+    {{/if}}
+>
+    {{value}}
+</button>

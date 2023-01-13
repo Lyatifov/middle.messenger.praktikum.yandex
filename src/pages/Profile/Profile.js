@@ -1,0 +1,68 @@
+import template from "./Profile.hbs";
+import ProfileData from "./../../components/ProfileData/ProfileData";
+
+export default (edit) => {
+    const data = {
+        nickName: "Иван",
+        img: "https://w7.pngwing.com/pngs/52/368/png-transparent-user-profile-computer-icons-avatar-avatar-heroes-monochrome-desktop-wallpaper.png",
+        listData: [
+            {
+                id: "email",
+                value: "pochta@yandex.ru",
+                title: "Почта",
+            },
+            {
+                id: "login",
+                value: "ivanivanov",
+                title: "Логин",
+            },
+            {
+                id: "first_name",
+                value: "Иван",
+                title: "Имя",
+            },
+            {
+                id: "second_name",
+                value: "Иван",
+                title: "Фамилия",
+            },
+            {
+                id: "display_name",
+                value: "Иванов",
+                title: "Имя в чате",
+            },
+            {
+                id: "phone",
+                value: "+7 (909) 967 30 30",
+                title: "Телефон",
+            },
+        ],
+        listPassword: [
+            {
+                id: "oldPassword",
+                value: "?????????????",
+                title: "Старый пароль",
+                type: "password",
+            },
+            {
+                id: "newPassword",
+                value: "?????????????",
+                title: "Новый пароль",
+                type: "password",
+            },
+            {
+                id: "repeatNewPassword",
+                value: "?????????????",
+                title: "Повторите новый пароль",
+                type: "password",
+            },
+        ],
+    };
+    const rout = `/chats`;
+    const res = template({
+        rout,
+        ...data,
+        ProfileData: ProfileData(edit, data),
+    });
+    return res;
+};
