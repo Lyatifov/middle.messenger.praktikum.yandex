@@ -1,56 +1,40 @@
-import Authorization from "../../pages/Authorization/Authorization";
-import Registration from "../../pages/Registration/Registration";
+// import Authorization from "../../pages/Authorization/Authorization";
+// import Registration from "../../pages/Registration/Registration";
 import Error from "../../pages/Error/Error";
-import Chats from "../../pages/Chats/Chats";
-import FileReader from "../FileReader/FileReader";
-import Profile from "../../pages/Profile/Profile";
-import ModalWindow from "../../components/ModalWindow/ModalWindow";
-import ModalWindowController from "../ModalWindow/ModalWindow";
+// import Chats from "../../pages/Chats/Chats";
+// import FileReader from "../FileReader/FileReader";
+// import Profile from "../../pages/Profile/Profile";
+// import ModalWindow from "../../components/ModalWindow/ModalWindow";
+// import ModalWindowController from "../ModalWindowController/ModalWindowController";
+import RoutsList from "./RoutsList";
 
-const PORT = 3000;
 const root = document.getElementById("root");
-let activeModalWindow = true,
-    oldUrl = "";
 
-export default function ChangeRouter(newUrl) {
-    if (newUrl !== oldUrl) {
-        const edit = {
-            dataEdit: false,
-            passwordEdit: false,
-        };
-        if (newUrl === `http://localhost:${PORT}/auth`) {
-            root.innerHTML = Authorization();
-        } else if (newUrl === `http://localhost:${PORT}/profile`) {
-            root.innerHTML = Profile(edit).concat(
-                ModalWindow("Загрузите файл")
-            );
-            ModalWindowController(activeModalWindow);
-            FileReader();
-        } else if (newUrl.includes(`http://localhost:${PORT}/profile`)) {
-            if (newUrl.includes("/edit/password")) {
-                edit.passwordEdit = true;
-                edit.dataEdit = true;
-            } else if (newUrl.includes("/edit/data")) {
-                edit.dataEdit = true;
-            } else {
-                root.innerHTML = Error();
-                return;
-            }
-            root.innerHTML = Profile(edit).concat(
-                ModalWindow("Загрузите файл")
-            );
-            ModalWindowController(activeModalWindow);
-            FileReader();
-        } else if (newUrl === `http://localhost:${PORT}/chats`) {
-            root.innerHTML = Chats();
-        } else if (newUrl === `http://localhost:${PORT}/registration`) {
-            root.innerHTML = Registration();
+export let ActiveModalWindow = true;
+
+window.ChangeRouter = (url) => {
+    let correctUrl = false;
+    const routs = RoutsList();
+    routs.map((rout) => {
+        if (url === rout.url) {
+            root.innerHTML = rout.page;
         } else {
-            root.innerHTML = Error();
             return;
         }
+        if (rout.additionalElements.length) {
+            rout.additionalElements.map((additEl) => {
+                root.innerHTML += additEl();
+            });
+        }
+        if (rout.utils.length) {
+            rout.utils.map((utilEl) => {
+                utilEl();
+            });
+        }
+        history.pushState(null, null, url);
+        correctUrl = true;
+    });
+    if (!correctUrl) {
+        root.innerHTML = Error();
     }
-    oldUrl = newUrl;
-    const tail = newUrl.replace(`http://localhost:${PORT}`, "");
-    history.pushState(null, null, tail);
-}
+};

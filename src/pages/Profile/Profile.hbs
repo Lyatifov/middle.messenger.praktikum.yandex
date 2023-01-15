@@ -1,7 +1,10 @@
 <main class="profile-page">
     <aside id="profileBackPage">
         <div>
-            <button onclick="window.ChangeRouter('/chats')">&#10230;</button>
+            <button
+                type="button"
+                onclick="window.ChangeRouter('/chats')"
+            >&#10230;</button>
         </div>
     </aside>
     <section>
@@ -17,5 +20,5 @@
         </div>
         <h2 class="profile-nickname">{{nickName}}</h2>
     </section>
-    {{{ProfileData}}}
+    {{{ProfileForm}}}
 </main>
