@@ -1,4 +1,4 @@
-import WindowForm from "../../components/WindowForm/WindowForm";
+import AuthForm from "../../components/AuthForm/AuthForm";
 
 export default () => {
     const data = {
@@ -47,6 +47,7 @@ export default () => {
                 className: "",
                 value: "Зарегистрироваться",
                 link: `/registration`,
+                type: "submit",
             },
             {
                 className: "_bg-wite",
@@ -56,6 +57,6 @@ export default () => {
         ],
     };
 
-    const res = WindowForm(data);
+    const res = AuthForm(data);
     return res;
 };

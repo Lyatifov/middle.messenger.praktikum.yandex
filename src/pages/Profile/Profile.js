@@ -1,5 +1,5 @@
 import template from "./Profile.hbs";
-import ProfileData from "./../../components/ProfileData/ProfileData";
+import ProfileForm from "./../../components/ProfileForm/ProfileForm";
 
 export default (edit) => {
     const data = {
@@ -62,7 +62,7 @@ export default (edit) => {
     const res = template({
         rout,
         ...data,
-        ProfileData: ProfileData(edit, data),
+        ProfileForm: ProfileForm(edit, data),
     });
     return res;
 };

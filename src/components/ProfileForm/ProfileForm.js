@@ -1,4 +1,4 @@
-import template from "./ProfileData.hbs";
+import template from "./ProfileForm.hbs";
 import InputDataEdit from "./InputDataEdit/InputDataEdit";
 import InputDataController from "./InputDataController/InputDataController";
 import Button from "../UI/Button/Button";

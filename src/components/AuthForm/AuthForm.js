@@ -1,7 +1,7 @@
-import template from "./WindowForm.hbs";
+import template from "./AuthForm.hbs";
 import ChangeRouter from "../../core/Router/Router";
 import Button from "../UI/Button/Button";
-import InputBlock from "../InputBlock/InputBlock";
+import InputBlock from "./InputBlock/InputBlock";
 import Input from "../UI/Input/Input";
 
 export default ({ title, inputList, buttonList }) => {
