@@ -1,14 +1,19 @@
 import Authorization from "../../pages/Authorization/Authorization";
 import Registration from "../../pages/Registration/Registration";
-import Error from "../../pages/Error/Error";
 import Chats from "../../pages/Chats/Chats";
 import FileReader from "../FileReader/FileReader";
 import Profile from "../../pages/Profile/Profile";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import ModalWindowController from "../ModalWindowController/ModalWindowController";
 
-export default () => {
-    const routs = [
+interface Rout {
+    url: string;
+    page: string;
+    additionalElements: Array<Function | null>;
+    utils: Array<Function | null>;
+}
+export default (): Array<Rout> => {
+    const routs: Array<Rout> = [
         {
             url: "/profile",
             page: Profile({

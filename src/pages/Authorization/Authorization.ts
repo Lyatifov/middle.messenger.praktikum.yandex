@@ -31,6 +31,6 @@ export default () => {
             },
         ],
     };
-    const res = AuthForm(data);
+    const res: String = AuthForm(data);
     return res;
 };

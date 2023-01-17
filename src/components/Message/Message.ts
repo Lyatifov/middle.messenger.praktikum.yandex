@@ -1,9 +1,16 @@
 import template from "./Message.hbs";
 
-export default (messageList) => {
+interface MessageList {
+    id: number;
+    date: string;
+    time: string;
+    name: string;
+    text: string;
+}
+export default (messageList: Array<MessageList>) => {
     let res = "",
         className = "interlocutor-message";
-    messageList.map((item) => {
+    messageList.map((item: MessageList) => {
         const { name, text, time } = item;
         if (name === "Me") {
             className = "my-message";

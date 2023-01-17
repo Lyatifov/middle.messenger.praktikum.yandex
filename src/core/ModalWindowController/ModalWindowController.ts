@@ -1,10 +1,12 @@
-export let ActiveModalWindow = true;
+export let ActiveModalWindow: boolean = true;
 
 export default () => {
-    const profileImgEditor = document.getElementById("profileImgEditor"),
-        background = document.getElementById("background"),
-        profileImgLabel = document.getElementById("profileImgLabel"),
-        modalWindow = document.getElementById("modalWindow");
+    const profileImgEditor: HTMLElement =
+            document.getElementById("profileImgEditor"),
+        background: HTMLElement = document.getElementById("background"),
+        profileImgLabel: HTMLElement =
+            document.getElementById("profileImgLabel"),
+        modalWindow: HTMLElement = document.getElementById("modalWindow");
     profileImgLabel.addEventListener("click", () => {
         ActiveModalWindow != ActiveModalWindow;
         if (ActiveModalWindow) {

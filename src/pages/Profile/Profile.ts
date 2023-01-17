@@ -1,8 +1,27 @@
+import ProfileForm from "../../components/ProfileForm/ProfileForm";
 import template from "./Profile.hbs";
-import ProfileForm from "./../../components/ProfileForm/ProfileForm";
 
-export default (edit) => {
-    const data = {
+interface DataItem {
+    id: string;
+    value: string;
+    title: string;
+    type?: string;
+}
+
+interface Profile {
+    nickName: string;
+    img: string;
+    listData: Array<DataItem>;
+    listPassword: Array<DataItem>;
+}
+
+interface Edit {
+    dataEdit: boolean;
+    passwordEdit: boolean;
+}
+
+export default (edit: Edit) => {
+    const data: Profile = {
         nickName: "Иван",
         img: "https://w7.pngwing.com/pngs/52/368/png-transparent-user-profile-computer-icons-avatar-avatar-heroes-monochrome-desktop-wallpaper.png",
         listData: [

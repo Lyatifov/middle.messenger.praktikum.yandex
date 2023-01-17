@@ -1,6 +1,6 @@
-import template from "./Input.hbs";
+import template from "./Chat.hbs";
 
-export default (data) => {
+export default (data: object) => {
     const res = template({
         ...data,
     });

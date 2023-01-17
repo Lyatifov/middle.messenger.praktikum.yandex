@@ -1,7 +1,6 @@
 import template from "./Error.hbs";
-import Button from "../../components/UI/Button/Button";
 
-export default (code) => {
+export default (code: number) => {
     const rout = `/chats`;
     const error500 = {
         title: "500",

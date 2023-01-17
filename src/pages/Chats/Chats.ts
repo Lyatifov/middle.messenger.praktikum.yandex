@@ -3,17 +3,17 @@ import Chat from "../../components/Chat/Chat";
 import Message from "../../components/Message/Message";
 import { messages, chats } from "../../core/messages/messages";
 
-export default (Router) => {
+export default () => {
     const rout = `/profile`;
-    let chatList = "";
-    chats.chatList.map((item) => {
-        chatList += Chat(item);
+    let List = "";
+    chats.chatList.map((item: object) => {
+        return (List += Chat(item));
     });
     const res = template({
         Message: Message(messages.messageList),
         ...messages,
         rout,
-        chatList: chatList,
+        chatList: List,
     });
     return res;
 };
