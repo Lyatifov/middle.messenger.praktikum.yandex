@@ -56,7 +56,6 @@ export default () => {
             },
         ],
     };
-
     const res = AuthForm(data);
     return res;
 };

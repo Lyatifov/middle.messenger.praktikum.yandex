@@ -79,7 +79,7 @@ interface Chats {
 }
 
 interface ChatList {
-    id: Number;
+    id: number;
     name: string;
     img: string;
     lastMessage: string;

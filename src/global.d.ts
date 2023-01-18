@@ -1,5 +1,5 @@
 declare global {
-    function ChangeRouter(targetUrl: String): void;
+    function ChangeRouter(targetUrl: string): void;
 }
 
 export {};

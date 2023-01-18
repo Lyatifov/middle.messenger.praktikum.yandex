@@ -1,4 +1,4 @@
 declare module "*.hbs" {
-    const _: Function;
-    export default _;
+    function Template(object: object): string;
+    export default Template;
 }

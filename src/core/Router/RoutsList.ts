@@ -6,13 +6,15 @@ import Profile from "../../pages/Profile/Profile";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import ModalWindowController from "../ModalWindowController/ModalWindowController";
 
+type additFunc = () => string;
+type utilFunc = () => void;
 interface Rout {
     url: string;
     page: string;
-    additionalElements: Array<Function | null>;
-    utils: Array<Function | null>;
+    additionalElements: Array<additFunc | null>;
+    utils: Array<utilFunc | null>;
 }
-export default (): Array<Rout> => {
+export default () => {
     const routs: Array<Rout> = [
         {
             url: "/profile",

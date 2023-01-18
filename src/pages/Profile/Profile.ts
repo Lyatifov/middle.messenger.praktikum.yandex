@@ -7,14 +7,12 @@ interface DataItem {
     title: string;
     type?: string;
 }
-
 interface Profile {
     nickName: string;
     img: string;
     listData: Array<DataItem>;
     listPassword: Array<DataItem>;
 }
-
 interface Edit {
     dataEdit: boolean;
     passwordEdit: boolean;

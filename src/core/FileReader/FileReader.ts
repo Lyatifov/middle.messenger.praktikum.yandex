@@ -3,20 +3,23 @@ export default () => {
             document.getElementById("loadFileWrapper"),
         dropZone: HTMLElement | null = document.getElementById("dropZone"),
         modalForm: HTMLElement | null = document.getElementById("modalForm");
-    interface File {
+    interface Photo extends Blob, MediaSource, File {
         type: string;
     }
-    let file: File;
+    let file: Photo;
     if (modalForm) {
-        modalForm.addEventListener("drop", (ev: any) => {
+        modalForm.addEventListener("drop", (ev) => {
             ev.preventDefault();
-            file = ev.dataTransfer.files[0];
+            if (ev.dataTransfer) {
+                console.log(ev.dataTransfer.files[0]);
+                file = ev.dataTransfer.files[0];
+            }
             handleFile(file);
         });
     }
     if (dropZone) {
         dropZone.addEventListener("click", () => {
-            const loadFile = <HTMLInputElement>document.createElement("input");
+            const loadFile = document.createElement("input");
             loadFile.className = "_none";
             loadFile.type = "file";
             loadFile.click();
@@ -30,7 +33,7 @@ export default () => {
     }
     document.addEventListener("dragover", (ev) => ev.preventDefault());
     document.addEventListener("drop", (ev) => ev.preventDefault());
-    const handleFile = (file?: File, loadFile?: HTMLInputElement) => {
+    const handleFile = (file?: Photo, loadFile?: HTMLInputElement) => {
         if (dropZone) {
             dropZone.className += " _none";
         }
@@ -38,7 +41,7 @@ export default () => {
             loadFile.remove();
         }
         if (file) {
-            const type: String = file.type.replace(/\/.+/, "");
+            const type: string = file.type.replace(/\/.+/, "");
             if (type === "image") {
                 createImage(file);
                 return;
@@ -51,8 +54,7 @@ export default () => {
             }, 2000);
         }
     };
-    const createImage = (file: any) => {
-        console.log(file);
+    const createImage = (file: Photo) => {
         const removeImage = () => {
             imageElement.remove();
             buttonForRemoveImage.remove();
@@ -73,6 +75,6 @@ export default () => {
                 wrapper.append(buttonForRemoveImage);
             }, 1000);
         }
-        URL.revokeObjectURL(file);
+        URL.revokeObjectURL(URL.createObjectURL(file));
     };
 };
