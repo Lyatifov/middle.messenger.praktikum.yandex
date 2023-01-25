@@ -3,10 +3,7 @@ export default () => {
             document.getElementById("loadFileWrapper"),
         dropZone: HTMLElement | null = document.getElementById("dropZone"),
         modalForm: HTMLElement | null = document.getElementById("modalForm");
-    interface Photo extends Blob, MediaSource, File {
-        type: string;
-    }
-    let file: Photo;
+    let file: Blob;
     if (modalForm) {
         modalForm.addEventListener("drop", (ev) => {
             ev.preventDefault();
@@ -33,7 +30,7 @@ export default () => {
     }
     document.addEventListener("dragover", (ev) => ev.preventDefault());
     document.addEventListener("drop", (ev) => ev.preventDefault());
-    const handleFile = (file?: Photo, loadFile?: HTMLInputElement) => {
+    const handleFile = (file?: Blob, loadFile?: HTMLInputElement) => {
         if (dropZone) {
             dropZone.className += " _none";
         }
@@ -54,7 +51,7 @@ export default () => {
             }, 2000);
         }
     };
-    const createImage = (file: Photo) => {
+    const createImage = (file: Blob) => {
         const removeImage = () => {
             imageElement.remove();
             buttonForRemoveImage.remove();
