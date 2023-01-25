@@ -3,21 +3,6 @@ import { RenderPage } from "../Router/Router";
 
 type Func = <T, X>(x: T) => X;
 type utilFunc = () => void;
-// type Obj = {
-//     children: RenderPage;
-//     props: RenderPage;
-// };
-// interface ComponentType {
-//     tagName: string;
-//     className: string;
-//     _createDocumentElement(tag: string): HTMLElement;
-//     _componentDidUpdate(oldProps: RenderPage, newProps: RenderPage): void;
-//     componentDidUpdate(oldProps: RenderPage, newProps: RenderPage): void;
-//     // getChildren(propsAndChilds: RenderPage): Obj;
-//     // _makePropsProxy(props: RenderPage): Obj;
-//     dispatchComponentDidMoun(): void;
-// }
-// implements ComponentType
 export default class Component {
     static EVENTS = {
         INIT: "init",
@@ -122,7 +107,7 @@ export default class Component {
         this._element.remove();
         // this.removeEvents();
         this._element.innerHTML = Component;
-        this.addEvents();
+        setTimeout(() => this.addEvents(), 1);
         // this.addAttribute();
         return true;
     }
