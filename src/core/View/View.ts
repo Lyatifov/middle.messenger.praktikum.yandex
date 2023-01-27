@@ -12,9 +12,11 @@ export default class View implements ViewInterface {
         this.listOfComponents = listOfComponents;
     }
     render() {
-        this.listOfComponents.forEach(({ enter, callback, data, events = [] }) => {
-            const component: string = callback(data);
-            Render(enter, component, events);
-        });
+        this.listOfComponents.forEach(
+            ({ enter, callback, data, events = [], options }) => {
+                const component: string = callback(data, options);
+                Render(enter, component, events);
+            }
+        );
     }
 }

@@ -1,19 +1,20 @@
-type Funct = <Type1, Type2>(prop1: Type1, prop2: Type2) => boolean | void;
-interface Listener {
-    [key: string | number]: Array<Funct>;
-}
+type Func = (
+    oldProps?: Record<string, string>,
+    newProps?: Record<string, string>
+) => void;
+
 export default class EventBus {
-    listeners: Listener;
+    listeners: Record<string, Func[]>;
     constructor() {
         this.listeners = {};
     }
-    public on(event: string, callback: Funct): void {
+    public on(event: string, callback: Func): void {
         if (!this.listeners[event]) {
             this.listeners[event] = [];
         }
         this.listeners[event].push(callback);
     }
-    public off(event: string, callback: Funct): void {
+    public off(event: string, callback: () => void): void {
         if (!this.listeners[event]) {
             throw new Error(`Нет события: ${event}`);
         }
@@ -21,7 +22,7 @@ export default class EventBus {
             (listener) => listener !== callback
         );
     }
-    public emit(event: string, ...args: undefined[]): void {
+    public emit(event: string, ...args: Record<string, string>[]): void {
         if (!this.listeners[event]) {
             throw new Error(`Нет события: ${event}`);
         }

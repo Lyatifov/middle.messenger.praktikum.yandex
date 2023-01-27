@@ -1,6 +1,6 @@
 import template from "./Input.hbs";
 
-export default (data: Record<string, string>): string => {
+export default (data: Record<string, boolean | string>): string => {
     const res = template({
         ...data,
     });

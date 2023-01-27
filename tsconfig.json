@@ -15,8 +15,13 @@
         ]
     },
     "files": [
-        "./src/index.ts",
+        "./src/hbs.d.ts",
+        "./src/global.d.ts",
+        // globals
         "./src/interfaces/interfaces.ts",
+        // interfaces
+        "./src/index.ts",
+        // enter point
         "./src/core/Router/Router.ts",
         "./src/core/EventBus/EventBus.ts",
         "./src/core/Component/Component.ts",
@@ -26,23 +31,28 @@
         "./src/core/FileReader/FileReader.ts",
         "./src/core/messages/messages.ts",
         "./src/core/ModalWindowController/ModalWindowController.ts",
+        // core
         "./src/pages/Authorization/Authorization.ts",
         "./src/pages/Registration/Registration.ts",
         "./src/pages/Profile/Profile.ts",
         "./src/pages/Error/Error.ts",
         "./src/pages/Chats/Chats.ts",
-        "./src/hbs.d.ts",
-        "./src/global.d.ts",
+        // pages
         "./src/components/AuthForm/AuthForm.ts",
         "./src/components/AuthForm/ButtonsBlock/ButtonsBlock.ts",
         "./src/components/AuthForm/InputsBlock/InputsBlock.ts",
-        "./src/components/Chat/Chat.ts",
-        "./src/components/Message/Message.ts",
+        "./src/components/ChatPage/ChatPage.ts",
+        "./src/components/ChatPage/Сonversations/Сonversations.ts",
+        "./src/components/ChatPage/Main/Main.ts",
+        "./src/components/ChatPage/Main/Header/Header.ts",
+        "src/components/ChatPage/Main/Messages/Messages.ts",
         "./src/components/ModalWindow/ModalWindow.ts",
-        "./src/components/ProfileForm/ProfileForm.ts",
-        "./src/components/ProfileForm/InputDataController/InputDataController.ts",
-        "./src/components/ProfileForm/InputDataEdit/InputDataEdit.ts",
+        "src/components/ProfileForm/ProfileForm.ts",
+        "src/components/ProfileForm/Header/Header.ts",
+        "src/components/ProfileForm/Buttons/Buttons.ts",
+        "src/components/ProfileForm/Inputs/Inputs.ts",
         "./src/components/UI/Input/Input.ts",
         "./src/components/UI/Button/Button.ts",
+        // components
     ]
 }

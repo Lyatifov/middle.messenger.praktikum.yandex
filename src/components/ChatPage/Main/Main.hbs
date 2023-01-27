@@ -1,0 +1,19 @@
+{{#if name}}
+    <header id="chatHeader">
+    </header>
+    <div id="wrapper-messages-container" class="wrapper-messages-container">
+        <section id="messageList" class="wrapper-messages">
+        </section>
+    </div>
+    <footer>
+        <form>
+            <button class="button-attach">&#128206;</button>
+            <input type="text" placeholder="Сообщение" name="message" />
+            <button class="sending-button">&#10230;</button>
+        </form>
+    </footer>
+{{else}}
+    {{! <section class="empty-list"> }}
+    <article class="empty-text">Выберите чат чтобы отправить сообщение</article>
+    {{! </section> }}
+{{/if}}

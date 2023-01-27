@@ -76,9 +76,12 @@ main {
         line-height: 20px;
         color: $color-1;
     }
+    .inputs-block {
+        margin: 30px 0;
+    }
     .input-block {
         position: relative;
-        margin-top: 30px;
+        margin: 15px 0;
         .input {
             border: 0;
             border-bottom: 2px solid $color-2;
@@ -116,7 +119,6 @@ main {
     }
     .button-wrapper {
         margin-top: auto;
-        padding-top: 60px;
     }
 }
 

@@ -1,5 +1,6 @@
 import EventBus from "../EventBus/EventBus";
 type FV = () => void;
+type FPV = (oldProps?: Record<string, string>, newProps?: Record<string, string>) => void;
 export default class Component {
     static EVENTS = {
         INIT: "init",
@@ -29,7 +30,7 @@ export default class Component {
         this.eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this) as FV);
         this.eventBus.on(
             Component.EVENTS.FLOW_CDU,
-            this._componentDidUpdate.bind(this) as FV
+            this._componentDidUpdate.bind(this) as FPV
         );
     }
     init() {
@@ -84,24 +85,31 @@ export default class Component {
             return;
         }
         const props = nextProps;
-        console.log(props);
         if (Object.values(props).length) {
             Object.assign(this.props, props);
         }
+        this._clear();
     };
+    // addProps = (nextProps: Record<string, string>) => {
+    //     console.log(this.props);
+    //     if (!nextProps) {
+    //         return;
+    //     }
+    //     const props = nextProps;
+    //     if (Object.values(props).length) {
+    //         Object.assign(this.props, props);
+    //     }
+    //     this._clear();
+    // };
     get element() {
         return this._element;
     }
-    _render() {
-        console.log("render");
-        console.log(this.props);
-
-        // const Component: string = this.render();
+    _clear() {
         this._element.innerHTML = "";
-        this._element.innerHTML = this.render();
+    }
+    _render() {
+        this._element.innerHTML += this.render();
         setTimeout(() => this.addEvents(), 1);
-        // this.addAttribute();
-        return true;
     }
     render() {
         return `${this.props.component}`;
