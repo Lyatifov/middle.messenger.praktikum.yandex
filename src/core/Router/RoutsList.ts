@@ -5,61 +5,52 @@ import FileReader from "../FileReader/FileReader";
 import Profile from "../../pages/Profile/Profile";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import ModalWindowController from "../ModalWindowController/ModalWindowController";
+import { ViewInterface } from "../View/View";
 
-type additFunc = () => string;
-type utilFunc = () => void;
-interface Rout {
+export interface RoutsInterface {
     url: string;
-    page: string;
-    additionalElements: Array<additFunc | null>;
-    utils: Array<utilFunc | null>;
+    page: () => ViewInterface;
 }
 export default () => {
-    const routs: Array<Rout> = [
-        {
-            url: "/profile",
-            page: Profile({
-                dataEdit: false,
-                passwordEdit: false,
-            }),
-            additionalElements: [ModalWindow],
-            utils: [ModalWindowController, FileReader],
-        },
-        {
-            url: "/profile/edit/password",
-            page: Profile({
-                dataEdit: true,
-                passwordEdit: true,
-            }),
-            additionalElements: [ModalWindow],
-            utils: [ModalWindowController, FileReader],
-        },
-        {
-            url: "/profile/edit/data",
-            page: Profile({
-                dataEdit: true,
-                passwordEdit: false,
-            }),
-            additionalElements: [ModalWindow],
-            utils: [ModalWindowController, FileReader],
-        },
+    const routs: RoutsInterface[] = [
+        // {
+        //     url: "/profile",
+        //     page: Profile({
+        //         dataEdit: false,
+        //         passwordEdit: false,
+        //     }),
+        //     additionalElements: [ModalWindow],
+        //     utils: [ModalWindowController, FileReader],
+        // },
+        // {
+        //     url: "/profile/edit/password",
+        //     page: Profile({
+        //         dataEdit: true,
+        //         passwordEdit: true,
+        //     }),
+        //     additionalElements: [ModalWindow],
+        //     utils: [ModalWindowController, FileReader],
+        // },
+        // {
+        //     url: "/profile/edit/data",
+        //     page: Profile({
+        //         dataEdit: true,
+        //         passwordEdit: false,
+        //     }),
+        //     additionalElements: [ModalWindow],
+        //     utils: [ModalWindowController, FileReader],
+        // },
         {
             url: "/auth",
-            page: Authorization(),
-            additionalElements: [],
-            utils: [],
+            page: Authorization,
         },
         {
             url: "/registration",
-            page: Registration(),
-            additionalElements: [],
-            utils: [],
+            page: Registration,
         },
         {
             url: "/chats",
-            page: Chats(),
-            additionalElements: [],
-            utils: [],
+            page: Chats,
         },
     ];
     return routs;

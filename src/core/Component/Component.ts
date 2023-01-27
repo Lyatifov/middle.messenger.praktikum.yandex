@@ -1,8 +1,5 @@
 import EventBus from "../EventBus/EventBus";
-import { RenderPage } from "../Router/Router";
-
-type Func = <T, X>(x: T) => X;
-type utilFunc = () => void;
+type FV = () => void;
 export default class Component {
     static EVENTS = {
         INIT: "init",
@@ -11,53 +8,41 @@ export default class Component {
         FLOW_RENDER: "flow:render",
     };
     _element: HTMLElement;
-    tagName: string;
-    className: string;
-    props: RenderPage = {
-        page: "",
-        events: [],
-    };
+    enterPoint: string;
+    props: Record<string, string>;
     eventBus: EventBus;
-    children: RenderPage;
-    constructor(
-        { tagName = "div", className = "" },
-        propsAndChilds: RenderPage
-    ) {
-        // const { children, props } = this.getChildren(propsAndChilds);
+    events: FV[];
+    constructor(enterPoint: string, component: string, events: FV[]) {
+        this.enterPoint = enterPoint;
         this.eventBus = new EventBus();
-        this.tagName = tagName;
-        this.className = className;
-        // this.children = children;
-        // this.props = this._makePropsProxy({ ...props });
-        this.props = propsAndChilds;
+        this.events = events;
+        this.props = this._makePropsProxy({ component });
         this._registerEvents();
         this.eventBus.emit(Component.EVENTS.INIT);
     }
     _registerEvents() {
-        this.eventBus.on(Component.EVENTS.INIT, this.init.bind(this) as Func);
+        this.eventBus.on(Component.EVENTS.INIT, this.init.bind(this) as FV);
         // this.eventBus.on(
         //     Component.EVENTS.FLOW_CDM,
         //     this._componentDidMount.bind(this) as Func
         // );
-        this.eventBus.on(
-            Component.EVENTS.FLOW_RENDER,
-            this._render.bind(this) as Func
-        );
+        this.eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this) as FV);
         this.eventBus.on(
             Component.EVENTS.FLOW_CDU,
-            this._componentDidUpdate.bind(this) as Func
+            this._componentDidUpdate.bind(this) as FV
         );
     }
     init() {
-        this._element = this._createDocumentElement(this.tagName);
-        if (this.className) {
-            this._element.className = this.className;
-        }
+        this._element = this._findDocumentElement(this.enterPoint);
         this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
     }
-    _createDocumentElement(tag: string) {
-        const element: HTMLElement = document.createElement(tag);
-        return element;
+    _findDocumentElement(id: string) {
+        const element: HTMLElement | null = document.getElementById(id);
+        if (element) {
+            return element;
+        }
+        const newElement: HTMLElement = document.createElement("div");
+        return newElement;
     }
     // _componentDidMount() {
     //     // this.componentDidMount();
@@ -73,28 +58,33 @@ export default class Component {
     //         this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
     //     }
     // }
-    _componentDidUpdate(oldProps: RenderPage, newProps: RenderPage) {
+    _componentDidUpdate(
+        oldProps: Record<string, string>,
+        newProps: Record<string, string>
+    ) {
         const isReRender = this.componentDidUpdate(oldProps, newProps);
+        console.log(isReRender);
         if (isReRender) {
             this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
         }
     }
-    componentDidUpdate(oldProps: RenderPage, newProps: RenderPage) {
+    componentDidUpdate(
+        oldProps: Record<string, string>,
+        newProps: Record<string, string>
+    ) {
         if (JSON.stringify(oldProps) === JSON.stringify(newProps)) {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
-    setProps = (nextProps: RenderPage) => {
+    setProps = (nextProps: Record<string, string>) => {
+        console.log(this.props);
         if (!nextProps) {
             return;
         }
-        // const { children, props } = this.getChildren(nextProps);
-        // if (Object.values(children).length) {
-        //     Object.assign(this.children, children);
-        // }
         const props = nextProps;
+        console.log(props);
         if (Object.values(props).length) {
             Object.assign(this.props, props);
         }
@@ -103,21 +93,23 @@ export default class Component {
         return this._element;
     }
     _render() {
-        const Component: string = this.render();
-        this._element.remove();
-        // this.removeEvents();
-        this._element.innerHTML = Component;
+        console.log("render");
+        console.log(this.props);
+
+        // const Component: string = this.render();
+        this._element.innerHTML = "";
+        this._element.innerHTML = this.render();
         setTimeout(() => this.addEvents(), 1);
         // this.addAttribute();
         return true;
     }
     render() {
-        return `${this.props.page}`;
+        return `${this.props.component}`;
     }
     addEvents() {
-        const events: (utilFunc | null)[] | undefined = this.props.events;
-        if (events) {
-            events.forEach((event: utilFunc) => {
+        const events: FV[] = this.events;
+        if (events.length) {
+            events.forEach((event: () => void) => {
                 event();
             });
         }
@@ -141,37 +133,50 @@ export default class Component {
     //     return { children, props };
     // }
     getContent() {
-        return this.element;
+        return this.props.component;
     }
-    // _makePropsProxy(props: RenderPage) {
-    //     return new Proxy(props, {
-    //         get(target: RenderPage, prop: string) {
-    //             const value: string | utilFunc[] = target[prop];
-    //             console.log("target:", target, "prop", prop, "value", value);
-    //             if (typeof value === "function") {
-    //                 return value.bind(target) as Func;
-    //             } else {
-    //                 return value;
-    //             }
-    //         },
-    //         set: (target: RenderPage, prop: string, value: RenderPage) => {
-    //             console.log(target, prop, value);
-    //             const oldValue: RenderPage = {
-    //                 ...target,
-    //             };
-    //             target[prop] = value;
-    //             this.eventBus.emit(Component.EVENTS.FLOW_CDU, oldValue, target);
-    //             return true;
-    //         },
-    //         deleteProperty() {
-    //             throw new Error("Нет доступа");
-    //         },
-    //     });
+    _makePropsProxy(props: Record<string, string>) {
+        return new Proxy(props, {
+            get(target: Record<string, string>, prop: string) {
+                const value: string = target[prop];
+                return value;
+            },
+            set: (target: Record<string, string>, prop: string, value: string) => {
+                const oldValue: Record<string, string> = {
+                    ...target,
+                };
+                console.log(oldValue);
+                target[prop] = value;
+                this.eventBus.emit(Component.EVENTS.FLOW_CDU, oldValue, target);
+                return true;
+            },
+            // get(target: RenderPage, prop: string) {
+            //     const value: string | utilFunc[] = target[prop];
+            //     console.log("target:", target, "prop", prop, "value", value);
+            //     if (typeof value === "function") {
+            //         return value.bind(target) as Func;
+            //     } else {
+            //         return value;
+            //     }
+            // },
+            // set: (target: RenderPage, prop: string, value: RenderPage) => {
+            //     console.log(target, prop, value);
+            //     const oldValue: RenderPage = {
+            //         ...target,
+            //     };
+            //     target[prop] = value;
+            //     this.eventBus.emit(Component.EVENTS.FLOW_CDU, oldValue, target);
+            //     return true;
+            // },
+            deleteProperty() {
+                throw new Error("Нет доступа");
+            },
+        });
+    }
+    // show() {
+    //     this.getContent().style.display = "Component";
     // }
-    show() {
-        this.getContent().style.display = "Component";
-    }
-    hide() {
-        this.getContent().style.display = "none";
-    }
+    // hide() {
+    //     this.getContent().style.display = "none";
+    // }
 }

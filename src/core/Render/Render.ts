@@ -1,28 +1,10 @@
 import Component from "../Component/Component";
-import { RenderPage } from "../Router/Router";
 
-export interface WrapperComponent {
-    tagName: string;
-    className: string;
-}
-export default (Page: RenderPage) => {
+export default (enter: string, component: string, events: (() => void)[]): void => {
     class NewComponent extends Component {
-        constructor(wrapper: WrapperComponent, props: RenderPage) {
-            super(wrapper, props);
+        constructor(enterPoint: string, component: string, events: (() => void)[]) {
+            super(enterPoint, component, events);
         }
     }
-    function render(query: string, component: Component) {
-        const root: HTMLElement | null = document.querySelector(query);
-        if (root) {
-            root.innerHTML = "";
-            root.appendChild(component.getContent());
-            return root;
-        }
-    }
-    const wrapper: WrapperComponent = {
-        tagName: "div",
-        className: "root",
-    };
-    const pageComponent = new NewComponent(wrapper, Page);
-    render("body", pageComponent);
+    const pageComponent = new NewComponent(enter, component, events);
 };
