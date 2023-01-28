@@ -3,6 +3,7 @@ import InputsBlock from "../../components/AuthForm/InputsBlock/InputsBlock";
 import ButtonsBlock from "../../components/AuthForm/ButtonsBlock/ButtonsBlock";
 import View from "../../core/View/View";
 import { PageComponent, Data } from "../../interfaces/interfaces";
+import { OnButton } from "../../core/Events/OnButton";
 
 const data: Data = {
     title: "Вход",
@@ -22,11 +23,13 @@ const data: Data = {
     ],
     buttonsList: [
         {
+            id: "enterAuth",
             className: "",
             value: "Авторизоваться",
             type: "submit",
         },
         {
+            id: "redirectionToRegistration",
             className: "_bg-wite",
             value: "Нет аккаунта?",
         },
@@ -35,8 +38,17 @@ const data: Data = {
 
 export default () => {
     function ClickMe() {
-        const button = document.getElementsByClassName("button");
-        console.log(button);
+        const controller: Record<string, string>[] = [
+            {
+                buttonId: "enterAuth",
+                redirectTo: "/chats",
+            },
+            {
+                buttonId: "redirectionToRegistration",
+                redirectTo: "/registration",
+            },
+        ];
+        OnButton(controller);
     }
     const listOfComponents: PageComponent[] = [
         {
@@ -64,5 +76,7 @@ export default () => {
         }
     }
     const authorization = new Authorization(listOfComponents);
+    console.log(authorization);
+
     return authorization;
 };

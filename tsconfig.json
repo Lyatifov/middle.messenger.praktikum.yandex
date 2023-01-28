@@ -31,6 +31,7 @@
         "./src/core/FileReader/FileReader.ts",
         "./src/core/messages/messages.ts",
         "./src/core/ModalWindowController/ModalWindowController.ts",
+        "./src/core/Events/OnButton.ts",
         // core
         "./src/pages/Authorization/Authorization.ts",
         "./src/pages/Registration/Registration.ts",

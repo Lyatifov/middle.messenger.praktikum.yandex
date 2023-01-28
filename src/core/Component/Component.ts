@@ -88,7 +88,7 @@ export default class Component {
         if (Object.values(props).length) {
             Object.assign(this.props, props);
         }
-        this._clear();
+        // this._clear();
     };
     // addProps = (nextProps: Record<string, string>) => {
     //     console.log(this.props);
@@ -104,10 +104,11 @@ export default class Component {
     get element() {
         return this._element;
     }
-    _clear() {
+    clear() {
         this._element.innerHTML = "";
     }
     _render() {
+        this.clear();
         this._element.innerHTML += this.render();
         setTimeout(() => this.addEvents(), 1);
     }

@@ -7,6 +7,7 @@ import { PageComponent } from "../../interfaces/interfaces";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import FileReader from "../../core/FileReader/FileReader";
 import ModalWindowController from "../../core/ModalWindowController/ModalWindowController";
+import { OnButton } from "../../core/Events/OnButton";
 
 const ProfileHeader: Record<string, string>[] = [
     {
@@ -71,12 +72,42 @@ const data: Record<string, Record<string, string>[]> = {
 };
 
 export default (edit: Record<string, boolean | string>) => {
+    function BackButton() {
+        const controller: Record<string, string>[] = [
+            {
+                buttonId: "backToChats",
+                redirectTo: "/chats",
+            },
+        ];
+        OnButton(controller);
+    }
+    function EditButtons() {
+        const controller: Record<string, string>[] = [
+            {
+                buttonId: "saveEditedData",
+                redirectTo: "/profile",
+            },
+            {
+                buttonId: "editData",
+                redirectTo: "/profile/edit/data",
+            },
+            {
+                buttonId: "editPassword",
+                redirectTo: "/profile/edit/password",
+            },
+            {
+                buttonId: "logOut",
+                redirectTo: "/auth",
+            },
+        ];
+        OnButton(controller);
+    }
     const listOfComponents: PageComponent[] = [
         {
             enter: "root",
             callback: ProfileForm,
             data: "",
-            events: [],
+            events: [BackButton],
         },
         {
             enter: "profileHeader",
@@ -95,11 +126,11 @@ export default (edit: Record<string, boolean | string>) => {
             enter: "profileButtons",
             callback: Buttons,
             data: "",
-            events: [],
+            events: [EditButtons],
             options: edit,
         },
         {
-            enter: "root",
+            enter: "profilePage",
             callback: ModalWindow,
             data: "",
             events: [FileReader, ModalWindowController],

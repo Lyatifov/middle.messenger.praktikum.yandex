@@ -6,14 +6,24 @@ import View from "../../core/View/View";
 import { PageComponent } from "../../interfaces/interfaces";
 import Header from "../../components/ChatPage/Main/Header/Header";
 import Messages from "../../components/ChatPage/Main/Messages/Messages";
+import { OnButton } from "../../core/Events/OnButton";
 
 export default () => {
+    function ClickMe() {
+        const controller: Record<string, string>[] = [
+            {
+                buttonId: "redirectionToProfile",
+                redirectTo: "/profile",
+            },
+        ];
+        OnButton(controller);
+    }
     const listOfComponents: PageComponent[] = [
         {
             enter: "root",
             callback: ChatPage,
             data: "",
-            events: [],
+            events: [ClickMe],
         },
         {
             enter: "conversations",

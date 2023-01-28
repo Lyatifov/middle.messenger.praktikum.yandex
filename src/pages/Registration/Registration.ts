@@ -3,6 +3,7 @@ import InputsBlock from "../../components/AuthForm/InputsBlock/InputsBlock";
 import ButtonsBlock from "../../components/AuthForm/ButtonsBlock/ButtonsBlock";
 import { PageComponent, Data } from "../../interfaces/interfaces";
 import View from "../../core/View/View";
+import { OnButton } from "../../core/Events/OnButton";
 
 const data: Data = {
     title: "Регистрация",
@@ -46,11 +47,13 @@ const data: Data = {
     ],
     buttonsList: [
         {
+            id: "enterRegistration",
             className: "",
             value: "Зарегистрироваться",
             type: "submit",
         },
         {
+            id: "redirectionToAuth",
             className: "_bg-wite",
             value: "Войти",
         },
@@ -59,7 +62,17 @@ const data: Data = {
 
 export default () => {
     function ClickMe() {
-        // const button = document.getElementsByClassName("button");
+        const controller: Record<string, string>[] = [
+            {
+                buttonId: "enterRegistration",
+                redirectTo: "/auth",
+            },
+            {
+                buttonId: "redirectionToAuth",
+                redirectTo: "/auth",
+            },
+        ];
+        OnButton(controller);
     }
     const listOfComponents: PageComponent[] = [
         {
