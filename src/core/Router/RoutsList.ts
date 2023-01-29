@@ -2,12 +2,11 @@ import Authorization from "../../pages/Authorization/Authorization";
 import Registration from "../../pages/Registration/Registration";
 import Chats from "../../pages/Chats/Chats";
 import Profile from "../../pages/Profile/Profile";
-
-import { ViewInterface } from "../View/View";
+import { PageComponent } from "../../interfaces/interfaces";
 
 export interface RoutsInterface {
     url: string;
-    page: (options?: Record<string, boolean | string>) => ViewInterface;
+    page: (options?: Record<string, boolean | string>) => PageComponent;
     options?: Record<string, boolean | string>;
 }
 export default () => {

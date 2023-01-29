@@ -6,7 +6,7 @@ import View from "../../core/View/View";
 import { OnButton } from "../../core/Events/OnButton";
 
 const data: Data = {
-    title: "Регистрация",
+    title: "Вход",
     inputsList: [
         {
             id: "email",
@@ -74,31 +74,27 @@ export default () => {
         ];
         OnButton(controller);
     }
-    const listOfComponents: PageComponent[] = [
-        {
-            enter: "root",
-            callback: AuthForm,
-            data: data.title,
-            events: [],
-        },
-        {
-            enter: "inputsBlock",
-            callback: InputsBlock,
-            data: data.inputsList,
-            events: [],
-        },
-        {
-            enter: "buttonsBlock",
-            callback: ButtonsBlock,
-            data: data.buttonsList,
-            events: [ClickMe],
-        },
-    ];
-    class Registration extends View {
-        constructor(listOfComponents: PageComponent[]) {
-            super(listOfComponents);
-        }
-    }
-    const registration = new Registration(listOfComponents);
-    return registration;
+    const domComponents: PageComponent = {
+        enter: "root",
+        callback: AuthForm,
+        data: data.title,
+        events: [],
+        children: [
+            {
+                enter: "inputsBlock",
+                callback: InputsBlock,
+                data: data.inputsList,
+                events: [],
+                children: [],
+            },
+            {
+                enter: "buttonsBlock",
+                callback: ButtonsBlock,
+                data: data.buttonsList,
+                events: [ClickMe],
+                children: [],
+            },
+        ],
+    };
+    return domComponents;
 };

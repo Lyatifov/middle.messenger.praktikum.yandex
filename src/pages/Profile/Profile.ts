@@ -2,12 +2,12 @@ import ProfileForm from "../../components/ProfileForm/ProfileForm";
 import Header from "../../components/ProfileForm/Header/Header";
 import Inputs from "../../components/ProfileForm/Inputs/Inputs";
 import Buttons from "../../components/ProfileForm/Buttons/Buttons";
-import View from "../../core/View/View";
 import { PageComponent } from "../../interfaces/interfaces";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import FileReader from "../../core/FileReader/FileReader";
 import ModalWindowController from "../../core/ModalWindowController/ModalWindowController";
 import { OnButton } from "../../core/Events/OnButton";
+import { DataFromModal } from "../../interfaces/interfaces";
 
 const ProfileHeader: Record<string, string>[] = [
     {
@@ -70,7 +70,14 @@ const data: Record<string, Record<string, string>[]> = {
         },
     ],
 };
-
+const dataFromModal: DataFromModal = {
+    button: {
+        value: "Добавить",
+    },
+    title: "Загрузите файл",
+    loadImg: true,
+    inputs: [],
+};
 export default (edit: Record<string, boolean | string>) => {
     function BackButton() {
         const controller: Record<string, string>[] = [
@@ -102,46 +109,44 @@ export default (edit: Record<string, boolean | string>) => {
         ];
         OnButton(controller);
     }
-    const listOfComponents: PageComponent[] = [
-        {
-            enter: "root",
-            callback: ProfileForm,
-            data: "",
-            events: [BackButton],
-        },
-        {
-            enter: "profileHeader",
-            callback: Header,
-            data: ProfileHeader,
-            events: [],
-        },
-        {
-            enter: "profileData",
-            callback: Inputs,
-            data: data,
-            events: [],
-            options: edit,
-        },
-        {
-            enter: "profileButtons",
-            callback: Buttons,
-            data: "",
-            events: [EditButtons],
-            options: edit,
-        },
-        {
-            enter: "profilePage",
-            callback: ModalWindow,
-            data: "",
-            events: [FileReader, ModalWindowController],
-            options: edit,
-        },
-    ];
-    class Profile extends View {
-        constructor(listOfComponents: PageComponent[]) {
-            super(listOfComponents);
-        }
-    }
-    const profile = new Profile(listOfComponents);
-    return profile;
+    const domComponents: PageComponent = {
+        enter: "root",
+        callback: ProfileForm,
+        data: "",
+        events: [BackButton],
+        children: [
+            {
+                enter: "profileHeader",
+                callback: Header,
+                data: ProfileHeader,
+                events: [],
+                children: [],
+            },
+            {
+                enter: "profileData",
+                callback: Inputs,
+                data: data,
+                events: [],
+                options: edit,
+                children: [],
+            },
+            {
+                enter: "profileButtons",
+                callback: Buttons,
+                data: "",
+                events: [EditButtons],
+                options: edit,
+                children: [],
+            },
+            {
+                enter: "profilePage",
+                callback: ModalWindow,
+                data: dataFromModal,
+                events: [FileReader, ModalWindowController],
+                options: edit,
+                children: [],
+            },
+        ],
+    };
+    return domComponents;
 };

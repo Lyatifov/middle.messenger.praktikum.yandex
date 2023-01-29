@@ -1,6 +1,12 @@
+import { PageComponent } from "../../interfaces/interfaces";
 import EventBus from "../EventBus/EventBus";
+import Render from "../Render/Render";
 type FV = () => void;
-type FPV = (oldProps?: Record<string, string>, newProps?: Record<string, string>) => void;
+// type FPV = (oldProps?: Record<string, string>, newProps?: Record<string, string>) => void;
+// type cb = (
+//     data: Record<string, string>[] | string | Record<string, Record<string, string>[]>,
+//     options?: Record<string, boolean | string>
+// ) => string;
 export default class Component {
     static EVENTS = {
         INIT: "init",
@@ -9,15 +15,12 @@ export default class Component {
         FLOW_RENDER: "flow:render",
     };
     _element: HTMLElement;
-    enterPoint: string;
-    props: Record<string, string>;
+    props: PageComponent;
     eventBus: EventBus;
-    events: FV[];
-    constructor(enterPoint: string, component: string, events: FV[]) {
-        this.enterPoint = enterPoint;
+    childComponent: Component[] = [];
+    constructor(components: PageComponent) {
         this.eventBus = new EventBus();
-        this.events = events;
-        this.props = this._makePropsProxy({ component });
+        this.props = components;
         this._registerEvents();
         this.eventBus.emit(Component.EVENTS.INIT);
     }
@@ -28,13 +31,13 @@ export default class Component {
         //     this._componentDidMount.bind(this) as Func
         // );
         this.eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this) as FV);
-        this.eventBus.on(
-            Component.EVENTS.FLOW_CDU,
-            this._componentDidUpdate.bind(this) as FPV
-        );
+        // this.eventBus.on(
+        //     Component.EVENTS.FLOW_CDU,
+        //     this._componentDidUpdate.bind(this) as FPV
+        // );
     }
     init() {
-        this._element = this._findDocumentElement(this.enterPoint);
+        this._element = this._findDocumentElement(this.props.enter);
         this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
     }
     _findDocumentElement(id: string) {
@@ -42,146 +45,132 @@ export default class Component {
         if (element) {
             return element;
         }
-        const newElement: HTMLElement = document.createElement("div");
-        return newElement;
+        throw new Error(`element: ${id} not found!`);
     }
-    // _componentDidMount() {
-    //     // this.componentDidMount();
-    //     Object.values(this.children).forEach((child) => {
-    //         console.log(this.children);
-    //         child.dispatchComponentDidMoun();
-    //     });
-    // }
-    // // componentDidMount(oldProps: undefined) {}
-    // dispatchComponentDidMoun() {
-    //     this.eventBus.emit(Component.EVENTS.FLOW_CDM);
-    //     if (Object.keys(this.children).length) {
-    //         this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
-    //     }
-    // }
-    _componentDidUpdate(
-        oldProps: Record<string, string>,
-        newProps: Record<string, string>
-    ) {
-        const isReRender = this.componentDidUpdate(oldProps, newProps);
-        console.log(isReRender);
-        if (isReRender) {
-            this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
-        }
-    }
-    componentDidUpdate(
-        oldProps: Record<string, string>,
-        newProps: Record<string, string>
-    ) {
-        if (JSON.stringify(oldProps) === JSON.stringify(newProps)) {
+    check(newContent: PageComponent) {
+        if (JSON.stringify(newContent) === JSON.stringify(this.props)) {
             return true;
+        }
+        if (
+            this.render(newContent.callback, newContent.data, newContent.options) ===
+            this.render(this.props.callback, this.props.data, this.props.options)
+        ) {
+            return true;
+        }
+        return false;
+    }
+    checkOptions(options: Record<string, boolean | string>) {
+        if (
+            this.render(this.props.callback, this.props.data, options) ===
+            this.render(this.props.callback, this.props.data, this.props.options)
+        ) {
+            return true;
+        }
+        return false;
+    }
+    setProps(newProps: PageComponent) {
+        const isSame: boolean = this.check(newProps);
+        if (isSame) {
+            this.forwardChildren(newProps);
         } else {
-            return false;
+            this.props = {
+                ...newProps,
+            };
+            this._render();
         }
     }
-    setProps = (nextProps: Record<string, string>) => {
-        console.log(this.props);
-        if (!nextProps) {
-            return;
+    propsUpdate(options: Record<string, boolean | string>) {
+        if (JSON.stringify(options) !== JSON.stringify(this.props.options)) {
+            this.props.options = options;
+            const isSame = this.checkOptions(options);
+            if (!isSame) {
+                this._render();
+            }
         }
-        const props = nextProps;
-        if (Object.values(props).length) {
-            Object.assign(this.props, props);
-        }
-        // this._clear();
-    };
-    // addProps = (nextProps: Record<string, string>) => {
-    //     console.log(this.props);
-    //     if (!nextProps) {
-    //         return;
-    //     }
-    //     const props = nextProps;
-    //     if (Object.values(props).length) {
-    //         Object.assign(this.props, props);
-    //     }
-    //     this._clear();
-    // };
+        this.childUpdate(options);
+    }
     get element() {
         return this._element;
     }
-    clear() {
-        this._element.innerHTML = "";
-    }
     _render() {
-        this.clear();
-        this._element.innerHTML += this.render();
-        setTimeout(() => this.addEvents(), 1);
+        this._element.innerHTML = this.render(
+            this.props.callback,
+            this.props.data,
+            this.props.options
+        );
+        this.addEvents();
+        this.renderChildern();
     }
-    render() {
-        return `${this.props.component}`;
+    render(
+        callback: {
+            (
+                data:
+                    | string
+                    | Record<string, string>[]
+                    | Record<string, Record<string, string>[]>,
+                options?: Record<string, string | boolean> | undefined
+            ): string;
+        },
+        data:
+            | string
+            | Record<string, string>[]
+            | Record<string, Record<string, string>[]>,
+        options?: Record<string, string | boolean> | undefined
+    ): string {
+        if (options) {
+            return callback(data, options);
+        }
+        return callback(data);
+    }
+    childUpdate(props: Record<string, boolean | string>) {
+        if (this.childComponent.length) {
+            this.childComponent.forEach((component) => {
+                component.propsUpdate(props);
+            });
+        }
+    }
+    forwardChildren(newProps: PageComponent) {
+        const { children } = newProps;
+        if (children.forEach.length)
+            children.forEach((child) => {
+                this.childComponent.forEach((component) => {
+                    if (child.enter === component.props.enter) {
+                        component.setProps(child);
+                    }
+                });
+                this.childComponent.push(...Render([child]));
+            });
     }
     addEvents() {
-        const events: FV[] = this.events;
+        const events: FV[] = this.props.events;
         if (events.length) {
             events.forEach((event: () => void) => {
                 event();
             });
         }
     }
-    // removeEvents() {
-    //     this.props.events.forEach((event: () => void, eventName: number) => {
-    //         this._element.removeEventListener(`event${eventName}`, event);
+    renderChildern() {
+        if (this.props.children.length) {
+            this.childComponent = Render(this.props.children);
+        }
+    }
+    // getContent() {
+    //     return this.props.component;
+    // }
+    // _makePropsProxy(props: PageComponent) {
+    //     return new Proxy(props, {
+    //         get(target: PageComponent, prop: string) {
+    //             const value: PageComponent = target[prop];
+    //             return value;
+    //         },
+    //         set: () => {
+    //             return true;
+    //         },
+    //         deleteProperty() {
+    //             throw new Error("Нет доступа");
+    //         },
     //     });
     // }
-    // getChildren(propsAndChilds: RenderPage) {
-    //     const children: RenderPage = {};
-    //     const props: RenderPage = {};
-    //     Object.keys(propsAndChilds).forEach((key) => {
-    //         if (propsAndChilds[key] instanceof Component) {
-    //             children[key] = propsAndChilds[key];
-    //         } else {
-    //             props[key] = propsAndChilds[key];
-    //         }
-    //     });
-    //     console.log(props, children, propsAndChilds);
-    //     return { children, props };
-    // }
-    getContent() {
-        return this.props.component;
-    }
-    _makePropsProxy(props: Record<string, string>) {
-        return new Proxy(props, {
-            get(target: Record<string, string>, prop: string) {
-                const value: string = target[prop];
-                return value;
-            },
-            set: (target: Record<string, string>, prop: string, value: string) => {
-                const oldValue: Record<string, string> = {
-                    ...target,
-                };
-                console.log(oldValue);
-                target[prop] = value;
-                this.eventBus.emit(Component.EVENTS.FLOW_CDU, oldValue, target);
-                return true;
-            },
-            // get(target: RenderPage, prop: string) {
-            //     const value: string | utilFunc[] = target[prop];
-            //     console.log("target:", target, "prop", prop, "value", value);
-            //     if (typeof value === "function") {
-            //         return value.bind(target) as Func;
-            //     } else {
-            //         return value;
-            //     }
-            // },
-            // set: (target: RenderPage, prop: string, value: RenderPage) => {
-            //     console.log(target, prop, value);
-            //     const oldValue: RenderPage = {
-            //         ...target,
-            //     };
-            //     target[prop] = value;
-            //     this.eventBus.emit(Component.EVENTS.FLOW_CDU, oldValue, target);
-            //     return true;
-            // },
-            deleteProperty() {
-                throw new Error("Нет доступа");
-            },
-        });
-    }
     // show() {
     //     this.getContent().style.display = "Component";
     // }

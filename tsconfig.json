@@ -32,6 +32,7 @@
         "./src/core/messages/messages.ts",
         "./src/core/ModalWindowController/ModalWindowController.ts",
         "./src/core/Events/OnButton.ts",
+        "./src/core/MiniModalWindow/MiniModalWindow.ts",
         // core
         "./src/pages/Authorization/Authorization.ts",
         "./src/pages/Registration/Registration.ts",
@@ -45,6 +46,7 @@
         "./src/components/ChatPage/ChatPage.ts",
         "./src/components/ChatPage/Сonversations/Сonversations.ts",
         "./src/components/ChatPage/Main/Main.ts",
+        "./src/components/ChatPage/Main/MiniModalWindow/MiniModalWindow.ts",
         "./src/components/ChatPage/Main/Header/Header.ts",
         "src/components/ChatPage/Main/Messages/Messages.ts",
         "./src/components/ModalWindow/ModalWindow.ts",

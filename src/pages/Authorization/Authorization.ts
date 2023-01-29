@@ -1,7 +1,7 @@
 import AuthForm from "../../components/AuthForm/AuthForm";
 import InputsBlock from "../../components/AuthForm/InputsBlock/InputsBlock";
 import ButtonsBlock from "../../components/AuthForm/ButtonsBlock/ButtonsBlock";
-import View from "../../core/View/View";
+// import View from "../../core/View/View";
 import { PageComponent, Data } from "../../interfaces/interfaces";
 import { OnButton } from "../../core/Events/OnButton";
 
@@ -50,33 +50,27 @@ export default () => {
         ];
         OnButton(controller);
     }
-    const listOfComponents: PageComponent[] = [
-        {
-            enter: "root",
-            callback: AuthForm,
-            data: data.title,
-            events: [],
-        },
-        {
-            enter: "inputsBlock",
-            callback: InputsBlock,
-            data: data.inputsList,
-            events: [],
-        },
-        {
-            enter: "buttonsBlock",
-            callback: ButtonsBlock,
-            data: data.buttonsList,
-            events: [ClickMe],
-        },
-    ];
-    class Authorization extends View {
-        constructor(listOfComponents: PageComponent[]) {
-            super(listOfComponents);
-        }
-    }
-    const authorization = new Authorization(listOfComponents);
-    console.log(authorization);
-
-    return authorization;
+    const domComponents: PageComponent = {
+        enter: "root",
+        callback: AuthForm,
+        data: data.title,
+        events: [],
+        children: [
+            {
+                enter: "inputsBlock",
+                callback: InputsBlock,
+                data: data.inputsList,
+                events: [],
+                children: [],
+            },
+            {
+                enter: "buttonsBlock",
+                callback: ButtonsBlock,
+                data: data.buttonsList,
+                events: [ClickMe],
+                children: [],
+            },
+        ],
+    };
+    return domComponents;
 };

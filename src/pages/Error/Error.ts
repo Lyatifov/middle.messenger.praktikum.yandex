@@ -1,6 +1,6 @@
 import template from "./Error.hbs";
-import View, { ViewInterface } from "../../core/View/View";
 import { PageComponent } from "../../interfaces/interfaces";
+import { OnButton } from "../../core/Events/OnButton";
 
 export function BuildErrorPage(errorData: Record<string, string>[]): string {
     const res = template({
@@ -8,26 +8,29 @@ export function BuildErrorPage(errorData: Record<string, string>[]): string {
     });
     return res;
 }
-export default (): ViewInterface => {
+export default (): PageComponent => {
+    function ClickMe() {
+        const controller: Record<string, string>[] = [
+            {
+                buttonId: "backToChats",
+                redirectTo: "/chats",
+            },
+        ];
+        OnButton(controller);
+    }
     const error404: Record<string, string>[] = [
         {
             title: "404",
             text: "Не туда попали",
         },
     ];
-    const listOfComponents: PageComponent[] = [
-        {
-            enter: "root",
-            callback: BuildErrorPage,
-            data: error404,
-            events: [],
-        },
-    ];
-    class ErrorPage extends View {
-        constructor(listOfComponents: PageComponent[]) {
-            super(listOfComponents);
-        }
-    }
-    const errorPage = new ErrorPage(listOfComponents);
-    return errorPage;
+    const domComponents: PageComponent = {
+        enter: "root",
+        callback: BuildErrorPage,
+        data: error404,
+        events: [ClickMe],
+        children: [],
+    };
+
+    return domComponents;
 };

@@ -1,7 +1,9 @@
 import Error from "../../pages/Error/Error";
 import RoutsList from "./RoutsList";
-import { ViewInterface } from "../View/View";
 import { RoutsInterface } from "./RoutsList";
+import Page from "../../index";
+import { PageComponent } from "../../interfaces/interfaces";
+// import Render from "../Render/Render";
 
 export const ActiveModalWindow = true;
 export default globalThis.ChangeRouter = (targetUrl: string): void => {
@@ -9,16 +11,18 @@ export default globalThis.ChangeRouter = (targetUrl: string): void => {
     const isCorrectUrl = routs.filter((rout) => rout.url === targetUrl);
     if (isCorrectUrl.length) {
         const { url, page, options } = isCorrectUrl[0];
-        let PageClass: ViewInterface;
+        let PageComponents: PageComponent;
         if (options) {
-            PageClass = page(options);
+            PageComponents = page(options);
         } else {
-            PageClass = page();
+            PageComponents = page();
         }
-        PageClass.render();
+        Page.setProps(PageComponents);
+        if (options) {
+            Page.propsUpdate(options);
+        }
         history.pushState(null, "null", url);
     } else {
-        const ErrorClass: ViewInterface = Error();
-        ErrorClass.render();
+        Page.setProps(Error());
     }
 };
