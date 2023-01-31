@@ -15,7 +15,7 @@ $color-black: black;
 
 .input-block {
     position: relative;
-    margin: 15px 0;
+    margin: 30px 0;
     .input {
         border: 0;
         border-bottom: 2px solid $color-2;
@@ -42,12 +42,12 @@ $color-black: black;
         font-size: 8px;
         line-height: 8px;
         color: $color-red;
-        opacity: 0;
         position: absolute;
-        bottom: -13px;
+        top: 35px;
         left: 0;
+        opacity: 0;
     }
-    .input-error_active {
+    ._active {
         opacity: 1;
     }
 }
@@ -117,7 +117,7 @@ main {
         color: $color-1;
     }
     .inputs-block {
-        margin: 30px 0;
+        margin: 10px 0;
     }
 
     .button-wrapper {
@@ -570,6 +570,7 @@ main {
             line-height: 13px;
             color: $color-1;
             border-bottom: 1px solid $color-white-3;
+            position: relative;
             .edit {
                 padding: 0 5px;
                 color: $color-white-7 !important;
@@ -582,6 +583,15 @@ main {
                 font-size: 13px;
                 line-height: 13px;
                 color: $color-white-2;
+            }
+            .input-error {
+                position: absolute;
+                right: 150px;
+                text-align: end;
+                opacity: 0;
+            }
+            ._active {
+                opacity: 0;
             }
         }
         a {

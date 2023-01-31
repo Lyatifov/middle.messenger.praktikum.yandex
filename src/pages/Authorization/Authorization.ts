@@ -1,40 +1,41 @@
 import AuthForm from "../../components/AuthForm/AuthForm";
 import InputsBlock from "../../components/AuthForm/InputsBlock/InputsBlock";
 import ButtonsBlock from "../../components/AuthForm/ButtonsBlock/ButtonsBlock";
-// import View from "../../core/View/View";
-import { PageComponent, Data } from "../../interfaces/interfaces";
+import { PageComponent } from "../../interfaces/interfaces";
 import { OnButton } from "../../core/Events/OnButton";
+import Forms from "../../core/Forms/Forms";
 
-const data: Data = {
+const data: Record<string, string> = {
+    formId: "authForm",
     title: "Вход",
-    inputsList: [
-        {
-            id: "login",
-            title: "Логин",
-            type: "",
-            error: "Неверный логин",
-        },
-        {
-            id: "password",
-            title: "Пароль",
-            type: "password",
-            error: "",
-        },
-    ],
-    buttonsList: [
-        {
-            id: "enterAuth",
-            className: "",
-            value: "Авторизоваться",
-            type: "submit",
-        },
-        {
-            id: "redirectionToRegistration",
-            className: "_bg-wite",
-            value: "Нет аккаунта?",
-        },
-    ],
 };
+const inputsList: Record<string, string>[] = [
+    {
+        id: "login",
+        title: "Логин",
+        type: "",
+        error: "Неверный логин",
+    },
+    {
+        id: "password",
+        title: "Пароль",
+        type: "password",
+        error: "Неверный логин",
+    },
+];
+const buttonsList: Record<string, string>[] = [
+    {
+        id: "enterAuth",
+        className: "",
+        value: "Авторизоваться",
+        type: "submit",
+    },
+    {
+        id: "redirectionToRegistration",
+        className: "_bg-wite",
+        value: "Нет аккаунта?",
+    },
+];
 
 export default () => {
     function ClickMe() {
@@ -50,23 +51,26 @@ export default () => {
         ];
         OnButton(controller);
     }
+    function initAuthForm() {
+        Forms(data.formId);
+    }
     const domComponents: PageComponent = {
         enter: "root",
         callback: AuthForm,
-        data: data.title,
-        events: [],
+        data: data,
+        events: [initAuthForm],
         children: [
             {
                 enter: "inputsBlock",
                 callback: InputsBlock,
-                data: data.inputsList,
+                data: inputsList,
                 events: [],
                 children: [],
             },
             {
                 enter: "buttonsBlock",
                 callback: ButtonsBlock,
-                data: data.buttonsList,
+                data: buttonsList,
                 events: [ClickMe],
                 children: [],
             },

@@ -3,6 +3,9 @@ export const interlocutor: Record<string, string>[] = [
         name: "Андрей",
         img: "https://w7.pngwing.com/pngs/52/368/png-transparent-user-profile-computer-icons-avatar-avatar-heroes-monochrome-desktop-wallpaper.png",
     },
+    {
+        formId: "messageForm",
+    },
 ];
 export const messages: Record<string, string>[] = [
     {

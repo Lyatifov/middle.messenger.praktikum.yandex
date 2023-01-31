@@ -4,9 +4,10 @@ import InputsBlock from "../AuthForm/InputsBlock/InputsBlock";
 import { DataFromModal } from "../../interfaces/interfaces";
 
 export default (data: DataFromModal): string => {
-    const { button, title, loadImg, inputs } = data;
+    const { formId, button, title, loadImg, inputs } = data;
     const inputList: string = InputsBlock(inputs);
     const res = template({
+        formId,
         loadImg,
         title,
         inputs: inputList,

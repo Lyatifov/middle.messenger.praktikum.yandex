@@ -11,10 +11,13 @@ import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import { DataFromModal } from "../../interfaces/interfaces";
 import MiniModalWindow from "../../components/ChatPage/Main/MiniModalWindow/MiniModalWindow";
 import { DataForMiniModalWindow } from "../../interfaces/interfaces";
+import Forms from "../../core/Forms/Forms";
 
 const dataFromModal: DataFromModal = {
+    formId: "chatModalForm",
     button: {
         value: "Добавить",
+        type: "submit",
     },
     title: "Добавить пользователя",
     loadImg: false,
@@ -100,12 +103,20 @@ export default () => {
             removeUserButton.addEventListener("click", callModalWindow);
         }
     }
-
+    function initSearchForm() {
+        Forms("searchForm");
+    }
+    function initMessageForm() {
+        Forms(interlocutor[1].formId);
+    }
+    function initChatModalForm() {
+        Forms(dataFromModal.formId);
+    }
     const domComponents: PageComponent = {
         enter: "root",
         callback: ChatPage,
-        data: "",
-        events: [ClickMe],
+        data: "searchForm",
+        events: [ClickMe, initSearchForm],
         children: [
             {
                 enter: "conversations",
@@ -124,7 +135,7 @@ export default () => {
                         enter: "footerModalWrapper",
                         callback: MiniModalWindow,
                         data: dataForFooterMiniModalWindow,
-                        events: [addMiniModalForFooter],
+                        events: [addMiniModalForFooter, initMessageForm],
                         children: [],
                     },
                     {
@@ -155,7 +166,7 @@ export default () => {
                 enter: "modalWrapper",
                 callback: ModalWindow,
                 data: dataFromModal,
-                events: [controllerModalWindow],
+                events: [controllerModalWindow, initChatModalForm],
                 children: [],
             },
         ],

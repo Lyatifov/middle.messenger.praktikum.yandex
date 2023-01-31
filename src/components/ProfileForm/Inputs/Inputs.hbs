@@ -10,4 +10,8 @@
     {{else}} 
     disabled="disabled"
     {{/if}} />
+    {{#if error}}
+        <label class="input-error" for={{id}}>{{error}}</label>
+    {{else}}
+    {{/if}}
 </li>

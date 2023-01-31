@@ -1,8 +1,8 @@
 import template from "./AuthForm.hbs";
 
-export default (title: string): string => {
+export default (data: Record<string, string>): string => {
     const res: string = template({
-        title,
+        ...data,
     });
     return res;
 };

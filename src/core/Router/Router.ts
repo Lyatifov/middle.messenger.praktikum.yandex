@@ -3,7 +3,6 @@ import RoutsList from "./RoutsList";
 import { RoutsInterface } from "./RoutsList";
 import Page from "../../index";
 import { PageComponent } from "../../interfaces/interfaces";
-// import Render from "../Render/Render";
 
 export const ActiveModalWindow = true;
 export default globalThis.ChangeRouter = (targetUrl: string): void => {

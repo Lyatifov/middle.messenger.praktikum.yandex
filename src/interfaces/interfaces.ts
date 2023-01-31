@@ -1,4 +1,5 @@
 export interface DataFromModal {
+    formId: string;
     button: Record<string, string>;
     title: string;
     loadImg: boolean;
@@ -10,6 +11,7 @@ export interface DataForMiniModalWindow {
     id: string;
     buttons: Record<string, string>[];
 }
+
 export interface PageComponent {
     enter: string;
     callback: (
@@ -18,9 +20,9 @@ export interface PageComponent {
             | DataFromModal
             | Record<string, string>
             | Record<string, string>[]
-            | string
             | Record<string, Record<string, string>[]>
-            | Record<string, string | Record<string, string>[]>,
+            | Record<string, string | Record<string, string>[]>
+            | string,
         options?: Record<string, boolean | string>
     ) => string;
     data:
@@ -28,13 +30,10 @@ export interface PageComponent {
         | DataFromModal
         | Record<string, string>
         | Record<string, string>[]
+        | Record<string, Record<string, string>[]>
         | Record<string, string | Record<string, string>[]>
-        | string
-        | Record<string, Record<string, string>[]>;
+        | string;
     events: (() => void)[];
     options?: Record<string, boolean | string>;
     children: PageComponent[];
-}
-export interface Data {
-    [key: string]: Record<string, string>[] | string;
 }

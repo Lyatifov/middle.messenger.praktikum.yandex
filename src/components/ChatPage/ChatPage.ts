@@ -1,6 +1,6 @@
 import template from "./ChatPage.hbs";
 
-export default (): string => {
-    const res: string = template({});
+export default (formId: string): string => {
+    const res: string = template({ formId });
     return res;
 };

@@ -4,7 +4,12 @@ import Render from "./core/Render/Render";
 import Component from "./core/Component/Component";
 import { PageComponent } from "./interfaces/interfaces";
 
-const callback = (data: string): string => data;
+const callback = (data: string): string => {
+    if (typeof data === "string") {
+        return data;
+    }
+    return "";
+};
 
 const startData: PageComponent = {
     enter: "root",

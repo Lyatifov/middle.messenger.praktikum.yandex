@@ -33,6 +33,8 @@
         "./src/core/ModalWindowController/ModalWindowController.ts",
         "./src/core/Events/OnButton.ts",
         "./src/core/MiniModalWindow/MiniModalWindow.ts",
+        "./src/core/Forms/Forms.ts",
+        "./src/core/Validator/Validator.ts",
         // core
         "./src/pages/Authorization/Authorization.ts",
         "./src/pages/Registration/Registration.ts",

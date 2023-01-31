@@ -8,6 +8,11 @@ import FileReader from "../../core/FileReader/FileReader";
 import ModalWindowController from "../../core/ModalWindowController/ModalWindowController";
 import { OnButton } from "../../core/Events/OnButton";
 import { DataFromModal } from "../../interfaces/interfaces";
+import Forms from "../../core/Forms/Forms";
+
+const ProfileFormData: Record<string, string> = {
+    formId: "profileDataForm",
+};
 
 const ProfileHeader: Record<string, string>[] = [
     {
@@ -22,31 +27,37 @@ const data: Record<string, Record<string, string>[]> = {
             id: "email",
             value: "pochta@yandex.ru",
             title: "Почта",
+            error: "Ошибка",
         },
         {
             id: "login",
             value: "ivanivanov",
             title: "Логин",
+            error: "Ошибка",
         },
         {
             id: "first_name",
             value: "Иван",
             title: "Имя",
+            error: "Ошибка",
         },
         {
             id: "second_name",
             value: "Иван",
             title: "Фамилия",
+            error: "Ошибка",
         },
         {
             id: "display_name",
             value: "Иванов",
             title: "Имя в чате",
+            error: "Ошибка",
         },
         {
             id: "phone",
             value: "+7 (909) 967 30 30",
             title: "Телефон",
+            error: "Ошибка",
         },
     ],
     PasswordList: [
@@ -55,28 +66,33 @@ const data: Record<string, Record<string, string>[]> = {
             value: "?????????????",
             title: "Старый пароль",
             type: "password",
+            error: "Ошибка",
         },
         {
             id: "newPassword",
             value: "?????????????",
             title: "Новый пароль",
             type: "password",
+            error: "Ошибка",
         },
         {
-            id: "repeatNewPassword",
+            id: "passwordRepite",
             value: "?????????????",
             title: "Повторите новый пароль",
             type: "password",
+            error: "Ошибка",
         },
     ],
 };
 const dataFromModal: DataFromModal = {
     button: {
         value: "Добавить",
+        type: "submit",
     },
     title: "Загрузите файл",
     loadImg: true,
     inputs: [],
+    formId: "profileModalForm",
 };
 export default (edit: Record<string, boolean | string>) => {
     function BackButton() {
@@ -109,11 +125,17 @@ export default (edit: Record<string, boolean | string>) => {
         ];
         OnButton(controller);
     }
+    function initModalForm() {
+        Forms(dataFromModal.formId);
+    }
+    function initProfileForm() {
+        Forms(ProfileFormData.formId);
+    }
     const domComponents: PageComponent = {
         enter: "root",
         callback: ProfileForm,
-        data: "",
-        events: [BackButton],
+        data: ProfileFormData,
+        events: [BackButton, initProfileForm],
         children: [
             {
                 enter: "profileHeader",
@@ -142,7 +164,7 @@ export default (edit: Record<string, boolean | string>) => {
                 enter: "profilePage",
                 callback: ModalWindow,
                 data: dataFromModal,
-                events: [FileReader, ModalWindowController],
+                events: [FileReader, ModalWindowController, initModalForm],
                 options: edit,
                 children: [],
             },

@@ -1,12 +1,11 @@
-import { PageComponent } from "../../interfaces/interfaces";
+import {
+    DataForMiniModalWindow,
+    DataFromModal,
+    PageComponent,
+} from "../../interfaces/interfaces";
 import EventBus from "../EventBus/EventBus";
 import Render from "../Render/Render";
 type FV = () => void;
-// type FPV = (oldProps?: Record<string, string>, newProps?: Record<string, string>) => void;
-// type cb = (
-//     data: Record<string, string>[] | string | Record<string, Record<string, string>[]>,
-//     options?: Record<string, boolean | string>
-// ) => string;
 export default class Component {
     static EVENTS = {
         INIT: "init",
@@ -26,15 +25,7 @@ export default class Component {
     }
     _registerEvents() {
         this.eventBus.on(Component.EVENTS.INIT, this.init.bind(this) as FV);
-        // this.eventBus.on(
-        //     Component.EVENTS.FLOW_CDM,
-        //     this._componentDidMount.bind(this) as Func
-        // );
         this.eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this) as FV);
-        // this.eventBus.on(
-        //     Component.EVENTS.FLOW_CDU,
-        //     this._componentDidUpdate.bind(this) as FPV
-        // );
     }
     init() {
         this._element = this._findDocumentElement(this.props.enter);
@@ -105,16 +96,24 @@ export default class Component {
         callback: {
             (
                 data:
-                    | string
+                    | DataForMiniModalWindow
+                    | DataFromModal
+                    | Record<string, string>
                     | Record<string, string>[]
-                    | Record<string, Record<string, string>[]>,
+                    | Record<string, Record<string, string>[]>
+                    | Record<string, string | Record<string, string>[]>
+                    | string,
                 options?: Record<string, string | boolean> | undefined
             ): string;
         },
         data:
-            | string
+            | DataForMiniModalWindow
+            | DataFromModal
+            | Record<string, string>
             | Record<string, string>[]
-            | Record<string, Record<string, string>[]>,
+            | Record<string, Record<string, string>[]>
+            | Record<string, string | Record<string, string>[]>
+            | string,
         options?: Record<string, string | boolean> | undefined
     ): string {
         if (options) {
@@ -154,27 +153,4 @@ export default class Component {
             this.childComponent = Render(this.props.children);
         }
     }
-    // getContent() {
-    //     return this.props.component;
-    // }
-    // _makePropsProxy(props: PageComponent) {
-    //     return new Proxy(props, {
-    //         get(target: PageComponent, prop: string) {
-    //             const value: PageComponent = target[prop];
-    //             return value;
-    //         },
-    //         set: () => {
-    //             return true;
-    //         },
-    //         deleteProperty() {
-    //             throw new Error("Нет доступа");
-    //         },
-    //     });
-    // }
-    // show() {
-    //     this.getContent().style.display = "Component";
-    // }
-    // hide() {
-    //     this.getContent().style.display = "none";
-    // }
 }

@@ -9,7 +9,5 @@ export default (components: PageComponent[]): Component[] => {
             ComponentList.push(newContent);
         });
     }
-    // console.log(ComponentList);
-
     return ComponentList;
 };

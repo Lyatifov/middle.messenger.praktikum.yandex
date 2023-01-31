@@ -1,6 +1,5 @@
 export default () => {
-    const wrapper: HTMLElement | null =
-            document.getElementById("loadFileWrapper"),
+    const wrapper: HTMLElement | null = document.getElementById("loadFileWrapper"),
         dropZone: HTMLElement | null = document.getElementById("dropZone"),
         modalForm: HTMLElement | null = document.getElementById("modalForm");
     let file: Blob;
@@ -8,7 +7,6 @@ export default () => {
         modalForm.addEventListener("drop", (ev) => {
             ev.preventDefault();
             if (ev.dataTransfer) {
-                console.log(ev.dataTransfer.files[0]);
                 file = ev.dataTransfer.files[0];
             }
             handleFile(file);
