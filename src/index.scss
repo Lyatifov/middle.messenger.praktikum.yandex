@@ -585,13 +585,19 @@ main {
                 color: $color-white-2;
             }
             .input-error {
+                width: 200px;
+                text-align: start;
+                font-weight: 400;
+                font-size: 8px;
+                line-height: 8px;
+                color: $color-red;
                 position: absolute;
-                right: 150px;
-                text-align: end;
+                top: 5px;
+                right: -210px;
                 opacity: 0;
             }
             ._active {
-                opacity: 0;
+                opacity: 1;
             }
         }
         a {

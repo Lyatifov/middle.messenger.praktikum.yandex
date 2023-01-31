@@ -24,6 +24,7 @@ const dataFromModal: DataFromModal = {
     inputs: [
         {
             id: "addUser",
+            name: "login",
             title: "Логин",
             type: "",
             error: "Пользователь не найден",

@@ -13,48 +13,52 @@ import Forms from "../../core/Forms/Forms";
 const ProfileFormData: Record<string, string> = {
     formId: "profileDataForm",
 };
-
 const ProfileHeader: Record<string, string>[] = [
     {
         nickName: "Иван",
         img: "https://w7.pngwing.com/pngs/52/368/png-transparent-user-profile-computer-icons-avatar-avatar-heroes-monochrome-desktop-wallpaper.png",
     },
 ];
-
 const data: Record<string, Record<string, string>[]> = {
     DataList: [
         {
             id: "email",
+            name: "email",
             value: "pochta@yandex.ru",
             title: "Почта",
             error: "Ошибка",
         },
         {
             id: "login",
+            name: "login",
             value: "ivanivanov",
             title: "Логин",
             error: "Ошибка",
         },
         {
             id: "first_name",
+            name: "first_name",
             value: "Иван",
             title: "Имя",
             error: "Ошибка",
         },
         {
             id: "second_name",
+            name: "second_name",
             value: "Иван",
             title: "Фамилия",
             error: "Ошибка",
         },
         {
             id: "display_name",
+            name: "display_name",
             value: "Иванов",
             title: "Имя в чате",
             error: "Ошибка",
         },
         {
             id: "phone",
+            name: "phone",
             value: "+7 (909) 967 30 30",
             title: "Телефон",
             error: "Ошибка",
@@ -63,13 +67,14 @@ const data: Record<string, Record<string, string>[]> = {
     PasswordList: [
         {
             id: "oldPassword",
+            name: "password",
             value: "?????????????",
             title: "Старый пароль",
             type: "password",
-            error: "Ошибка",
         },
         {
-            id: "newPassword",
+            id: "password",
+            name: "password",
             value: "?????????????",
             title: "Новый пароль",
             type: "password",
@@ -77,6 +82,7 @@ const data: Record<string, Record<string, string>[]> = {
         },
         {
             id: "passwordRepite",
+            name: "passwordRepite",
             value: "?????????????",
             title: "Повторите новый пароль",
             type: "password",

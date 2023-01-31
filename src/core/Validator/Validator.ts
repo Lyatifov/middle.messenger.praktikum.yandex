@@ -46,7 +46,6 @@ export default class Validator {
         return isMatch;
     }
     isEmail(input: string): boolean {
-        console.log(input);
         const pattern = new RegExp(
             // eslint-disable-next-line no-useless-escape
             /^[a-zA-Z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1}([a-zA-Z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1})*[a-zA-Z0-9]@[a-zA-Z0-9][-\.]{0,1}([a-zA-Z][-\.]{0,1})*[a-zA-Z0-9]\.[a-zA-Z0-9]{1,}([\.\-]{0,1}[a-zA-Z]){0,}[a-zA-Z0-9]{0,}$/i
@@ -57,7 +56,7 @@ export default class Validator {
     isPhone(input: string): boolean {
         const pattern = new RegExp(
             // eslint-disable-next-line no-useless-escape
-            /^[\d\+][\d\(\)\ -]{10,15}\d$/
+            /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/g
         );
         const isMatch = pattern.test(input);
         return isMatch;
@@ -70,7 +69,6 @@ export default class Validator {
         return false;
     }
     isEmpty(input: string | undefined | null): boolean {
-        console.log("isEmpty", input);
         if (input) {
             if (input.trim().length) {
                 return true;
@@ -78,7 +76,6 @@ export default class Validator {
         }
         return false;
     }
-
     first_name(input: string): Answer {
         const answer: Answer = {
             result: false,
@@ -86,22 +83,20 @@ export default class Validator {
                 "В данное поле принимается: латиница или кириллица, первая буква должна быть заглавной, без пробелов. без цифр, без спецсимволов (допустим только дефис)",
         };
         if (!input) return answer;
-        if (!this.isEmpty(input)) {
-            const isCyrillic = this.isCyrillicAlphabet(input);
-            const isLatin = this.isLatinAlphabet(input);
-            const isFirstLetterIsUppercase = this.isFirstLetterIsUppercase(input);
-            const isSpaces = this.isSpaces(input);
-            const isNumber = this.isNumber(input);
-            const isSpecialCharacters = this.isSpecialCharacters(input);
-            if (
-                (isCyrillic || isLatin) &&
-                isFirstLetterIsUppercase &&
-                !isSpaces &&
-                !isNumber &&
-                !isSpecialCharacters
-            ) {
-                answer.result = true;
-            }
+        const isCyrillic = this.isCyrillicAlphabet(input);
+        const isLatin = this.isLatinAlphabet(input);
+        const isFirstLetterIsUppercase = this.isFirstLetterIsUppercase(input);
+        const isSpaces = this.isSpaces(input);
+        const isNumber = this.isNumber(input);
+        const isSpecialCharacters = this.isSpecialCharacters(input);
+        if (
+            (isCyrillic || isLatin) &&
+            isFirstLetterIsUppercase &&
+            !isSpaces &&
+            !isNumber &&
+            !isSpecialCharacters
+        ) {
+            answer.result = true;
         }
         return answer;
     }
@@ -121,23 +116,13 @@ export default class Validator {
                 "В данное поле принимается: от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)",
         };
         if (!input) return answer;
-        if (!this.isEmpty(input)) {
-            const isCyrillic = this.isCyrillicAlphabet(input);
-            const isLatin = this.isLatinAlphabet(input);
-            const isSpaces = this.isSpaces(input);
-            const isNumber = this.isNumber(input);
-            const isSpecialCharacters = this.isSpecialCharacters(input);
-            const isLength = this.isLength(input, 3, 20);
-            if (
-                !isCyrillic &&
-                isLatin &&
-                !isSpaces &&
-                isNumber &&
-                !isSpecialCharacters &&
-                isLength
-            ) {
-                answer.result = true;
-            }
+        const isCyrillic = this.isCyrillicAlphabet(input);
+        const isLatin = this.isLatinAlphabet(input);
+        const isSpaces = this.isSpaces(input);
+        const isSpecialCharacters = this.isSpecialCharacters(input);
+        const isLength = this.isLength(input, 3, 20);
+        if (!isCyrillic && isLatin && !isSpaces && !isSpecialCharacters && isLength) {
+            answer.result = true;
         }
         return answer;
     }
@@ -160,23 +145,21 @@ export default class Validator {
                 "В данное поле принимается: от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра",
         };
         if (!input) return answer;
-        if (!this.isEmpty(input)) {
-            const isCyrillic = this.isCyrillicAlphabet(input);
-            const isLatin = this.isLatinAlphabet(input);
-            const isSpaces = this.isSpaces(input);
-            const isNumber = this.isNumber(input);
-            const isCapitalLetter = this.isCapitalLetter(input);
-            const isLength = this.isLength(input, 8, 40);
-            if (
-                !isCyrillic &&
-                isLatin &&
-                !isSpaces &&
-                isNumber &&
-                isCapitalLetter &&
-                isLength
-            ) {
-                answer.result = true;
-            }
+        const isCyrillic = this.isCyrillicAlphabet(input);
+        const isLatin = this.isLatinAlphabet(input);
+        const isSpaces = this.isSpaces(input);
+        const isNumber = this.isNumber(input);
+        const isCapitalLetter = this.isCapitalLetter(input);
+        const isLength = this.isLength(input, 8, 40);
+        if (
+            !isCyrillic &&
+            isLatin &&
+            !isSpaces &&
+            isNumber &&
+            isCapitalLetter &&
+            isLength
+        ) {
+            answer.result = true;
         }
         return answer;
     }
@@ -186,12 +169,12 @@ export default class Validator {
             message:
                 "В данное поле принимается: от 10 до 15 символов, состоит из цифр, может начинается с плюса.",
         };
-        if (!input) return answer;
-        if (!this.isEmpty(input)) {
-            const isPhone = this.isPhone(input);
-            if (isPhone) {
-                answer.result = true;
-            }
+        if (!input) {
+            return answer;
+        }
+        const isPhone = this.isPhone(input);
+        if (isPhone) {
+            answer.result = true;
         }
         return answer;
     }
@@ -212,23 +195,43 @@ export default class Validator {
             message: "Введенные пароли разные",
         };
         if (!input) return answer;
-        if (!this.isEmpty(input)) {
-            const password = document.getElementById("password") as HTMLInputElement;
-            if (password) {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                const value: string = password.value;
-                if (input === value) {
-                    answer.result = true;
-                }
+        const password = document.getElementById("password") as HTMLInputElement;
+        if (password) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            const value: string = password.value;
+            if (input === value) {
+                answer.result = true;
             }
         }
         return answer;
     }
-
+    display_name(input: string): Answer {
+        const answer: Answer = {
+            result: false,
+            message:
+                "В данное поле принимается: от 5 до 20 символов, латиница или кириллица, без пробелов, без спецсимволов",
+        };
+        if (!input) return answer;
+        const isLength = this.isLength(input, 5, 20);
+        const isCyrillic = this.isCyrillicAlphabet(input);
+        const isLatin = this.isLatinAlphabet(input);
+        const isSpaces = this.isSpaces(input);
+        const isSpecialCharacters = this.isSpecialCharacters(input);
+        if ((isCyrillic || isLatin) && !isSpaces && !isSpecialCharacters && isLength) {
+            answer.result = true;
+        }
+        return answer;
+    }
+    search(): Answer {
+        const answer: Answer = {
+            result: true,
+            message: "",
+        };
+        return answer;
+    }
     init() {
         const inputList = this.form.querySelectorAll("input");
         const labelList = this.form.querySelectorAll("label.input-error");
-        console.log("init", inputList, labelList);
         function findingErrorLabel(name: string) {
             const length = labelList.length;
             for (let i = 0; i < length; i++) {
@@ -240,8 +243,7 @@ export default class Validator {
         }
         inputList.forEach((input: HTMLInputElement) => {
             const name = input.getAttribute("name") as keyof Validator;
-
-            const funcThisClass = (this[name] as Func).bind(this);
+            const funcThisClass: Func = (this[name] as Func).bind(this);
             if (name && funcThisClass) {
                 const errorLabel: Element | null = findingErrorLabel(name);
                 input.addEventListener("focus", () => {

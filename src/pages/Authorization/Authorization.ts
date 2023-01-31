@@ -12,12 +12,14 @@ const data: Record<string, string> = {
 const inputsList: Record<string, string>[] = [
     {
         id: "login",
+        name: "login",
         title: "Логин",
         type: "",
         error: "Неверный логин",
     },
     {
         id: "password",
+        name: "login",
         title: "Пароль",
         type: "password",
         error: "Неверный логин",

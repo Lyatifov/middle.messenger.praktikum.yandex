@@ -2,17 +2,21 @@
     "env": {
         "browser": true,
         "es6": true,
-        "es2017": true
+        "es2021": true,
+        "es2017": true,
+        "amd": true,
+        "node": true
     },
     "extends": [
         // Базовый набор правил eslint
         "eslint:recommended",
         // Отключаем правила из базового набора
-        "plugin:@typescript-eslint/eslint-recommended",
+        // "plugin:@typescript-eslint/eslint-recommended",
         // Базовые правила для TypeScript
         "plugin:@typescript-eslint/recommended",
         // Правила TS, требующие инфо о типах
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        // "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "google"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -23,6 +27,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "@typescript-eslint/no-unsafe-assignment": "error"
+        "@typescript-eslint/no-unsafe-assignment": "error",
+        "@typescript-eslint/no-explicit-any": 0
     }
 }
