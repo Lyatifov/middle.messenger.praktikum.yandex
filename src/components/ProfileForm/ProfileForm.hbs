@@ -1,14 +1,20 @@
-<section>
-    <form action="">
-        <ul>
-            {{{InputDataEdit}}}
-        </ul>
-        {{#if dataEdit}}
-            {{{Button}}}
-        {{else}}
-        {{/if}}
-    </form>
-</section>
-<section>
-    {{{InputDataController}}}
-</section>
+<main class="profile-page">
+    <aside id="profileBackPage">
+        <div>
+            <button id="backToChats" type="button">&#10230;</button>
+        </div>
+    </aside>
+    <section id="profileHeader">
+    </section>
+    <section>
+        <form id="{{formId}}" action="">
+            <ul id="profileData">
+            </ul>
+
+        </form>
+    </section>
+    <section id="profileButtons">
+    </section>
+</main>
+<div id="profilePage">
+</div>

@@ -1,0 +1,67 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "target": "es6",
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "sourceMap": true,
+        "strictNullChecks": true,
+        "esModuleInterop": true,
+        "lib": [
+            "es5",
+            "es6",
+            "dom",
+            "es2018",
+            "dom.iterable"
+        ]
+    },
+    "files": [
+        "./src/hbs.d.ts",
+        "./src/global.d.ts",
+        // globals
+        "./src/interfaces/interfaces.ts",
+        // interfaces
+        "./src/index.ts",
+        // enter point
+        "./src/core/Router/Router.ts",
+        "./src/core/EventBus/EventBus.ts",
+        "./src/core/Component/Component.ts",
+        "./src/core/Render/Render.ts",
+        "./src/core/View/View.ts",
+        "./src/core/Router/RoutsList.ts",
+        "./src/core/FileReader/FileReader.ts",
+        "./src/core/messages/messages.ts",
+        "./src/core/ModalWindowController/ModalWindowController.ts",
+        "./src/core/Events/OnButton.ts",
+        "./src/core/MiniModalWindow/MiniModalWindow.ts",
+        "./src/core/Forms/Forms.ts",
+        "./src/core/Validator/Validator.ts",
+        "./src/core/API/API.ts",
+        // core
+        "./src/pages/Authorization/Authorization.ts",
+        "./src/pages/Registration/Registration.ts",
+        "./src/pages/Profile/Profile.ts",
+        "./src/pages/Error/Error.ts",
+        "./src/pages/Chats/Chats.ts",
+        // pages
+        "./src/components/AuthForm/AuthForm.ts",
+        "./src/components/AuthForm/ButtonsBlock/ButtonsBlock.ts",
+        "./src/components/AuthForm/InputsBlock/InputsBlock.ts",
+        "./src/components/ChatPage/ChatPage.ts",
+        "./src/components/ChatPage/Сonversations/Сonversations.ts",
+        "./src/components/ChatPage/Main/Main.ts",
+        "./src/components/ChatPage/Main/MiniModalWindow/MiniModalWindow.ts",
+        "./src/components/ChatPage/Main/Header/Header.ts",
+        "src/components/ChatPage/Main/Messages/Messages.ts",
+        "./src/components/ModalWindow/ModalWindow.ts",
+        "src/components/ProfileForm/ProfileForm.ts",
+        "src/components/ProfileForm/Header/Header.ts",
+        "src/components/ProfileForm/Buttons/Buttons.ts",
+        "src/components/ProfileForm/Inputs/Inputs.ts",
+        "./src/components/UI/Input/Input.ts",
+        "./src/components/UI/Button/Button.ts",
+        // components
+    ]
+}
