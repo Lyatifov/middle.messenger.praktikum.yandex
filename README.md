@@ -13,3 +13,18 @@ A special application for instantaneous text messages, photos, pictures, videos,
 | :------------ | :------------------------------- |
 | npm run build | Makes a build                    |
 | npm run start | Starts local server at 3000 port |
+
+### Structure project
+```
+├──src
+│   ├── components      - responsible for page rendering
+│   ├── interfaces      - interfaces and types for TS
+|   ├── pages           - page information
+│   ├── core            - the logic of the framework
+│   │   ├── Forms       - form state initialization and management service
+        ├── Validator   - validation of forms
+        ├── Router      - service for moving between pages
+        ├── Render      - service for announcing a new component
+        ├── Component   - a service that implements a component approach
+        ...
+```
