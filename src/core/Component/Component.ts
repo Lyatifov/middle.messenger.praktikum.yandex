@@ -36,7 +36,8 @@ export default class Component {
         if (element) {
             return element;
         }
-        throw new Error(`element: ${id} not found!`);
+        const newElement = document.createElement("div");
+        return newElement;
     }
     check(newContent: PageComponent) {
         if (JSON.stringify(newContent) === JSON.stringify(this.props)) {
@@ -67,7 +68,7 @@ export default class Component {
             this.props = {
                 ...newProps,
             };
-            this._render();
+            this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
         }
     }
     propsUpdate(options: Record<string, boolean | string>) {
@@ -75,7 +76,7 @@ export default class Component {
             this.props.options = options;
             const isSame = this.checkOptions(options);
             if (!isSame) {
-                this._render();
+                this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
             }
         }
         this.childUpdate(options);

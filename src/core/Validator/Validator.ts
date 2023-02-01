@@ -71,10 +71,10 @@ export default class Validator {
     isEmpty(input: string | undefined | null): boolean {
         if (input) {
             if (input.trim().length) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
     first_name(input: string): Answer {
         const answer: Answer = {
@@ -265,5 +265,23 @@ export default class Validator {
                 });
             }
         });
+    }
+    check(data: Record<string, string>): boolean {
+        const arr = Object.entries(data);
+        const checkResult = arr.filter((item) => {
+            const name = item[0] as keyof Validator;
+            const funcThisClass: Func = (this[name] as Func).bind(this);
+            if (funcThisClass) {
+                const result = funcThisClass(item[1]);
+                if (result.result) {
+                    return item;
+                }
+            }
+            return;
+        });
+        if (checkResult.length == arr.length) {
+            return true;
+        }
+        return false;
     }
 }

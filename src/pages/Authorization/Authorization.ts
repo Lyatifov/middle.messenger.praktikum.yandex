@@ -19,7 +19,7 @@ const inputsList: Record<string, string>[] = [
     },
     {
         id: "password",
-        name: "login",
+        name: "password",
         title: "Пароль",
         type: "password",
         error: "Неверный логин",
@@ -43,10 +43,6 @@ export default () => {
     function ClickMe() {
         const controller: Record<string, string>[] = [
             {
-                buttonId: "enterAuth",
-                redirectTo: "/chats",
-            },
-            {
                 buttonId: "redirectionToRegistration",
                 redirectTo: "/registration",
             },
@@ -54,7 +50,7 @@ export default () => {
         OnButton(controller);
     }
     function initAuthForm() {
-        Forms(data.formId);
+        Forms(data.formId, "/chats");
     }
     const domComponents: PageComponent = {
         enter: "root",

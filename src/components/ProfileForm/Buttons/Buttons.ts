@@ -1,17 +1,11 @@
 import template from "./Buttons.hbs";
-import Button from "../../UI/Button/Button";
 
 export default (_: string, edit: Record<string, boolean | string>): string => {
-    const button = {
-        id: "saveEditedData",
-        value: "Сохранить",
-        type: "submit",
-    };
-    if (edit.dataEdit) {
-        return Button(button);
+    if (!edit.dataEdit) {
+        const res = template({
+            ...edit,
+        });
+        return res;
     }
-    const res = template({
-        ...edit,
-    });
-    return res;
+    return "";
 };

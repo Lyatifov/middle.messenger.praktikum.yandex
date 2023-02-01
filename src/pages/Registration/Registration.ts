@@ -77,10 +77,7 @@ const buttonsList: Record<string, string>[] = [
 export default () => {
     function ClickMe() {
         const controller: Record<string, string>[] = [
-            {
-                buttonId: "enterRegistration",
-                redirectTo: "/auth",
-            },
+            
             {
                 buttonId: "redirectionToAuth",
                 redirectTo: "/auth",
@@ -89,7 +86,7 @@ export default () => {
         OnButton(controller);
     }
     function initRegistrationForm() {
-        Forms(data.formId);
+        Forms(data.formId, "/auth");
     }
     const domComponents: PageComponent = {
         enter: "root",

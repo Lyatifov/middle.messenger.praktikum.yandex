@@ -112,10 +112,10 @@ export default (edit: Record<string, boolean | string>) => {
     }
     function EditButtons() {
         const controller: Record<string, string>[] = [
-            {
-                buttonId: "saveEditedData",
-                redirectTo: "/profile",
-            },
+            // {
+            //     buttonId: "saveEditedData",
+            //     redirectTo: "/profile",
+            // },
             {
                 buttonId: "editData",
                 redirectTo: "/profile/edit/data",
@@ -131,11 +131,20 @@ export default (edit: Record<string, boolean | string>) => {
         ];
         OnButton(controller);
     }
+    function EditFormButtons() {
+        const controller: Record<string, string>[] = [
+            {
+                buttonId: "backToProfile",
+                redirectTo: "/profile",
+            },
+        ];
+        OnButton(controller);
+    }
     function initModalForm() {
         Forms(dataFromModal.formId);
     }
     function initProfileForm() {
-        Forms(ProfileFormData.formId);
+        Forms(ProfileFormData.formId, "/profile");
     }
     const domComponents: PageComponent = {
         enter: "root",
@@ -154,7 +163,7 @@ export default (edit: Record<string, boolean | string>) => {
                 enter: "profileData",
                 callback: Inputs,
                 data: data,
-                events: [],
+                events: [EditFormButtons],
                 options: edit,
                 children: [],
             },
