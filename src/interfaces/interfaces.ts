@@ -12,6 +12,12 @@ export interface DataForMiniModalWindow {
     buttons: Record<string, string>[];
 }
 
+export interface EventE {
+    targetId: string;
+    eventName: string;
+    func: (params: any) => void;
+}
+
 export interface PageComponent {
     enter: string;
     callback: (
@@ -33,7 +39,7 @@ export interface PageComponent {
         | Record<string, Record<string, string>[]>
         | Record<string, string | Record<string, string>[]>
         | string;
-    events: (() => void)[];
+    events: EventE[];
     options?: Record<string, boolean | string>;
     children: PageComponent[];
 }

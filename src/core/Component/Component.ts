@@ -17,6 +17,7 @@ export default class Component {
     props: PageComponent;
     eventBus: EventBus;
     childComponent: Component[] = [];
+    activeEvents: any[] = [];
     constructor(components: PageComponent) {
         this.eventBus = new EventBus();
         this.props = components;
@@ -85,12 +86,13 @@ export default class Component {
         return this._element;
     }
     _render() {
+        this._removeEvents();
         this._element.innerHTML = this.render(
             this.props.callback,
             this.props.data,
             this.props.options
         );
-        this.addEvents();
+        this._addEvents();
         this.renderChildern();
     }
     render(
@@ -141,13 +143,22 @@ export default class Component {
                 this.childComponent.push(...Render([child]));
             });
     }
-    addEvents() {
-        const events: FV[] = this.props.events;
-        if (events.length) {
-            events.forEach((event: () => void) => {
-                event();
+    _addEvents() {
+        this.props.events.forEach((event) => {
+            const target = this._findDocumentElement(event.targetId);
+            target.addEventListener(event.eventName, event.func);
+            this.activeEvents.push({
+                target,
+                eventName: event.eventName,
+                func: event.func,
             });
-        }
+        });
+    }
+    _removeEvents() {
+        this.activeEvents.forEach((event) => {
+            event.target.remove(event.eventName, event.func);
+        });
+        this.activeEvents = [];
     }
     renderChildern() {
         if (this.props.children.length) {

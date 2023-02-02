@@ -3,167 +3,157 @@ interface Answer {
     message: string;
 }
 type Func = (input: string) => Answer;
-export default class Validator {
-    form: HTMLElement;
-    constructor(form: HTMLElement) {
-        this.form = form;
-        setTimeout(() => this.init(), 1);
-    }
-    isLatinAlphabet(input: string): boolean {
-        const pattern = new RegExp(/[a-z]/i);
-        const isMatch = pattern.test(input);
-        return isMatch;
-    }
-    isCyrillicAlphabet(input: string): boolean {
-        const pattern = new RegExp(/[а-я]/i);
-        const isMatch = pattern.test(input);
-        return isMatch;
-    }
-    isFirstLetterIsUppercase(input: string): boolean {
-        const pattern = new RegExp(/^[A-ZА-Я]/);
-        const isMatch = pattern.test(input);
-        return isMatch;
-    }
-    isCapitalLetter(input: string): boolean {
-        const pattern = new RegExp(/[A-ZА-Я]/g);
-        const isMatch = pattern.test(input);
-        return isMatch;
-    }
-    isSpaces(input: string): boolean {
-        const pattern = new RegExp(/\s/g);
-        const isMatch = pattern.test(input);
-        return isMatch;
-    }
-    isNumber(input: string): boolean {
-        const pattern = new RegExp(/[0-9]/g);
-        const isMatch = pattern.test(input);
-        return isMatch;
-    }
-    isSpecialCharacters(input: string): boolean {
+
+function isLatinAlphabet(input: string): boolean {
+    const pattern = new RegExp(/[a-z]/i);
+    const isMatch = pattern.test(input);
+    return isMatch;
+}
+function isCyrillicAlphabet(input: string): boolean {
+    const pattern = new RegExp(/[а-я]/i);
+    const isMatch = pattern.test(input);
+    return isMatch;
+}
+function isFirstLetterIsUppercase(input: string): boolean {
+    const pattern = new RegExp(/^[A-ZА-Я]/);
+    const isMatch = pattern.test(input);
+    return isMatch;
+}
+function isCapitalLetter(input: string): boolean {
+    const pattern = new RegExp(/[A-ZА-Я]/g);
+    const isMatch = pattern.test(input);
+    return isMatch;
+}
+function isSpaces(input: string): boolean {
+    const pattern = new RegExp(/\s/g);
+    const isMatch = pattern.test(input);
+    return isMatch;
+}
+function isNumber(input: string): boolean {
+    const pattern = new RegExp(/[0-9]/g);
+    const isMatch = pattern.test(input);
+    return isMatch;
+}
+function isSpecialCharacters(input: string): boolean {
+    // eslint-disable-next-line no-useless-escape
+    const pattern = new RegExp(/[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]/g);
+    const isMatch = pattern.test(input);
+    return isMatch;
+}
+function isEmail(input: string): boolean {
+    const pattern = new RegExp(
         // eslint-disable-next-line no-useless-escape
-        const pattern = new RegExp(/[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]/g);
-        const isMatch = pattern.test(input);
-        return isMatch;
-    }
-    isEmail(input: string): boolean {
-        const pattern = new RegExp(
-            // eslint-disable-next-line no-useless-escape
-            /^[a-zA-Z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1}([a-zA-Z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1})*[a-zA-Z0-9]@[a-zA-Z0-9][-\.]{0,1}([a-zA-Z][-\.]{0,1})*[a-zA-Z0-9]\.[a-zA-Z0-9]{1,}([\.\-]{0,1}[a-zA-Z]){0,}[a-zA-Z0-9]{0,}$/i
-        );
-        const isMatch = pattern.test(input);
-        return isMatch;
-    }
-    isPhone(input: string): boolean {
-        const pattern = new RegExp(
-            // eslint-disable-next-line no-useless-escape
-            /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/g
-        );
-        const isMatch = pattern.test(input);
-        return isMatch;
-    }
-    isLength(input: string, min: number, max: number): boolean {
-        const length = input.length;
-        if (min <= length && length <= max) {
-            return true;
-        }
-        return false;
-    }
-    isEmpty(input: string | undefined | null): boolean {
-        if (input) {
-            if (input.trim().length) {
-                return false;
-            }
-        }
+        /^[a-zA-Z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1}([a-zA-Z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1})*[a-zA-Z0-9]@[a-zA-Z0-9][-\.]{0,1}([a-zA-Z][-\.]{0,1})*[a-zA-Z0-9]\.[a-zA-Z0-9]{1,}([\.\-]{0,1}[a-zA-Z]){0,}[a-zA-Z0-9]{0,}$/i
+    );
+    const isMatch = pattern.test(input);
+    return isMatch;
+}
+function isPhone(input: string): boolean {
+    const pattern = new RegExp(
+        // eslint-disable-next-line no-useless-escape
+        /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/g
+    );
+    const isMatch = pattern.test(input);
+    return isMatch;
+}
+function isLength(input: string, min: number, max: number): boolean {
+    const length = input.length;
+    if (min <= length && length <= max) {
         return true;
     }
-    first_name(input: string): Answer {
+    return false;
+}
+function isEmpty(input: string | undefined | null): boolean {
+    if (input) {
+        if (input.trim().length) {
+            return false;
+        }
+    }
+    return true;
+}
+
+const listOfHashNames: Record<string, (input: string) => Answer> = {
+    first_name: function (input: string): Answer {
         const answer: Answer = {
             result: false,
             message:
                 "В данное поле принимается: латиница или кириллица, первая буква должна быть заглавной, без пробелов. без цифр, без спецсимволов (допустим только дефис)",
         };
         if (!input) return answer;
-        const isCyrillic = this.isCyrillicAlphabet(input);
-        const isLatin = this.isLatinAlphabet(input);
-        const isFirstLetterIsUppercase = this.isFirstLetterIsUppercase(input);
-        const isSpaces = this.isSpaces(input);
-        const isNumber = this.isNumber(input);
-        const isSpecialCharacters = this.isSpecialCharacters(input);
+        const Cyrillic = isCyrillicAlphabet(input);
+        const Latin = isLatinAlphabet(input);
+        const FirstLetterIsUppercase = isFirstLetterIsUppercase(input);
+        const Spaces = isSpaces(input);
+        const Number = isNumber(input);
+        const SpecialCharacters = isSpecialCharacters(input);
         if (
-            (isCyrillic || isLatin) &&
-            isFirstLetterIsUppercase &&
-            !isSpaces &&
-            !isNumber &&
-            !isSpecialCharacters
+            (Cyrillic || Latin) &&
+            FirstLetterIsUppercase &&
+            !Spaces &&
+            !Number &&
+            !SpecialCharacters
         ) {
             answer.result = true;
         }
         return answer;
-    }
-    second_name(input: string): Answer {
+    },
+    second_name: function (input: string): Answer {
         const answer: Answer = {
             result: false,
             message:
                 "В данное поле принимается: латиница или кириллица, первая буква должна быть заглавной, без пробелов. без цифр, без спецсимволов (допустим только дефис)",
         };
         if (!input) return answer;
-        return this.first_name(input);
-    }
-    login(input: string): Answer {
+        return listOfHashNames.first_name(input);
+    },
+    login: function (input: string): Answer {
         const answer: Answer = {
             result: false,
             message:
                 "В данное поле принимается: от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)",
         };
         if (!input) return answer;
-        const isCyrillic = this.isCyrillicAlphabet(input);
-        const isLatin = this.isLatinAlphabet(input);
-        const isSpaces = this.isSpaces(input);
-        const isSpecialCharacters = this.isSpecialCharacters(input);
-        const isLength = this.isLength(input, 3, 20);
-        if (!isCyrillic && isLatin && !isSpaces && !isSpecialCharacters && isLength) {
+        const Cyrillic = isCyrillicAlphabet(input);
+        const Latin = isLatinAlphabet(input);
+        const Spaces = isSpaces(input);
+        const SpecialCharacters = isSpecialCharacters(input);
+        const Length = isLength(input, 3, 20);
+        if (!Cyrillic && Latin && !Spaces && !SpecialCharacters && Length) {
             answer.result = true;
         }
         return answer;
-    }
-    email(input: string): Answer {
+    },
+    email: function (input: string): Answer {
         const answer: Answer = {
             result: false,
             message: "Неверный формат почты",
         };
         if (!input) return answer;
-        const isEmail = this.isEmail(input);
-        if (isEmail) {
+        const Email = isEmail(input);
+        if (Email) {
             answer.result = true;
         }
         return answer;
-    }
-    password(input: string): Answer {
+    },
+    password: function (input: string): Answer {
         const answer: Answer = {
             result: false,
             message:
                 "В данное поле принимается: от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра",
         };
         if (!input) return answer;
-        const isCyrillic = this.isCyrillicAlphabet(input);
-        const isLatin = this.isLatinAlphabet(input);
-        const isSpaces = this.isSpaces(input);
-        const isNumber = this.isNumber(input);
-        const isCapitalLetter = this.isCapitalLetter(input);
-        const isLength = this.isLength(input, 8, 40);
-        if (
-            !isCyrillic &&
-            isLatin &&
-            !isSpaces &&
-            isNumber &&
-            isCapitalLetter &&
-            isLength
-        ) {
+        const Cyrillic = isCyrillicAlphabet(input);
+        const Latin = isLatinAlphabet(input);
+        const Spaces = isSpaces(input);
+        const Number = isNumber(input);
+        const CapitalLetter = isCapitalLetter(input);
+        const Length = isLength(input, 8, 40);
+        if (!Cyrillic && Latin && !Spaces && Number && CapitalLetter && Length) {
             answer.result = true;
         }
         return answer;
-    }
-    phone(input: string): Answer {
+    },
+    phone: function (input: string): Answer {
         const answer: Answer = {
             result: false,
             message:
@@ -172,24 +162,24 @@ export default class Validator {
         if (!input) {
             return answer;
         }
-        const isPhone = this.isPhone(input);
-        if (isPhone) {
+        const Phone = isPhone(input);
+        if (Phone) {
             answer.result = true;
         }
         return answer;
-    }
-    message(input: string): Answer {
+    },
+    message: function (input: string): Answer {
         const answer: Answer = {
             result: false,
             message: "",
         };
         if (!input) return answer;
-        if (!this.isEmpty(input)) {
+        if (!isEmpty(input)) {
             answer.result = true;
         }
         return answer;
-    }
-    passwordRepite(input: string): Answer {
+    },
+    passwordRepite: function (input: string): Answer {
         const answer: Answer = {
             result: false,
             message: "Введенные пароли разные",
@@ -204,84 +194,234 @@ export default class Validator {
             }
         }
         return answer;
-    }
-    display_name(input: string): Answer {
+    },
+    display_name: function (input: string): Answer {
         const answer: Answer = {
             result: false,
             message:
                 "В данное поле принимается: от 5 до 20 символов, латиница или кириллица, без пробелов, без спецсимволов",
         };
         if (!input) return answer;
-        const isLength = this.isLength(input, 5, 20);
-        const isCyrillic = this.isCyrillicAlphabet(input);
-        const isLatin = this.isLatinAlphabet(input);
-        const isSpaces = this.isSpaces(input);
-        const isSpecialCharacters = this.isSpecialCharacters(input);
-        if ((isCyrillic || isLatin) && !isSpaces && !isSpecialCharacters && isLength) {
+        const Length = isLength(input, 5, 20);
+        const Cyrillic = isCyrillicAlphabet(input);
+        const Latin = isLatinAlphabet(input);
+        const Spaces = isSpaces(input);
+        const SpecialCharacters = isSpecialCharacters(input);
+        if ((Cyrillic || Latin) && !Spaces && !SpecialCharacters && Length) {
             answer.result = true;
         }
         return answer;
-    }
-    search(): Answer {
+    },
+    search: function (): Answer {
         const answer: Answer = {
             result: true,
             message: "",
         };
         return answer;
-    }
-    init() {
-        const inputList = this.form.querySelectorAll("input");
-        const labelList = this.form.querySelectorAll("label.input-error");
-        function findingErrorLabel(name: string) {
-            const length = labelList.length;
-            for (let i = 0; i < length; i++) {
-                if (labelList[i].getAttribute("for") === name) {
-                    return labelList[i];
+    },
+};
+
+export function init() {
+    return {
+        focus: (event: {
+            target: any;
+            preventDefault: () => void;
+            composedPath: () => { querySelectorAll: (arg0: string) => any }[];
+        }) => {
+            const errorLabel = event
+                .composedPath()[1]
+                .querySelectorAll("label.input-error")[0];
+            if (errorLabel) {
+                errorLabel.className = "input-error";
+            }
+        },
+        blur: (event: {
+            target: any;
+            preventDefault: () => void;
+            composedPath: () => { querySelectorAll: (arg0: string) => any }[];
+        }) => {
+            const name = event.target.name;
+            const checkFunc = listOfHashNames[name];
+            const value = event.target.value;
+            const checkAnswer = checkFunc(value);
+            const errorLabel = event
+                .composedPath()[1]
+                .querySelectorAll("label.input-error")[0];
+            if (errorLabel) {
+                if (checkAnswer.result) {
+                    errorLabel.className = "input-error";
+                } else {
+                    errorLabel.textContent = checkAnswer.message;
+                    errorLabel.className = "input-error _active";
                 }
             }
-            return null;
-        }
-        inputList.forEach((input: HTMLInputElement) => {
-            const name = input.getAttribute("name") as keyof Validator;
-            const funcThisClass: Func = (this[name] as Func).bind(this);
-            if (name && funcThisClass) {
-                const errorLabel: Element | null = findingErrorLabel(name);
-                input.addEventListener("focus", () => {
-                    if (errorLabel) {
-                        errorLabel.className = "input-error";
-                    }
-                });
-                input.addEventListener("blur", () => {
-                    const value = input.value;
-                    const result = funcThisClass(value);
-                    if (errorLabel) {
-                        errorLabel.textContent = result.message;
-                        if (!result.result) {
-                            errorLabel.className = "input-error _active";
-                        } else {
-                            errorLabel.className = "input-error";
-                        }
-                    }
-                });
-            }
-        });
-    }
-    check(data: Record<string, string>): boolean {
-        const arr = Object.entries(data);
-        const checkResult = arr.filter((item) => {
-            const name = item[0] as keyof Validator;
-            const funcThisClass: Func = (this[name] as Func).bind(this);
-            if (funcThisClass) {
-                const result = funcThisClass(item[1]);
-                if (result.result) {
-                    return item;
-                }
-            }
-            return;
-        });
-        if (checkResult.length == arr.length) {
-            return true;
-        }
-        return false;
-    }
+        },
+    };
 }
+export function check(data: Record<string, string>): boolean {
+    const arr = Object.entries(data);
+    const checkResult = arr.filter((item) => {
+        const name: string = item[0];
+        const checkThisName: Func = listOfHashNames[name];
+        if (checkThisName) {
+            const result = checkThisName(item[1]);
+            if (result.result) {
+                return item;
+            }
+        }
+        return;
+    });
+    if (checkResult.length == arr.length) {
+        return true;
+    }
+    return false;
+}
+
+// function first_name(input: string): Answer {
+//     const answer: Answer = {
+//         result: false,
+//         message:
+//             "В данное поле принимается: латиница или кириллица, первая буква должна быть заглавной, без пробелов. без цифр, без спецсимволов (допустим только дефис)",
+//     };
+//     if (!input) return answer;
+//     const Cyrillic = isCyrillicAlphabet(input);
+//     const Latin = isLatinAlphabet(input);
+//     const FirstLetterIsUppercase = isFirstLetterIsUppercase(input);
+//     const Spaces = isSpaces(input);
+//     const Number = isNumber(input);
+//     const SpecialCharacters = isSpecialCharacters(input);
+//     if (
+//         (Cyrillic || Latin) &&
+//         FirstLetterIsUppercase &&
+//         !Spaces &&
+//         !Number &&
+//         !SpecialCharacters
+//     ) {
+//         answer.result = true;
+//     }
+//     return answer;
+// }
+
+// function second_name(input: string): Answer {
+//     const answer: Answer = {
+//         result: false,
+//         message:
+//             "В данное поле принимается: латиница или кириллица, первая буква должна быть заглавной, без пробелов. без цифр, без спецсимволов (допустим только дефис)",
+//     };
+//     if (!input) return answer;
+//     return first_name(input);
+// }
+
+// function login(input: string): Answer {
+//     const answer: Answer = {
+//         result: false,
+//         message:
+//             "В данное поле принимается: от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)",
+//     };
+//     if (!input) return answer;
+//     const Cyrillic = isCyrillicAlphabet(input);
+//     const Latin = isLatinAlphabet(input);
+//     const Spaces = isSpaces(input);
+//     const SpecialCharacters = isSpecialCharacters(input);
+//     const Length = isLength(input, 3, 20);
+//     if (!Cyrillic && Latin && !Spaces && !SpecialCharacters && Length) {
+//         answer.result = true;
+//     }
+//     return answer;
+// }
+// function email(input: string): Answer {
+//     const answer: Answer = {
+//         result: false,
+//         message: "Неверный формат почты",
+//     };
+//     if (!input) return answer;
+//     const Email = isEmail(input);
+//     if (Email) {
+//         answer.result = true;
+//     }
+//     return answer;
+// }
+// function password(input: string): Answer {
+//     const answer: Answer = {
+//         result: false,
+//         message:
+//             "В данное поле принимается: от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра",
+//     };
+//     if (!input) return answer;
+//     const Cyrillic = isCyrillicAlphabet(input);
+//     const Latin = isLatinAlphabet(input);
+//     const Spaces = isSpaces(input);
+//     const Number = isNumber(input);
+//     const CapitalLetter = isCapitalLetter(input);
+//     const Length = isLength(input, 8, 40);
+//     if (!Cyrillic && Latin && !Spaces && Number && CapitalLetter && Length) {
+//         answer.result = true;
+//     }
+//     return answer;
+// }
+// function phone(input: string): Answer {
+//     const answer: Answer = {
+//         result: false,
+//         message:
+//             "В данное поле принимается: от 10 до 15 символов, состоит из цифр, может начинается с плюса.",
+//     };
+//     if (!input) {
+//         return answer;
+//     }
+//     const Phone = isPhone(input);
+//     if (Phone) {
+//         answer.result = true;
+//     }
+//     return answer;
+// }
+// function message(input: string): Answer {
+//     const answer: Answer = {
+//         result: false,
+//         message: "",
+//     };
+//     if (!input) return answer;
+//     if (!isEmpty(input)) {
+//         answer.result = true;
+//     }
+//     return answer;
+// }
+// function passwordRepite(input: string): Answer {
+//     const answer: Answer = {
+//         result: false,
+//         message: "Введенные пароли разные",
+//     };
+//     if (!input) return answer;
+//     const password = document.getElementById("password") as HTMLInputElement;
+//     if (password) {
+//         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+//         const value: string = password.value;
+//         if (input === value) {
+//             answer.result = true;
+//         }
+//     }
+//     return answer;
+// }
+// function display_name(input: string): Answer {
+//     const answer: Answer = {
+//         result: false,
+//         message:
+//             "В данное поле принимается: от 5 до 20 символов, латиница или кириллица, без пробелов, без спецсимволов",
+//     };
+//     if (!input) return answer;
+//     const Length = isLength(input, 5, 20);
+//     const Cyrillic = isCyrillicAlphabet(input);
+//     const Latin = isLatinAlphabet(input);
+//     const Spaces = isSpaces(input);
+//     const SpecialCharacters = isSpecialCharacters(input);
+//     if ((Cyrillic || Latin) && !Spaces && !SpecialCharacters && Length) {
+//         answer.result = true;
+//     }
+//     return answer;
+// }
+// function search(): Answer {
+//     const answer: Answer = {
+//         result: true,
+//         message: "",
+//     };
+//     return answer;
+// }

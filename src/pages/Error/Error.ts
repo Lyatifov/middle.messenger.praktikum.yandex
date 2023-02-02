@@ -9,15 +9,11 @@ export function BuildErrorPage(errorData: Record<string, string>[]): string {
     return res;
 }
 export default (): PageComponent => {
-    function ClickMe() {
-        const controller: Record<string, string>[] = [
-            {
-                buttonId: "backToChats",
-                redirectTo: "/chats",
-            },
-        ];
-        OnButton(controller);
-    }
+    const backToChats = {
+        targetId: "backToChats",
+        eventName: "click",
+        func: OnButton("/chats"),
+    };
     const error404: Record<string, string>[] = [
         {
             title: "404",
@@ -28,7 +24,7 @@ export default (): PageComponent => {
         enter: "root",
         callback: BuildErrorPage,
         data: error404,
-        events: [ClickMe],
+        events: [backToChats],
         children: [],
     };
 

@@ -2,13 +2,13 @@ import ProfileForm from "../../components/ProfileForm/ProfileForm";
 import Header from "../../components/ProfileForm/Header/Header";
 import Inputs from "../../components/ProfileForm/Inputs/Inputs";
 import Buttons from "../../components/ProfileForm/Buttons/Buttons";
-import { PageComponent } from "../../interfaces/interfaces";
+import { EventE, PageComponent } from "../../interfaces/interfaces";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
-import FileReader from "../../core/FileReader/FileReader";
 import ModalWindowController from "../../core/ModalWindowController/ModalWindowController";
 import { OnButton } from "../../core/Events/OnButton";
 import { DataFromModal } from "../../interfaces/interfaces";
 import Forms from "../../core/Forms/Forms";
+import { init } from "../../core/Validator/Validator";
 
 const ProfileFormData: Record<string, string> = {
     formId: "profileDataForm",
@@ -101,56 +101,91 @@ const dataFromModal: DataFromModal = {
     formId: "profileModalForm",
 };
 export default (edit: Record<string, boolean | string>) => {
-    function BackButton() {
-        const controller: Record<string, string>[] = [
-            {
-                buttonId: "backToChats",
-                redirectTo: "/chats",
-            },
-        ];
-        OnButton(controller);
-    }
-    function EditButtons() {
-        const controller: Record<string, string>[] = [
-            // {
-            //     buttonId: "saveEditedData",
-            //     redirectTo: "/profile",
-            // },
-            {
-                buttonId: "editData",
-                redirectTo: "/profile/edit/data",
-            },
-            {
-                buttonId: "editPassword",
-                redirectTo: "/profile/edit/password",
-            },
-            {
-                buttonId: "logOut",
-                redirectTo: "/auth",
-            },
-        ];
-        OnButton(controller);
-    }
-    function EditFormButtons() {
-        const controller: Record<string, string>[] = [
-            {
-                buttonId: "backToProfile",
-                redirectTo: "/profile",
-            },
-        ];
-        OnButton(controller);
-    }
-    function initModalForm() {
-        Forms(dataFromModal.formId);
-    }
-    function initProfileForm() {
-        Forms(ProfileFormData.formId, "/profile");
-    }
+    const redirectionToChats = {
+        targetId: "backToChats",
+        eventName: "click",
+        func: OnButton("/chats"),
+    };
+    const editData = {
+        targetId: "editData",
+        eventName: "click",
+        func: OnButton("/profile/edit/data"),
+    };
+    const editPassword = {
+        targetId: "editPassword",
+        eventName: "click",
+        func: OnButton("/profile/edit/password"),
+    };
+    const logOut = {
+        targetId: "logOut",
+        eventName: "click",
+        func: OnButton("/auth"),
+    };
+    const redirectionToProfile = {
+        targetId: "backToProfile",
+        eventName: "click",
+        func: OnButton("/profile"),
+    };
+    const initModalForm = {
+        targetId: dataFromModal.formId,
+        eventName: "submit",
+        func: Forms(),
+    };
+    const initProfileForm = {
+        targetId: ProfileFormData.formId,
+        eventName: "submit",
+        func: Forms("/profile"),
+    };
+    const callModalWindow1 = {
+        targetId: "profileImgLabel",
+        eventName: "click",
+        func: ModalWindowController("modalWindow"),
+    };
+    const callModalWindow2 = {
+        targetId: "profileImgEditor",
+        eventName: "click",
+        func: ModalWindowController("modalWindow"),
+    };
+    const closeModalWindow = {
+        targetId: "background",
+        eventName: "click",
+        func: ModalWindowController("modalWindow"),
+    };
+    const dataEvents: EventE[] = data.DataList.reduce(
+        (arr: EventE[], item: Record<string, string>) => {
+            const calidatorInitEvent: any = init();
+            Object.keys(calidatorInitEvent).forEach((key) => {
+                const newEvent: EventE = {
+                    targetId: item.id,
+                    eventName: key,
+                    func: calidatorInitEvent[key],
+                };
+                return arr.push(newEvent);
+            });
+            return arr;
+        },
+        []
+    );
+    const passwordEvents: EventE[] = data.PasswordList.reduce(
+        (arr: EventE[], item: Record<string, string>) => {
+            const calidatorInitEvent: any = init();
+            Object.keys(calidatorInitEvent).forEach((key) => {
+                const newEvent: EventE = {
+                    targetId: item.id,
+                    eventName: key,
+                    func: calidatorInitEvent[key],
+                };
+                return arr.push(newEvent);
+            });
+            return arr;
+        },
+        []
+    );
     const domComponents: PageComponent = {
         enter: "root",
         callback: ProfileForm,
         data: ProfileFormData,
-        events: [BackButton, initProfileForm],
+        events: [redirectionToChats, initProfileForm],
         children: [
             {
                 enter: "profileHeader",
@@ -163,7 +198,7 @@ export default (edit: Record<string, boolean | string>) => {
                 enter: "profileData",
                 callback: Inputs,
                 data: data,
-                events: [EditFormButtons],
+                events: [redirectionToProfile, ...passwordEvents, ...dataEvents],
                 options: edit,
                 children: [],
             },
@@ -171,7 +206,7 @@ export default (edit: Record<string, boolean | string>) => {
                 enter: "profileButtons",
                 callback: Buttons,
                 data: "",
-                events: [EditButtons],
+                events: [editData, editPassword, logOut],
                 options: edit,
                 children: [],
             },
@@ -179,7 +214,12 @@ export default (edit: Record<string, boolean | string>) => {
                 enter: "profilePage",
                 callback: ModalWindow,
                 data: dataFromModal,
-                events: [FileReader, ModalWindowController, initModalForm],
+                events: [
+                    callModalWindow1,
+                    callModalWindow2,
+                    closeModalWindow,
+                    initModalForm,
+                ],
                 options: edit,
                 children: [],
             },

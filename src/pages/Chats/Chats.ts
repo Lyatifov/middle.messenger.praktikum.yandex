@@ -12,6 +12,7 @@ import { DataFromModal } from "../../interfaces/interfaces";
 import MiniModalWindow from "../../components/ChatPage/Main/MiniModalWindow/MiniModalWindow";
 import { DataForMiniModalWindow } from "../../interfaces/interfaces";
 import Forms from "../../core/Forms/Forms";
+import ModalWindowController from "../../core/ModalWindowController/ModalWindowController";
 
 const dataFromModal: DataFromModal = {
     formId: "chatModalForm",
@@ -67,57 +68,57 @@ const dataForHeaderMiniModalWindow: DataForMiniModalWindow = {
 };
 
 export default () => {
-    function ClickMe() {
-        const controller: Record<string, string>[] = [
-            {
-                buttonId: "redirectionToProfile",
-                redirectTo: "/profile",
-            },
-        ];
-        OnButton(controller);
-    }
-    function addMiniModalForHeader() {
-        const id = "headerMiniModal";
-        const button = "headerOption";
-        MiniModalWindowFunction(button, id);
-    }
-    function addMiniModalForFooter() {
-        const id = "footerMiniModal";
-        const button = "footerOption";
-        MiniModalWindowFunction(button, id);
-    }
-    function controllerModalWindow() {
-        const modalWindow = document.getElementById("modalWindow");
-        const addUserButton = document.getElementById("addUser");
-        const removeUserButton = document.getElementById("removeUser");
-        const background = document.getElementById("background");
-        if (modalWindow && addUserButton && removeUserButton && background) {
-            const callModalWindow = () => {
-                modalWindow.className = "modal-window_active";
-            };
-            background.addEventListener("click", () => {
-                modalWindow.className = "modal-window";
-            });
-            addUserButton.removeEventListener("click", callModalWindow);
-            addUserButton.addEventListener("click", callModalWindow);
-            removeUserButton.removeEventListener("click", callModalWindow);
-            removeUserButton.addEventListener("click", callModalWindow);
-        }
-    }
-    function initSearchForm() {
-        Forms("searchForm");
-    }
-    function initMessageForm() {
-        Forms(interlocutor[1].formId);
-    }
-    function initChatModalForm() {
-        Forms(dataFromModal.formId);
-    }
+    const redirectionToProfile = {
+        targetId: "redirectionToProfile",
+        eventName: "click",
+        func: OnButton("/profile"),
+    };
+    const callMiniModelFromHeader = {
+        targetId: "headerOption",
+        eventName: "click",
+        func: MiniModalWindowFunction("headerMiniModal"),
+    };
+    const callMiniModelFromFooter = {
+        targetId: "footerOption",
+        eventName: "click",
+        func: MiniModalWindowFunction("footerMiniModal"),
+    };
+    const callModalWindow1 = {
+        targetId: "addUser",
+        eventName: "click",
+        func: ModalWindowController("modalWindow"),
+    };
+    const callModalWindow2 = {
+        targetId: "removeUser",
+        eventName: "click",
+        func: ModalWindowController("modalWindow"),
+    };
+    const closeModalWindow = {
+        targetId: "background",
+        eventName: "click",
+        func: ModalWindowController("modalWindow"),
+    };
+
+    const initMessageForm = {
+        targetId: interlocutor[1].formId,
+        eventName: "submit",
+        func: Forms(),
+    };
+    const initSearchForm = {
+        targetId: "searchForm",
+        eventName: "submit",
+        func: Forms(),
+    };
+    const initChatModalForm = {
+        targetId: dataFromModal.formId,
+        eventName: "submit",
+        func: Forms(),
+    };
     const domComponents: PageComponent = {
         enter: "root",
         callback: ChatPage,
         data: "searchForm",
-        events: [ClickMe, initSearchForm],
+        events: [redirectionToProfile, initSearchForm],
         children: [
             {
                 enter: "conversations",
@@ -136,7 +137,7 @@ export default () => {
                         enter: "footerModalWrapper",
                         callback: MiniModalWindow,
                         data: dataForFooterMiniModalWindow,
-                        events: [addMiniModalForFooter, initMessageForm],
+                        events: [callMiniModelFromFooter, initMessageForm],
                         children: [],
                     },
                     {
@@ -149,7 +150,7 @@ export default () => {
                                 enter: "headerModalWrapper",
                                 callback: MiniModalWindow,
                                 data: dataForHeaderMiniModalWindow,
-                                events: [addMiniModalForHeader],
+                                events: [callMiniModelFromHeader],
                                 children: [],
                             },
                         ],
@@ -167,7 +168,12 @@ export default () => {
                 enter: "modalWrapper",
                 callback: ModalWindow,
                 data: dataFromModal,
-                events: [controllerModalWindow, initChatModalForm],
+                events: [
+                    callModalWindow1,
+                    callModalWindow2,
+                    closeModalWindow,
+                    initChatModalForm,
+                ],
                 children: [],
             },
         ],
