@@ -1,9 +1,10 @@
 import AuthForm from "../../components/AuthForm/AuthForm";
 import InputsBlock from "../../components/AuthForm/InputsBlock/InputsBlock";
 import ButtonsBlock from "../../components/AuthForm/ButtonsBlock/ButtonsBlock";
-import { PageComponent } from "../../interfaces/interfaces";
+import { EventE, PageComponent } from "../../interfaces/interfaces";
 import { OnButton } from "../../core/Events/OnButton";
 import Forms from "../../core/Forms/Forms";
+import { init } from "../../core/Validator/Validator";
 
 const data: Record<string, string> = {
     formId: "registrationForm",
@@ -75,19 +76,31 @@ const buttonsList: Record<string, string>[] = [
 ];
 
 export default () => {
-    function ClickMe() {
-        const controller: Record<string, string>[] = [
-            
-            {
-                buttonId: "redirectionToAuth",
-                redirectTo: "/auth",
-            },
-        ];
-        OnButton(controller);
-    }
-    function initRegistrationForm() {
-        Forms(data.formId, "/auth");
-    }
+    const redirectionToAuth = {
+        targetId: "redirectionToAuth",
+        eventName: "click",
+        func: OnButton("/auth"),
+    };
+    const initRegistrationForm = {
+        targetId: data.formId,
+        eventName: "submit",
+        func: Forms("/auth"),
+    };
+    const inputsEvent: EventE[] = inputsList.reduce(
+        (arr: EventE[], item: Record<string, string>) => {
+            const calidatorInitEvent: any = init();
+            Object.keys(calidatorInitEvent).forEach((key) => {
+                const newEvent: EventE = {
+                    targetId: item.id,
+                    eventName: key,
+                    func: calidatorInitEvent[key],
+                };
+                return arr.push(newEvent);
+            });
+            return arr;
+        },
+        []
+    );
     const domComponents: PageComponent = {
         enter: "root",
         callback: AuthForm,
@@ -98,14 +111,14 @@ export default () => {
                 enter: "inputsBlock",
                 callback: InputsBlock,
                 data: inputsList,
-                events: [],
+                events: inputsEvent,
                 children: [],
             },
             {
                 enter: "buttonsBlock",
                 callback: ButtonsBlock,
                 data: buttonsList,
-                events: [ClickMe],
+                events: [redirectionToAuth],
                 children: [],
             },
         ],
