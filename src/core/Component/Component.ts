@@ -156,7 +156,7 @@ export default class Component {
     }
     _removeEvents() {
         this.activeEvents.forEach((event) => {
-            event.target.remove(event.eventName, event.func);
+            event.target.removeEventListener(event.eventName, event.func);
         });
         this.activeEvents = [];
     }
