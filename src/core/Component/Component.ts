@@ -12,7 +12,7 @@ export default class Component {
         FLOW_CDM: "flow:component-did-mount",
         FLOW_CDU: "flow:component-did-update",
         FLOW_RENDER: "flow:render",
-    };
+    } as const;
     _element: HTMLElement;
     props: PageComponent;
     eventBus: EventBus;
