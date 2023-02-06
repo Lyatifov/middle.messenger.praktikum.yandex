@@ -13,6 +13,45 @@ $color-shadow: rgba(0, 0, 0, 0.14);
 $color-red: #ff2f2f;
 $color-black: black;
 
+.input-block {
+    position: relative;
+    margin: 30px 0;
+    .input {
+        border: 0;
+        border-bottom: 2px solid $color-2;
+        width: 100%;
+        padding: 7px 0;
+    }
+    .placeholder {
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 13px;
+        color: $color-white-2;
+        position: absolute;
+        bottom: 7px;
+        left: 0;
+        transition: transform 500ms;
+    }
+    .input:focus ~ .placeholder,
+    .input:not(:placeholder-shown) ~ .placeholder {
+        transform: translateX(-10%) translateY(-23px) scale(0.8);
+        transition: transform 500ms;
+    }
+    .input-error {
+        font-weight: 400;
+        font-size: 8px;
+        line-height: 8px;
+        color: $color-red;
+        position: absolute;
+        top: 35px;
+        left: 0;
+        opacity: 0;
+    }
+    ._active {
+        opacity: 1;
+    }
+}
+
 * {
     font-family: "Inter", sans-serif;
     font-style: normal;
@@ -36,6 +75,7 @@ button {
 main {
     height: 100vh;
     display: flex;
+    overflow: hidden;
 }
 
 .error-wrapper {
@@ -76,47 +116,12 @@ main {
         line-height: 20px;
         color: $color-1;
     }
-    .input-block {
-        position: relative;
-        margin-top: 30px;
-        .input {
-            border: 0;
-            border-bottom: 2px solid $color-2;
-            width: 100%;
-            padding: 7px 0;
-        }
-        .placeholder {
-            font-weight: 500;
-            font-size: 13px;
-            line-height: 13px;
-            color: $color-white-2;
-            position: absolute;
-            bottom: 7px;
-            left: 0;
-            transition: transform 500ms;
-        }
-        .input:focus ~ .placeholder,
-        .input:not(:placeholder-shown) ~ .placeholder {
-            transform: translateX(-10%) translateY(-23px) scale(0.8);
-            transition: transform 500ms;
-        }
-        .input-error {
-            font-weight: 400;
-            font-size: 8px;
-            line-height: 8px;
-            color: $color-red;
-            opacity: 0;
-            position: absolute;
-            bottom: -13px;
-            left: 0;
-        }
-        .input-error_active {
-            opacity: 1;
-        }
+    .inputs-block {
+        margin: 10px 0;
     }
+
     .button-wrapper {
         margin-top: auto;
-        padding-top: 60px;
     }
 }
 
@@ -134,7 +139,8 @@ main {
     height: 37px;
     background: $color-2;
     color: $color-white-1;
-    margin: auto;
+    margin: 0 auto;
+    box-shadow: 0px 0px 6px $color-shadow;
 }
 ._bg-wite {
     background: $color-white-1;
@@ -326,6 +332,21 @@ main {
         color: $color-white-2;
     }
 }
+.mini-modal {
+    position: absolute;
+    opacity: 0;
+    background: #ffffff;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    border-radius: 12px;
+    transition: 0.5s;
+    overflow: hidden;
+}
+.mini-modal_active {
+    opacity: 1;
+    li {
+        cursor: pointer;
+    }
+}
 .message-list {
     display: grid;
     grid-template-rows: 54px auto 54px;
@@ -337,6 +358,7 @@ main {
         background: $color-white-1;
     }
     header {
+        position: relative;
         box-sizing: border-box;
         height: 54px;
         display: flex;
@@ -346,6 +368,20 @@ main {
         align-items: center;
         width: auto;
         top: 0;
+        .mini-modal {
+            top: -100px;
+            right: 0;
+            padding: 5px 10px;
+            li {
+                margin: 10px 0;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 19px;
+            }
+        }
+        .mini-modal_active {
+            top: 65px;
+        }
         .name-interlocutor {
             margin-left: 10px;
             width: 100%;
@@ -431,12 +467,27 @@ main {
         width: auto;
         bottom: 0;
         form {
+            position: relative;
             height: auto;
             width: 100%;
             display: grid;
-            grid-template-columns: 28px auto 28px;
+            grid-template-columns: 0 28px auto 28px;
             column-gap: 10px;
             align-items: center;
+            .mini-modal {
+                bottom: -100px;
+                padding: 5px 10px;
+                li {
+                    margin: 10px 0;
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 19px;
+                }
+            }
+            .mini-modal_active {
+                height: auto;
+                bottom: 55px;
+            }
             input {
                 height: 32px;
                 box-sizing: border-box;
@@ -505,7 +556,7 @@ main {
             display: flex;
             flex-direction: column;
             .button {
-                margin-top: 40px;
+                margin-top: 20px;
             }
         }
         ul {
@@ -520,6 +571,7 @@ main {
             line-height: 13px;
             color: $color-1;
             border-bottom: 1px solid $color-white-3;
+            position: relative;
             .edit {
                 padding: 0 5px;
                 color: $color-white-7 !important;
@@ -532,6 +584,21 @@ main {
                 font-size: 13px;
                 line-height: 13px;
                 color: $color-white-2;
+            }
+            .input-error {
+                width: 200px;
+                text-align: start;
+                font-weight: 400;
+                font-size: 8px;
+                line-height: 8px;
+                color: $color-red;
+                position: absolute;
+                top: 5px;
+                right: -210px;
+                opacity: 0;
+            }
+            ._active {
+                opacity: 1;
             }
         }
         a {
@@ -603,6 +670,7 @@ main {
 .modal-window_active {
     .background {
         top: 0;
+        left: 0;
         position: absolute;
         width: 100%;
         height: 100%;
@@ -616,19 +684,22 @@ main {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-    }
-    .modal-form {
         z-index: 5;
         box-sizing: border-box;
-        padding: 30px 20px;
+        padding: 30px 30px;
         width: 340px;
-        height: 300px;
+        max-height: 300px;
+        height: auto;
         background: $color-white-1;
         box-shadow: 0px 0px 6px $color-shadow;
         border-radius: 12px;
         display: flex;
         flex-direction: column;
+        justify-content: center;
         text-align: center;
+        ul {
+            margin: 15px 0;
+        }
         h1 {
             font-size: 15px;
             line-height: 20px;
@@ -639,10 +710,9 @@ main {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            width: 100%;
-            max-width: 150px;
-            max-height: 150px;
-            height: 100%;
+            width: 150px;
+            height: 150px;
+            margin: 10px auto;
             overflow: hidden;
             border-radius: 50%;
             position: relative;
