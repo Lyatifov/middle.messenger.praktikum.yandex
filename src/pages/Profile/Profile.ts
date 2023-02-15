@@ -104,22 +104,22 @@ export default (edit: Record<string, boolean | string>) => {
     const redirectionToChats = {
         targetId: "backToChats",
         eventName: "click",
-        func: OnButton("/chats"),
+        func: OnButton("/messenger"),
     };
     const editData = {
         targetId: "editData",
         eventName: "click",
-        func: OnButton("/profile/edit/data"),
+        func: OnButton("/profile/settings/data"),
     };
     const editPassword = {
         targetId: "editPassword",
         eventName: "click",
-        func: OnButton("/profile/edit/password"),
+        func: OnButton("/profile/settings/password"),
     };
     const logOut = {
         targetId: "logOut",
         eventName: "click",
-        func: OnButton("/auth"),
+        func: OnButton("/sign-up"),
     };
     const redirectionToProfile = {
         targetId: "backToProfile",

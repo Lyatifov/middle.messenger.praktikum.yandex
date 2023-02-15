@@ -1,8 +1,8 @@
-import ChangeRouter from "../Router/Router";
+import { router } from "../../index";
 
 export function OnButton(ruter: string): (targetUrl: string) => void {
     const func = () => {
-        ChangeRouter(ruter);
+        router.go(ruter);
     };
     return func;
 }

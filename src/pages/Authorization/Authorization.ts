@@ -49,7 +49,7 @@ export default () => {
     const initAuthForm = {
         targetId: data.formId,
         eventName: "submit",
-        func: Forms("/chats"),
+        func: Forms("/messenger"),
     };
     const inputsEvent: EventE[] = inputsList.reduce(
         (arr: EventE[], item: Record<string, string>) => {

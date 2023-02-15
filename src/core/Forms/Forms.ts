@@ -1,5 +1,5 @@
 import { check } from "../Validator/Validator";
-import ChangeRouter from "../Router/Router";
+import { router } from "../../index";
 
 export default (
     redirect?: string | null
@@ -25,7 +25,7 @@ export default (
         if (result) {
             console.log(data);
             if (redirect) {
-                ChangeRouter(redirect);
+                router.go(redirect);
             }
         }
     };
