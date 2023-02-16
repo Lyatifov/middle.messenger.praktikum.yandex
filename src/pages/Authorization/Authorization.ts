@@ -44,7 +44,7 @@ export default () => {
     const redirectionToRegistration = {
         targetId: "redirectionToRegistration",
         eventName: "click",
-        func: OnButton("/registration"),
+        func: OnButton("/sign-up"),
     };
     const initAuthForm = {
         targetId: data.formId,

@@ -10,7 +10,7 @@ function queryStringify(data: Record<string, string> | string) {
     }, "?");
 }
 
-export function fetch(url: string, options?: Record<string, any>) {
+export default function fetch(url: string, options?: Record<string, any>) {
     const { method = METHODS.GET, timeout = 5000, headers = {}, data } = options || {};
     const isGet = method === METHODS.GET;
     const isData = !!data;
@@ -25,6 +25,7 @@ export function fetch(url: string, options?: Record<string, any>) {
             res(xhr.responseText);
             xhr.abort();
         };
+        xhr.withCredentials = true;
         xhr.onabort = rej;
         xhr.onerror = rej;
         xhr.timeout = timeout;

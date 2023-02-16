@@ -5,91 +5,86 @@ import Buttons from "../../components/ProfileForm/Buttons/Buttons";
 import { EventE, PageComponent } from "../../interfaces/interfaces";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import ModalWindowController from "../../core/ModalWindowController/ModalWindowController";
-import { OnButton } from "../../core/Events/OnButton";
+import { OnButton, LogOut } from "../../core/Events/OnButton";
 import { DataFromModal } from "../../interfaces/interfaces";
 import Forms from "../../core/Forms/Forms";
 import { init } from "../../core/Validator/Validator";
+import Store from "../../Store/Store";
 
 const ProfileFormData: Record<string, string> = {
     formId: "profileDataForm",
 };
-const ProfileHeader: Record<string, string>[] = [
+
+// const DataList: Record<string, string>[] = [
+//     {
+//         id: "email",
+//         name: "email",
+//         value: "pochta@yandex.ru",
+//         title: "Почта",
+//         error: "Ошибка",
+//     },
+//     {
+//         id: "login",
+//         name: "login",
+//         value: "ivanivanov",
+//         title: "Логин",
+//         error: "Ошибка",
+//     },
+//     {
+//         id: "first_name",
+//         name: "first_name",
+//         value: "Иван",
+//         title: "Имя",
+//         error: "Ошибка",
+//     },
+//     {
+//         id: "second_name",
+//         name: "second_name",
+//         value: "Иван",
+//         title: "Фамилия",
+//         error: "Ошибка",
+//     },
+//     {
+//         id: "display_name",
+//         name: "display_name",
+//         value: "Иванов",
+//         title: "Имя в чате",
+//         error: "Ошибка",
+//     },
+//     {
+//         id: "phone",
+//         name: "phone",
+//         value: "+7 (909) 967 30 30",
+//         title: "Телефон",
+//         error: "Ошибка",
+//     },
+// ];
+const PasswordList: Record<string, string>[] = [
     {
-        nickName: "Иван",
-        img: "https://w7.pngwing.com/pngs/52/368/png-transparent-user-profile-computer-icons-avatar-avatar-heroes-monochrome-desktop-wallpaper.png",
+        id: "oldPassword",
+        name: "password",
+        value: "",
+        title: "Старый пароль",
+        type: "password",
+    },
+    {
+        id: "password",
+        name: "password",
+        value: "",
+        title: "Новый пароль",
+        type: "password",
+        error: "Ошибка",
+    },
+    {
+        id: "passwordRepite",
+        name: "passwordRepite",
+        value: "",
+        title: "Повторите новый пароль",
+        type: "password",
+        error: "Ошибка",
     },
 ];
-const data: Record<string, Record<string, string>[]> = {
-    DataList: [
-        {
-            id: "email",
-            name: "email",
-            value: "pochta@yandex.ru",
-            title: "Почта",
-            error: "Ошибка",
-        },
-        {
-            id: "login",
-            name: "login",
-            value: "ivanivanov",
-            title: "Логин",
-            error: "Ошибка",
-        },
-        {
-            id: "first_name",
-            name: "first_name",
-            value: "Иван",
-            title: "Имя",
-            error: "Ошибка",
-        },
-        {
-            id: "second_name",
-            name: "second_name",
-            value: "Иван",
-            title: "Фамилия",
-            error: "Ошибка",
-        },
-        {
-            id: "display_name",
-            name: "display_name",
-            value: "Иванов",
-            title: "Имя в чате",
-            error: "Ошибка",
-        },
-        {
-            id: "phone",
-            name: "phone",
-            value: "+7 (909) 967 30 30",
-            title: "Телефон",
-            error: "Ошибка",
-        },
-    ],
-    PasswordList: [
-        {
-            id: "oldPassword",
-            name: "password",
-            value: "?????????????",
-            title: "Старый пароль",
-            type: "password",
-        },
-        {
-            id: "password",
-            name: "password",
-            value: "?????????????",
-            title: "Новый пароль",
-            type: "password",
-            error: "Ошибка",
-        },
-        {
-            id: "passwordRepite",
-            name: "passwordRepite",
-            value: "?????????????",
-            title: "Повторите новый пароль",
-            type: "password",
-            error: "Ошибка",
-        },
-    ],
-};
+
 const dataFromModal: DataFromModal = {
     button: {
         value: "Добавить",
@@ -100,7 +95,8 @@ const dataFromModal: DataFromModal = {
     inputs: [],
     formId: "profileModalForm",
 };
-export default (edit: Record<string, boolean | string>) => {
+export default async (edit: Record<string, boolean | string>) => {
+    const data = await Store.loadProfileData();
     const redirectionToChats = {
         targetId: "backToChats",
         eventName: "click",
@@ -119,7 +115,7 @@ export default (edit: Record<string, boolean | string>) => {
     const logOut = {
         targetId: "logOut",
         eventName: "click",
-        func: OnButton("/sign-up"),
+        func: LogOut(),
     };
     const redirectionToProfile = {
         targetId: "backToProfile",
@@ -129,7 +125,7 @@ export default (edit: Record<string, boolean | string>) => {
     const initModalForm = {
         targetId: dataFromModal.formId,
         eventName: "submit",
-        func: Forms(),
+        func: Forms("modal"),
     };
     const initProfileForm = {
         targetId: ProfileFormData.formId,
@@ -166,7 +162,7 @@ export default (edit: Record<string, boolean | string>) => {
         },
         []
     );
-    const passwordEvents: EventE[] = data.PasswordList.reduce(
+    const passwordEvents: EventE[] = PasswordList.reduce(
         (arr: EventE[], item: Record<string, string>) => {
             const calidatorInitEvent: any = init();
             Object.keys(calidatorInitEvent).forEach((key) => {
@@ -190,14 +186,14 @@ export default (edit: Record<string, boolean | string>) => {
             {
                 enter: "profileHeader",
                 callback: Header,
-                data: ProfileHeader,
+                data: data.ProfileHeader,
                 events: [],
                 children: [],
             },
             {
                 enter: "profileData",
                 callback: Inputs,
-                data: data,
+                data: { ...data, PasswordList },
                 events: [redirectionToProfile, ...passwordEvents, ...dataEvents],
                 options: edit,
                 children: [],
