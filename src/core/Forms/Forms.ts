@@ -1,25 +1,7 @@
 import { check } from "../Validator/Validator";
-import { router } from "../../index";
-import apiController from "../API/Controller";
+import State from "../State/State";
 
-function switchApiForm(data: any) {
-    const apiType = window.location.pathname;
-    switch (apiType) {
-        case "/sign-in":
-            return apiController.signin(data);
-        case "/sign-up":
-            return apiController.signup(data);
-        case "/profile/settings/data":
-            return apiController.profileUpdate(data);
-        case "/profile/settings/password":
-            return apiController.passwordUpdate(data);
-        default:
-            break;
-    }
-}
-
-function getData(event: any) {
-    const thisForm = event.composedPath()[0];
+function getData(thisForm: any) {
     const inputList = thisForm.querySelectorAll("input");
     const data: Record<string, string> = {};
     for (let i = 0; i < inputList.length; i++) {
@@ -31,18 +13,14 @@ function getData(event: any) {
     return data;
 }
 
-export default function formController(redirect?: string | null) {
+export default function formController() {
     const func = async (event: any) => {
         event.preventDefault();
-        const data = getData(event);
+        const thisForm = event.composedPath()[0];
+        const data = getData(thisForm);
         const isCheck = check(data);
         if (isCheck) {
-            const res = (await switchApiForm(data)) as Promise<any>;
-            if ((await res) === "OK" || Object.assign(res).length) {
-                if (redirect) {
-                    router.go(redirect);
-                }
-            }
+            State.activeForm(data, thisForm);
         }
     };
     return func;

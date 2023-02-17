@@ -15,50 +15,6 @@ const ProfileFormData: Record<string, string> = {
     formId: "profileDataForm",
 };
 
-// const DataList: Record<string, string>[] = [
-//     {
-//         id: "email",
-//         name: "email",
-//         value: "pochta@yandex.ru",
-//         title: "Почта",
-//         error: "Ошибка",
-//     },
-//     {
-//         id: "login",
-//         name: "login",
-//         value: "ivanivanov",
-//         title: "Логин",
-//         error: "Ошибка",
-//     },
-//     {
-//         id: "first_name",
-//         name: "first_name",
-//         value: "Иван",
-//         title: "Имя",
-//         error: "Ошибка",
-//     },
-//     {
-//         id: "second_name",
-//         name: "second_name",
-//         value: "Иван",
-//         title: "Фамилия",
-//         error: "Ошибка",
-//     },
-//     {
-//         id: "display_name",
-//         name: "display_name",
-//         value: "Иванов",
-//         title: "Имя в чате",
-//         error: "Ошибка",
-//     },
-//     {
-//         id: "phone",
-//         name: "phone",
-//         value: "+7 (909) 967 30 30",
-//         title: "Телефон",
-//         error: "Ошибка",
-//     },
-// ];
 const PasswordList: Record<string, string>[] = [
     {
         id: "oldPassword",
@@ -95,8 +51,9 @@ const dataFromModal: DataFromModal = {
     inputs: [],
     formId: "profileModalForm",
 };
-export default async (edit: Record<string, boolean | string>) => {
-    const data = await Store.loadProfileData();
+export default (edit: Record<string, boolean | string>) => {
+    const data = Store.getData();
+    const { DataList, ProfileHeader } = Store.getData();
     const redirectionToChats = {
         targetId: "backToChats",
         eventName: "click",
@@ -125,12 +82,12 @@ export default async (edit: Record<string, boolean | string>) => {
     const initModalForm = {
         targetId: dataFromModal.formId,
         eventName: "submit",
-        func: Forms("modal"),
+        func: Forms(),
     };
     const initProfileForm = {
         targetId: ProfileFormData.formId,
         eventName: "submit",
-        func: Forms("/profile"),
+        func: Forms(),
     };
     const callModalWindow1 = {
         targetId: "profileImgLabel",
@@ -147,7 +104,7 @@ export default async (edit: Record<string, boolean | string>) => {
         eventName: "click",
         func: ModalWindowController("modalWindow"),
     };
-    const dataEvents: EventE[] = data.DataList.reduce(
+    const dataEvents: EventE[] = DataList.reduce(
         (arr: EventE[], item: Record<string, string>) => {
             const calidatorInitEvent: any = init();
             Object.keys(calidatorInitEvent).forEach((key) => {
@@ -186,7 +143,7 @@ export default async (edit: Record<string, boolean | string>) => {
             {
                 enter: "profileHeader",
                 callback: Header,
-                data: data.ProfileHeader,
+                data: ProfileHeader,
                 events: [],
                 children: [],
             },

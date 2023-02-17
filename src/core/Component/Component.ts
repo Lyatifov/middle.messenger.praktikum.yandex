@@ -97,17 +97,7 @@ export default class Component {
     }
     render(
         callback: {
-            (
-                data:
-                    | DataForMiniModalWindow
-                    | DataFromModal
-                    | Record<string, string>
-                    | Record<string, string>[]
-                    | Record<string, Record<string, string>[]>
-                    | Record<string, string | Record<string, string>[]>
-                    | string,
-                options?: Record<string, string | boolean> | undefined
-            ): string;
+            (data: any, options?: Record<string, string | boolean> | undefined): string;
         },
         data:
             | DataForMiniModalWindow

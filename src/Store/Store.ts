@@ -1,5 +1,3 @@
-import apiController from "../core/API/Controller";
-
 function body(newData: Record<string, string>) {
     const data: Record<string, string>[] = [
         {
@@ -69,18 +67,16 @@ function head(newData: Record<string, string>) {
 }
 
 class Store {
-    data: any;
-    body: any;
-    head: any;
+    data: any = {};
+    body: any = [];
+    head: any = [];
     constructor() {}
-    async loadProfileData() {
-        const data = await apiController.getUser();
-        if (JSON.stringify(this.data) === data) {
-            return { DataList: this.body, ProfileHeader: this.head };
-        }
-        this.data = JSON.parse(data);
+    setData(data: any) {
+        this.data = data;
         this.body = body(this.data);
         this.head = head(this.data);
+    }
+    getData() {
         return { DataList: this.body, ProfileHeader: this.head };
     }
 }

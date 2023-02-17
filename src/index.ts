@@ -12,24 +12,17 @@ import {
     messengerPage,
     errorPage,
 } from "./core/Router/RoutsList";
-
-const callback = (data: string): string => {
-    if (typeof data === "string") {
-        return data;
-    }
-    return "";
-};
+import Loader from "./components/UI/Loader/Loader";
 
 const startData: PageComponent = {
     enter: "root",
-    callback: callback,
+    callback: Loader,
     data: "loading",
     events: [],
     children: [],
 };
 const Page: Component = Render([startData])[0];
 export default Page;
-
 export const router = new Router(".app");
 router.use("/profile", ProfilePage);
 router.use("/profile/settings/data", ProfileSettingsDataPage);
@@ -38,4 +31,3 @@ router.use("/sign-in", signUpPage);
 router.use("/sign-up", registrationPage);
 router.use("/messenger", messengerPage);
 router.default(errorPage);
-router.start();

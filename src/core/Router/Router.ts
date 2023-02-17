@@ -1,3 +1,6 @@
+import state from "../State/State";
+import { check } from "../Validator/Validator";
+
 class Route {
     private _pathname: any;
     view: any;
@@ -24,6 +27,16 @@ class Route {
     render() {
         this.view.renderContent();
     }
+}
+const privateURLs = [
+    "/profile",
+    "/profile/settings/data",
+    "/profile/settings/password",
+    "/messenger",
+];
+function checkURL(pathname: string) {
+    const isPrivateURL = !!privateURLs.find((url) => url === pathname);
+    return isPrivateURL;
 }
 export class Router {
     routes: Route[];
@@ -70,7 +83,12 @@ export class Router {
     }
     go(pathname: string) {
         this.history.pushState({}, "", pathname);
-        this._onRoute(pathname);
+        const isPrivateURL = checkURL(pathname);
+        if ((isPrivateURL && state.isAuth) || !isPrivateURL) {
+            this._onRoute(pathname);
+        } else {
+            state.init();
+        }
     }
     back() {
         this.history.back();

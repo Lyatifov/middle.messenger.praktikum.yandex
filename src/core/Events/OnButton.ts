@@ -1,5 +1,5 @@
 import { router } from "../../index";
-import apiController from "../API/Controller";
+import state from "../State/State";
 
 export function OnButton(
     ruter: string,
@@ -7,7 +7,6 @@ export function OnButton(
 ): (targetUrl: string) => void {
     if (additFunc) {
         const func = () => {
-            console.log("logout!");
             additFunc();
             router.go(ruter);
         };
@@ -22,8 +21,7 @@ export function OnButton(
 
 export function LogOut() {
     const func = () => {
-        apiController.logOut();
-        router.go("/sign-in");
+        state.logOut();
     };
     return func;
 }

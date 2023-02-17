@@ -84,7 +84,7 @@ export default () => {
     const initRegistrationForm = {
         targetId: data.formId,
         eventName: "submit",
-        func: Forms("/sign-in"),
+        func: Forms(),
     };
     const inputsEvent: EventE[] = inputsList.reduce(
         (arr: EventE[], item: Record<string, string>) => {

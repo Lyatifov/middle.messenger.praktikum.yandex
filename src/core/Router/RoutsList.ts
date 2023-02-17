@@ -10,21 +10,19 @@ class View {
     view;
     options;
     constructor(
-        view: (
-            options?: Record<string, boolean | string>
-        ) => PageComponent | Promise<PageComponent>,
+        view: (options?: Record<string, boolean | string>) => PageComponent,
         options?: Record<string, boolean | string> | null
     ) {
         this.view = view;
         this.options = options;
     }
-    async renderContent() {
+    renderContent() {
         if (this.options) {
-            const content = await this.view(this.options);
+            const content = this.view(this.options);
             Page.setProps(content);
             Page.propsUpdate(this.options);
         } else {
-            const content = await this.view();
+            const content = this.view();
             Page.setProps(content);
         }
     }
