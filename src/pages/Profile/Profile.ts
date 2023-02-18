@@ -10,6 +10,7 @@ import { DataFromModal } from "../../interfaces/interfaces";
 import Forms from "../../core/Forms/Forms";
 import { init } from "../../core/Validator/Validator";
 import Store from "../../Store/Store";
+import FileReader from "../../core/FileReader/FileReader";
 
 const ProfileFormData: Record<string, string> = {
     formId: "profileDataForm",
@@ -175,6 +176,7 @@ export default (edit: Record<string, boolean | string>) => {
                 ],
                 options: edit,
                 children: [],
+                another: [FileReader],
             },
         ],
     };

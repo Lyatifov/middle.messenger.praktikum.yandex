@@ -61,7 +61,7 @@ function head(newData: Record<string, string>) {
         data.display_name = newData.display_name;
     }
     if (newData.avatar) {
-        data.avatar = newData.avatar;
+        data.avatar = "https://ya-praktikum.tech/api/v2/resources/" + newData.avatar;
     }
     return [data];
 }
@@ -70,6 +70,7 @@ class Store {
     data: any = {};
     body: any = [];
     head: any = [];
+    newAvatar: any = {};
     constructor() {}
     setData(data: any) {
         this.data = data;
@@ -78,6 +79,13 @@ class Store {
     }
     getData() {
         return { DataList: this.body, ProfileHeader: this.head };
+    }
+    setNewAvatar(newAvatar: any) {
+        this.newAvatar = newAvatar;
+        console.log(this.newAvatar);
+    }
+    getNewAvatar() {
+        return this.newAvatar;
     }
 }
 

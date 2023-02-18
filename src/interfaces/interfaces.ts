@@ -42,4 +42,5 @@ export interface PageComponent {
     events: EventE[];
     options?: Record<string, boolean | string>;
     children: PageComponent[];
+    another?: Array<() => void>;
 }

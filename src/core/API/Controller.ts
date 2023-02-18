@@ -47,6 +47,15 @@ class Controller {
         });
     }
     // auth
+    avatarUpdate(data: any): Promise<any> {
+        return fetch(`${this.host}/user/profile/avatar`, {
+            method: "PUT",
+            credentials: "include", // Нужно подставлять куки
+            mode: "cors", // Работаем с CORS
+            headers: {},
+            data: data,
+        });
+    }
     profileUpdate(data: any): Promise<any> {
         return fetch(`${this.host}/user/profile`, {
             method: "PUT",

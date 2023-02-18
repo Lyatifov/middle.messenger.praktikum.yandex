@@ -19,13 +19,21 @@ function switchApiForm(data: any, formId: string) {
             return apiController.signin(data);
         case "/sign-up":
             return apiController.signup(data);
+        case "/profile":
+            if (formId === "profileModalForm") {
+                return apiController.avatarUpdate(data);
+            }
         case "/profile/settings/data":
             if (formId === "profileDataForm") {
                 return apiController.profileUpdate(data);
+            } else if (formId === "profileModalForm") {
+                return apiController.avatarUpdate(data);
             }
         case "/profile/settings/password":
             if (formId === "profileDataForm") {
                 return apiController.passwordUpdate(data);
+            } else if (formId === "profileModalForm") {
+                return apiController.avatarUpdate(data);
             }
         default:
             break;
@@ -33,6 +41,7 @@ function switchApiForm(data: any, formId: string) {
 }
 class State {
     isAuth: boolean | null;
+    newAvatar: any;
     constructor() {
         this.init();
     }
@@ -75,6 +84,9 @@ class State {
         this.Loading();
         const res = await switchApiForm(data, thisForm.id);
         this.init();
+    }
+    setNewAvatar(newAvatar: any) {
+        this.newAvatar = newAvatar;
     }
 }
 const state = new State();

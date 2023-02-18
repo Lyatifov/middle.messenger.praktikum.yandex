@@ -93,6 +93,9 @@ export default class Component {
             this.props.options
         );
         this._addEvents();
+        if (this.props.another) {
+            this.anotherFunc(this.props.another);
+        }
         this.renderChildern();
     }
     render(
@@ -154,5 +157,8 @@ export default class Component {
         if (this.props.children.length) {
             this.childComponent = Render(this.props.children);
         }
+    }
+    anotherFunc(anotherList: Array<() => void>) {
+        anotherList.forEach((func) => func());
     }
 }
