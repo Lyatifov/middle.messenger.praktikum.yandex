@@ -1,3 +1,5 @@
+import store from "../../Store/Store";
+
 export default () => {
     const wrapper: HTMLElement | null = document.getElementById("loadFileWrapper"),
         dropZone: HTMLElement | null = document.getElementById("dropZone"),
@@ -41,13 +43,14 @@ export default () => {
                 createImage(file);
                 return;
             }
-        } else {
-            document.body.innerHTML = `<h3>Это не изображение!</h3>`;
-            const timer = setTimeout(() => {
-                location.reload();
-                clearTimeout(timer);
-            }, 2000);
         }
+        // else {
+        //     document.body.innerHTML = `<h3>Это не изображение!</h3>`;
+        //     const timer = setTimeout(() => {
+        //         location.reload();
+        //         clearTimeout(timer);
+        //     }, 2000);
+        // }
     };
     const createImage = (file: Blob) => {
         const removeImage = () => {
@@ -64,6 +67,7 @@ export default () => {
         buttonForRemoveImage.innerHTML = "&#10060;";
         buttonForRemoveImage.onclick = removeImage;
         imageElement.src = URL.createObjectURL(file);
+        store.setNewAvatar(file);
         if (wrapper) {
             wrapper.append(imageElement);
             setTimeout(() => {

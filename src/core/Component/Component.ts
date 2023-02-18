@@ -12,7 +12,7 @@ export default class Component {
         FLOW_CDM: "flow:component-did-mount",
         FLOW_CDU: "flow:component-did-update",
         FLOW_RENDER: "flow:render",
-    };
+    } as const;
     _element: HTMLElement;
     props: PageComponent;
     eventBus: EventBus;
@@ -93,21 +93,14 @@ export default class Component {
             this.props.options
         );
         this._addEvents();
+        if (this.props.another) {
+            this.anotherFunc(this.props.another);
+        }
         this.renderChildern();
     }
     render(
         callback: {
-            (
-                data:
-                    | DataForMiniModalWindow
-                    | DataFromModal
-                    | Record<string, string>
-                    | Record<string, string>[]
-                    | Record<string, Record<string, string>[]>
-                    | Record<string, string | Record<string, string>[]>
-                    | string,
-                options?: Record<string, string | boolean> | undefined
-            ): string;
+            (data: any, options?: Record<string, string | boolean> | undefined): string;
         },
         data:
             | DataForMiniModalWindow
@@ -156,7 +149,7 @@ export default class Component {
     }
     _removeEvents() {
         this.activeEvents.forEach((event) => {
-            event.target.remove(event.eventName, event.func);
+            event.target.removeEventListener(event.eventName, event.func);
         });
         this.activeEvents = [];
     }
@@ -164,5 +157,8 @@ export default class Component {
         if (this.props.children.length) {
             this.childComponent = Render(this.props.children);
         }
+    }
+    anotherFunc(anotherList: Array<() => void>) {
+        anotherList.forEach((func) => func());
     }
 }

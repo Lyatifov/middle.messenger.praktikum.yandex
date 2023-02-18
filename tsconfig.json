@@ -25,6 +25,8 @@
         // interfaces
         "./src/index.ts",
         // enter point
+        "./src/Store/Store.ts",
+        // core
         "./src/core/Router/Router.ts",
         "./src/core/EventBus/EventBus.ts",
         "./src/core/Component/Component.ts",
@@ -38,7 +40,9 @@
         "./src/core/MiniModalWindow/MiniModalWindow.ts",
         "./src/core/Forms/Forms.ts",
         "./src/core/Validator/Validator.ts",
-        "./src/core/API/API.ts",
+        "src/core/API/Fetch.ts",
+        "src/core/API/Controller.ts",
+        "src/core/State/State.ts",
         // core
         "./src/pages/Authorization/Authorization.ts",
         "./src/pages/Registration/Registration.ts",
@@ -62,6 +66,7 @@
         "src/components/ProfileForm/Inputs/Inputs.ts",
         "./src/components/UI/Input/Input.ts",
         "./src/components/UI/Button/Button.ts",
+        "./src/components/UI/Loader/Loader.ts",
         // components
     ]
 }

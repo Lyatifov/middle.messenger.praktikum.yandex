@@ -1,23 +1,33 @@
 import "./index.scss";
-import ChangeRouter from "./core/Router/Router";
+import { Router } from "./core/Router/Router";
 import Render from "./core/Render/Render";
 import Component from "./core/Component/Component";
 import { PageComponent } from "./interfaces/interfaces";
-
-const callback = (data: string): string => {
-    if (typeof data === "string") {
-        return data;
-    }
-    return "";
-};
+import {
+    ProfilePage,
+    ProfileSettingsDataPage,
+    ProfileSettingsPasswordPage,
+    signUpPage,
+    registrationPage,
+    messengerPage,
+    errorPage,
+} from "./core/Router/RoutsList";
+import Loader from "./components/UI/Loader/Loader";
 
 const startData: PageComponent = {
     enter: "root",
-    callback: callback,
+    callback: Loader,
     data: "loading",
     events: [],
     children: [],
 };
 const Page: Component = Render([startData])[0];
 export default Page;
-ChangeRouter(window.location.pathname);
+export const router = new Router(".app");
+router.use("/profile", ProfilePage);
+router.use("/profile/settings/data", ProfileSettingsDataPage);
+router.use("/profile/settings/password", ProfileSettingsPasswordPage);
+router.use("/sign-in", signUpPage);
+router.use("/sign-up", registrationPage);
+router.use("/messenger", messengerPage);
+router.default(errorPage);
