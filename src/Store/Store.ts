@@ -70,7 +70,7 @@ class Store {
     data: any = {};
     body: any = [];
     head: any = [];
-    newAvatar: any = {};
+    _newAvatar: any = {};
     constructor() {}
     setData(data: any) {
         this.data = data;
@@ -81,11 +81,15 @@ class Store {
         return { DataList: this.body, ProfileHeader: this.head };
     }
     setNewAvatar(newAvatar: any) {
-        this.newAvatar = newAvatar;
-        console.log(this.newAvatar);
+        this._newAvatar = newAvatar;
     }
     getNewAvatar() {
-        return this.newAvatar;
+        const avatar = this._newAvatar;
+        this._newAvatar = null;
+        return avatar;
+    }
+    removeNewAvatar() {
+        this._newAvatar = null;
     }
 }
 

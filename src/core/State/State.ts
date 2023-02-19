@@ -41,7 +41,6 @@ function switchApiForm(data: any, formId: string) {
 }
 class State {
     isAuth: boolean | null;
-    newAvatar: any;
     constructor() {
         this.init();
     }
@@ -84,9 +83,6 @@ class State {
         this.Loading();
         const res = await switchApiForm(data, thisForm.id);
         this.init();
-    }
-    setNewAvatar(newAvatar: any) {
-        this.newAvatar = newAvatar;
     }
 }
 const state = new State();

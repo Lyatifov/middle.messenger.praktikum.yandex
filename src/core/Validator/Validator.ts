@@ -153,6 +153,12 @@ const listOfHashNames: Record<string, (input: string) => Answer> = {
         }
         return answer;
     },
+    newPassword: function (input: string): Answer {
+        return listOfHashNames.password(input);
+    },
+    oldPassword: function (input: string): Answer {
+        return listOfHashNames.password(input);
+    },
     phone: function (input: string): Answer {
         const answer: Answer = {
             result: false,
@@ -179,15 +185,14 @@ const listOfHashNames: Record<string, (input: string) => Answer> = {
         }
         return answer;
     },
-    passwordRepite: function (input: string): Answer {
+    repitePassword: function (input: string): Answer {
         const answer: Answer = {
             result: false,
             message: "Введенные пароли разные",
         };
         if (!input) return answer;
-        const password = document.getElementById("password") as HTMLInputElement;
+        const password = document.getElementById("newPassword") as HTMLInputElement;
         if (password) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const value: string = password.value;
             if (input === value) {
                 answer.result = true;
@@ -242,17 +247,19 @@ export function init() {
         }) => {
             const name = event.target.name;
             const checkFunc = listOfHashNames[name];
-            const value = event.target.value;
-            const checkAnswer = checkFunc(value);
-            const errorLabel = event
-                .composedPath()[1]
-                .querySelectorAll("label.input-error")[0];
-            if (errorLabel) {
-                if (checkAnswer.result) {
-                    errorLabel.className = "input-error";
-                } else {
-                    errorLabel.textContent = checkAnswer.message;
-                    errorLabel.className = "input-error _active";
+            if (checkFunc) {
+                const value = event.target.value;
+                const checkAnswer = checkFunc(value);
+                const errorLabel = event
+                    .composedPath()[1]
+                    .querySelectorAll("label.input-error")[0];
+                if (errorLabel) {
+                    if (checkAnswer.result) {
+                        errorLabel.className = "input-error";
+                    } else {
+                        errorLabel.textContent = checkAnswer.message;
+                        errorLabel.className = "input-error _active";
+                    }
                 }
             }
         },
