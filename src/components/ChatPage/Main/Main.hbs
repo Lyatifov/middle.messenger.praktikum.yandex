@@ -1,4 +1,4 @@
-{{#if name}}
+{{#if title}}
     <header id="chatHeader">
     </header>
     <div id="wrapper-messages-container" class="wrapper-messages-container">
@@ -18,7 +18,6 @@
         </form>
     </footer>
 {{else}}
-    {{! <section class="empty-list"> }}
-    <article class="empty-text">Выберите чат чтобы отправить сообщение</article>
-    {{! </section> }}
+    <div></div>
+    {{{dummy}}}
 {{/if}}

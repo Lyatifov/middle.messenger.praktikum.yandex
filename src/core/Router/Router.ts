@@ -1,5 +1,4 @@
-import state from "../State/State";
-import { check } from "../Validator/Validator";
+import state from "../States/State";
 
 class Route {
     private _pathname: any;

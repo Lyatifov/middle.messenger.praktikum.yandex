@@ -78,6 +78,70 @@ class Controller {
             data: JSON.stringify(data),
         });
     }
+    // profile
+    getChats(): Promise<any> {
+        return fetch(`${this.host}/chats`, {
+            credentials: "include", // Нужно подставлять куки
+            mode: "cors", // Работаем с CORS
+            headers: {
+                "content-type": "application/json", // Данные отправляем в формате JSON
+            },
+        });
+    }
+    createChat(data: any): Promise<any> {
+        return fetch(`${this.host}/chats`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            data: JSON.stringify(data),
+        });
+    }
+    deleteChat(data: any): Promise<any> {
+        return fetch(`${this.host}/chats`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+            },
+            data: JSON.stringify(data),
+        });
+    }
+    addUserToChat(data: any): Promise<any> {
+        return fetch(`${this.host}/chats/users`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json",
+            },
+            data: JSON.stringify(data),
+        });
+    }
+    searchUser(data: any): Promise<any> {
+        return fetch(`${this.host}/user/search`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            data: JSON.stringify(data),
+        });
+    }
+    getListOfUsersInChat(data: any): Promise<any> {
+        return fetch(`${this.host}/chats/${data.id}/users`, {
+            credentials: "include", // Нужно подставлять куки
+            mode: "cors", // Работаем с CORS
+            headers: {
+                "content-type": "application/json", // Данные отправляем в формате JSON
+            },
+        });
+    }
+    deleteUserFromChat(data: any): Promise<any> {
+        return fetch(`${this.host}/chats/users`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+            },
+            data: JSON.stringify(data),
+        });
+    }
 }
 const host = "https://ya-praktikum.tech/api/v2";
 const apiController = new Controller(host);

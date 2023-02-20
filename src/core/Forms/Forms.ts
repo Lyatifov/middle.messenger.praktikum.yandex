@@ -1,5 +1,5 @@
 import { check } from "../Validator/Validator";
-import State from "../State/State";
+import State from "../States/State";
 import store from "../../Store/Store";
 
 function getData(thisForm: any) {

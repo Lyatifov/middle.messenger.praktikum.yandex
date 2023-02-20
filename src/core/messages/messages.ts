@@ -3,9 +3,6 @@ export const interlocutor: Record<string, string>[] = [
         name: "Андрей",
         img: "https://w7.pngwing.com/pngs/52/368/png-transparent-user-profile-computer-icons-avatar-avatar-heroes-monochrome-desktop-wallpaper.png",
     },
-    {
-        formId: "messageForm",
-    },
 ];
 export const messages: Record<string, string>[] = [
     {
@@ -28,32 +25,5 @@ export const messages: Record<string, string>[] = [
         time: "12:00",
         name: "Me",
         text: "Круто!",
-    },
-];
-export const chats: Record<string, string>[] = [
-    {
-        id: "1",
-        name: "Андрей",
-        img: "https://w7.pngwing.com/pngs/52/368/png-transparent-user-profile-computer-icons-avatar-avatar-heroes-monochrome-desktop-wallpaper.png",
-        lastMessage: "Изображение",
-        countNewMessage: "2",
-        time: "10:49",
-    },
-    {
-        id: "2",
-        name: "Илья",
-        img: "https://w7.pngwing.com/pngs/52/368/png-transparent-user-profile-computer-icons-avatar-avatar-heroes-monochrome-desktop-wallpaper.png",
-        lastMessage:
-            "Друзья, у меня для вас особенный выпуск новостей! Бла бла бла бла бла бла бал бал бал бал бла!",
-        countNewMessage: "15",
-        time: "15:12",
-    },
-    {
-        id: "3",
-        name: "Андрей",
-        img: "https://w7.pngwing.com/pngs/52/368/png-transparent-user-profile-computer-icons-avatar-avatar-heroes-monochrome-desktop-wallpaper.png",
-        lastMessage: "Изображение",
-        countNewMessage: "2",
-        time: "10:49",
     },
 ];

@@ -3,6 +3,7 @@ import Page, { router } from "../../index";
 import { PageComponent } from "../../interfaces/interfaces";
 import store from "../../Store/Store";
 import apiController from "../API/Controller";
+import chatState from "./ChatState";
 
 const LoaderComponent: PageComponent = {
     enter: "root",
@@ -12,7 +13,7 @@ const LoaderComponent: PageComponent = {
     children: [],
 };
 
-function switchApiForm(data: any, formId: string) {
+async function switchApiForm(data: any, formId: string) {
     const apiType = window.location.pathname;
     switch (apiType) {
         case "/sign-in":
@@ -35,10 +36,36 @@ function switchApiForm(data: any, formId: string) {
             } else if (formId === "profileModalForm") {
                 return apiController.avatarUpdate(data);
             }
+        case "/messenger":
+            if (formId === "chatModalForm") {
+                const targetUser = JSON.parse(await apiController.searchUser(data));
+                if (targetUser.length) {
+                    const targetId = chatState.getTargetChat();
+                    const usersInChat = JSON.parse(
+                        await apiController.getListOfUsersInChat(targetId)
+                    );
+                    const checkUser = usersInChat.filter(
+                        (user: any) => user.id === targetUser[0].id
+                    );
+                    const newData = {
+                        users: [targetUser[0].id],
+                        chatId: targetId.id,
+                    };
+                    if (checkUser.length) {
+                        return apiController.deleteUserFromChat(newData);
+                    }
+                    return apiController.addUserToChat(newData);
+                }
+                console.log("Пользователь не найден");
+            }
+            if (formId === "modalWFCC") {
+                return apiController.createChat(data);
+            }
         default:
             break;
     }
 }
+
 class State {
     isAuth: boolean | null;
     constructor() {
@@ -46,9 +73,9 @@ class State {
     }
     async init() {
         const data = await apiController.getUser();
+        const url = window.location.pathname;
         if (JSON.parse(data).reason === "Cookie is not valid") {
             this.isAuth = false;
-            const url = window.location.pathname;
             if (url === "/sign-in" || url === "/sign-up") {
                 router.start();
             } else {
@@ -57,7 +84,8 @@ class State {
         } else if (JSON.parse(data).id) {
             this.isAuth = true;
             store.setData(JSON.parse(data));
-            const url = window.location.pathname;
+            const chats = await apiController.getChats();
+            store.setChats(JSON.parse(chats));
             if (url === "/sign-in" || url === "/sign-up") {
                 router.go("/messenger");
             } else {

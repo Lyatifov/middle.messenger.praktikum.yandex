@@ -1,4 +1,5 @@
 export interface DataFromModal {
+    modalId: string;
     formId: string;
     button: Record<string, string>;
     title: string;

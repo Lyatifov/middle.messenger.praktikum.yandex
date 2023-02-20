@@ -217,6 +217,20 @@ const listOfHashNames: Record<string, (input: string) => Answer> = {
         }
         return answer;
     },
+    title: function (input: string): Answer {
+        const answer: Answer = {
+            result: false,
+            message:
+                "В данное поле принимается: от 2 до 14 символов, латиница, кириллица, цифры без спецсимволов",
+        };
+        if (!input) return answer;
+        const Length = isLength(input, 2, 14);
+        const SpecialCharacters = isSpecialCharacters(input);
+        if (!SpecialCharacters && Length) {
+            answer.result = true;
+        }
+        return answer;
+    },
     search: function (): Answer {
         const answer: Answer = {
             result: true,

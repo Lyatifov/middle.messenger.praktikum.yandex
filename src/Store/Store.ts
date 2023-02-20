@@ -70,6 +70,7 @@ class Store {
     data: any = {};
     body: any = [];
     head: any = [];
+    chats: any = [];
     _newAvatar: any = {};
     constructor() {}
     setData(data: any) {
@@ -90,6 +91,12 @@ class Store {
     }
     removeNewAvatar() {
         this._newAvatar = null;
+    }
+    setChats(chats: any) {
+        this.chats = chats;
+    }
+    getChats() {
+        return this.chats;
     }
 }
 
