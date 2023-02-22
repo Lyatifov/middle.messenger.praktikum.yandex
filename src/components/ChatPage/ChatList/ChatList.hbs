@@ -7,7 +7,7 @@
         <p class="massage">{{#if last_message}}{{last_message.content}}{{else}}Нет сообщений{{/if}}</p>
     </section>
     <section class="section-3">
-        <time class="massage-time">{{last_message.time}}</time>
+        <time class="massage-time">{{time}}</time>
         {{#if unread_count}}<div class="massage-counter">{{unread_count}}</div>{{else}}{{/if}}
         
     </section>

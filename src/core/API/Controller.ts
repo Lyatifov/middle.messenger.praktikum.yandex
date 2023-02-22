@@ -142,6 +142,23 @@ class Controller {
             data: JSON.stringify(data),
         });
     }
+    getChatToken(chatId: string): Promise<any> {
+        return fetch(`${this.host}/chats/token/${chatId}`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+        });
+    }
+    removeChat(chatId: string): Promise<any> {
+        return fetch(`${this.host}/chats`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+            },
+            data: JSON.stringify({ chatId }),
+        });
+    }
 }
 const host = "https://ya-praktikum.tech/api/v2";
 const apiController = new Controller(host);

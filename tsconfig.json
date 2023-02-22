@@ -26,6 +26,7 @@
         "./src/index.ts",
         // enter point
         "./src/Store/Store.ts",
+        "src/Store/ChatsStore.ts",
         // core
         "./src/core/Router/Router.ts",
         "./src/core/EventBus/EventBus.ts",
@@ -34,7 +35,7 @@
         "./src/core/View/View.ts",
         "./src/core/Router/RoutsList.ts",
         "./src/core/FileReader/FileReader.ts",
-        "./src/core/messages/messages.ts",
+        "src/core/TimeAndDate/TimeAndDate.ts",
         "./src/core/ModalWindowController/ModalWindowController.ts",
         "./src/core/Events/OnButton.ts",
         "./src/core/MiniModalWindow/MiniModalWindow.ts",
@@ -42,6 +43,7 @@
         "./src/core/Validator/Validator.ts",
         "src/core/API/Fetch.ts",
         "src/core/API/Controller.ts",
+        "src/core/API/WebSocket.ts",
         "src/core/States/State.ts",
         "src/core/States/ChatState.ts",
         // core

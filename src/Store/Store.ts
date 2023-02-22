@@ -67,19 +67,21 @@ function head(newData: Record<string, string>) {
 }
 
 class Store {
-    data: any = {};
+    user: any = {};
     body: any = [];
     head: any = [];
-    chats: any = [];
     _newAvatar: any = {};
     constructor() {}
     setData(data: any) {
-        this.data = data;
-        this.body = body(this.data);
-        this.head = head(this.data);
+        this.user = data;
+        this.body = body(this.user);
+        this.head = head(this.user);
     }
     getData() {
         return { DataList: this.body, ProfileHeader: this.head };
+    }
+    getUser() {
+        return this.user;
     }
     setNewAvatar(newAvatar: any) {
         this._newAvatar = newAvatar;
@@ -91,12 +93,6 @@ class Store {
     }
     removeNewAvatar() {
         this._newAvatar = null;
-    }
-    setChats(chats: any) {
-        this.chats = chats;
-    }
-    getChats() {
-        return this.chats;
     }
 }
 

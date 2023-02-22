@@ -44,4 +44,5 @@ export interface PageComponent {
     options?: Record<string, boolean | string>;
     children: PageComponent[];
     another?: Array<() => void>;
+    state?: any;
 }

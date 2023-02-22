@@ -1,7 +1,5 @@
 import ChatPage from "../../components/ChatPage/ChatPage";
-import Сonversations from "../../components/ChatPage/ChatList/ChatList";
 import Main from "../../components/ChatPage/Main/Main";
-import { interlocutor, messages } from "../../core/messages/messages";
 import { PageComponent } from "../../interfaces/interfaces";
 import Header from "../../components/ChatPage/Main/Header/Header";
 import Messages from "../../components/ChatPage/Main/Messages/Messages";
@@ -13,10 +11,10 @@ import MiniModalWindow from "../../components/ChatPage/Main/MiniModalWindow/Mini
 import { DataForMiniModalWindow } from "../../interfaces/interfaces";
 import Forms from "../../core/Forms/Forms";
 import ModalWindowController from "../../core/ModalWindowController/ModalWindowController";
-import store from "../../Store/Store";
 import ChatList from "../../components/ChatPage/ChatList/ChatList";
 import Button from "../../components/UI/Button/Button";
 import chatState from "../../core/States/ChatState";
+import chatStore from "../../Store/ChatsStore";
 
 const dataFromModal: DataFromModal = {
     modalId: "modalAddOrRemoveUser",
@@ -29,7 +27,7 @@ const dataFromModal: DataFromModal = {
     loadImg: false,
     inputs: [
         {
-            id: "addUser",
+            id: "addOrRemoveUser",
             name: "login",
             title: "Логин",
             type: "",
@@ -79,20 +77,20 @@ const dataForHeaderMiniModalWindow: DataForMiniModalWindow = {
     id: "headerMiniModal",
     buttons: [
         {
-            id: "addUser",
+            id: "addOrRemoveUser",
             icon: "&#128100;",
-            title: "Добавить пользователя",
+            title: "Добавить/удалить пользователя",
         },
         {
-            id: "removeUser",
+            id: "removeThisChat",
             icon: "&#10060;",
-            title: "Удалить пользователя",
+            title: "Удалить чат",
         },
     ],
 };
 
 export default () => {
-    const chats = store.getChats();
+    const chats = chatStore.getAllChat();
 
     const redirectionToProfile = {
         targetId: "redirectionToProfile",
@@ -110,14 +108,14 @@ export default () => {
         func: MiniModalWindowFunction("footerMiniModal"),
     };
     const callModalWindow1 = {
-        targetId: "addUser",
+        targetId: "addOrRemoveUser",
         eventName: "click",
         func: ModalWindowController("modalAddOrRemoveUser"),
     };
-    const callModalWindow2 = {
-        targetId: "removeUser",
+    const removeThisChat = {
+        targetId: "removeThisChat",
         eventName: "click",
-        func: ModalWindowController("modalAddOrRemoveUser"),
+        func: () => chatState.removeThisChat(),
     };
     const closeModalWindow = {
         targetId: "modalAddOrRemoveUser-background",
@@ -213,9 +211,10 @@ export default () => {
                     {
                         enter: "messageList",
                         callback: Messages,
-                        data: messages,
+                        data: chatState.getMessages(),
                         events: [],
                         children: [],
+                        another: [],
                     },
                 ],
             },
@@ -225,7 +224,7 @@ export default () => {
                 data: dataFromModal,
                 events: [
                     callModalWindow1,
-                    callModalWindow2,
+                    removeThisChat,
                     closeModalWindow,
                     initChatModalForm,
                 ],

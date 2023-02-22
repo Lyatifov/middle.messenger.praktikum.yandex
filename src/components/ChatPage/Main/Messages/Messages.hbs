@@ -1,4 +1,9 @@
-<article class="message {{class}}">
-    <p>{{text}} &ensp;&ensp;&ensp;&ensp;&ensp;</p>
-    <time>{{time}}</time>
+<article id="{{id}}" class="message {{className}}">
+    <section class="user">
+        <img class="user-avatar" src="{{#if user.avatar}}https://ya-praktikum.tech/api/v2/resources/{{user.avatar}}{{else}}https://cdn3.iconfinder.com/data/icons/users/100/user_male_1-1024.png{{/if}}" alt="{{user.name}}">
+    </section>
+    <section class="content">
+        <p>{{content}} &ensp;&ensp;&ensp;&ensp;&ensp;</p>
+        <time>{{time}}</time>
+    </section>
 </article>

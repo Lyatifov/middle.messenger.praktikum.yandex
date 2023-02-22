@@ -510,41 +510,59 @@ main {
             width: 100%;
             height: auto;
             .message {
+                display: flex;
                 box-sizing: border-box;
                 max-width: 400px;
                 height: auto;
                 width: auto;
                 position: relative;
-                padding: 11px;
                 margin: 10px 0;
-                time {
-                    position: absolute;
-                    bottom: 11px;
-                    right: 11px;
-                    font-size: 9px;
-                    line-height: 9px;
+                .user {
+                    padding: 0 10px;
+                    .user-avatar {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
                 }
-                p {
-                    font-size: 12px;
-                    line-height: 15px;
-                    color: $color-1;
-                    width: auto;
+                .content {
+                    padding: 11px;
+                    position: relative;
+                    time {
+                        position: absolute;
+                        bottom: 11px;
+                        right: 11px;
+                        font-size: 9px;
+                        line-height: 9px;
+                    }
+                    p {
+                        font-size: 12px;
+                        line-height: 15px;
+                        color: $color-1;
+                        width: auto;
+                    }
                 }
             }
             .interlocutor-message {
-                border-radius: 0 20px 20px 20px;
-                background: $color-white-3;
                 align-self: flex-start;
-                time {
-                    color: $color-white-2;
+                .content {
+                    border-radius: 0 20px 20px 20px;
+                    background: $color-white-3;
+                    time {
+                        color: $color-white-2;
+                    }
                 }
             }
             .my-message {
                 align-self: flex-end;
-                border-radius: 20px 20px 0 20px;
-                background: $color-white-6;
-                time {
-                    color: $color-2;
+                flex-direction: row-reverse;
+                .content {
+                    border-radius: 20px 20px 0 20px;
+                    background: $color-white-6;
+                    time {
+                        color: $color-2;
+                    }
                 }
             }
         }

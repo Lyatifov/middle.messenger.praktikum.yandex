@@ -1,6 +1,7 @@
 import Loader from "../../components/UI/Loader/Loader";
 import Page, { router } from "../../index";
 import { PageComponent } from "../../interfaces/interfaces";
+import chatStore from "../../Store/ChatsStore";
 import store from "../../Store/Store";
 import apiController from "../API/Controller";
 import chatState from "./ChatState";
@@ -58,8 +59,13 @@ async function switchApiForm(data: any, formId: string) {
                 }
                 console.log("Пользователь не найден");
             }
+            if (formId === "messageForm") {
+                chatState.sendMessage(data);
+            }
             if (formId === "modalWFCC") {
-                return apiController.createChat(data);
+                const res = await apiController.createChat(data);
+                chatStore.init();
+                return res;
             }
         default:
             break;
@@ -72,20 +78,20 @@ class State {
         this.init();
     }
     async init() {
-        const data = await apiController.getUser();
+        const data = JSON.parse(await apiController.getUser());
         const url = window.location.pathname;
-        if (JSON.parse(data).reason === "Cookie is not valid") {
+        if (data === "Cookie is not valid") {
             this.isAuth = false;
             if (url === "/sign-in" || url === "/sign-up") {
                 router.start();
             } else {
                 router.go("/sign-in");
             }
-        } else if (JSON.parse(data).id) {
+        } else if (data.id) {
             this.isAuth = true;
-            store.setData(JSON.parse(data));
-            const chats = await apiController.getChats();
-            store.setChats(JSON.parse(chats));
+            store.setData(data);
+            chatState.init();
+            await apiController.getChats();
             if (url === "/sign-in" || url === "/sign-up") {
                 router.go("/messenger");
             } else {
@@ -108,8 +114,8 @@ class State {
         Page.setProps(LoaderComponent);
     }
     async activeForm(data: any, thisForm: any) {
-        this.Loading();
-        const res = await switchApiForm(data, thisForm.id);
+        // this.Loading();
+        await switchApiForm(data, thisForm.id);
         this.init();
     }
 }

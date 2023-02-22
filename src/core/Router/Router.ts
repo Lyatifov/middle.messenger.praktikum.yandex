@@ -1,3 +1,4 @@
+import chatState from "../States/ChatState";
 import state from "../States/State";
 
 class Route {
@@ -81,6 +82,7 @@ export class Router {
         route.render();
     }
     go(pathname: string) {
+        chatState.clearTargetChat();
         this.history.pushState({}, "", pathname);
         const isPrivateURL = checkURL(pathname);
         if ((isPrivateURL && state.isAuth) || !isPrivateURL) {
