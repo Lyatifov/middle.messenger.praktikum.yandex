@@ -6,7 +6,7 @@ import store from "../../Store/Store";
 import apiController from "../API/Controller";
 import chatState from "./ChatState";
 
-const LoaderComponent: PageComponent = {
+export const LoaderComponent: PageComponent = {
     enter: "root",
     callback: Loader,
     data: "loading",
@@ -14,13 +14,33 @@ const LoaderComponent: PageComponent = {
     children: [],
 };
 
+function singResult(res: any) {
+    if (res === "OK") {
+        state.init();
+    } else {
+        console.log(res);
+    }
+}
+
+async function checkIsAuth() {
+    const res = JSON.parse(await apiController.getUser());
+    if (res.id) {
+        return true;
+    }
+    return false;
+}
+
 async function switchApiForm(data: any, formId: string) {
-    const apiType = window.location.pathname;
-    switch (apiType) {
+    const pathname = window.location.pathname;
+    switch (pathname) {
         case "/sign-in":
-            return apiController.signin(data);
+            const resIn = await apiController.signin(data);
+            singResult(resIn);
+            return;
         case "/sign-up":
-            return apiController.signup(data);
+            const resUp = await apiController.signup(data);
+            singResult(resUp);
+            return;
         case "/profile":
             if (formId === "profileModalForm") {
                 return apiController.avatarUpdate(data);
@@ -73,40 +93,51 @@ async function switchApiForm(data: any, formId: string) {
 }
 
 class State {
-    isAuth: boolean | null;
+    isAuth: boolean;
     constructor() {
         this.init();
     }
-    async init() {
-        const data = JSON.parse(await apiController.getUser());
+    redirect() {
         const url = window.location.pathname;
-        if (data === "Cookie is not valid") {
-            this.isAuth = false;
-            if (url === "/sign-in" || url === "/sign-up") {
-                router.start();
-            } else {
-                router.go("/sign-in");
-            }
-        } else if (data.id) {
-            this.isAuth = true;
-            store.setData(data);
-            chatState.init();
-            await apiController.getChats();
+        if (this.isAuth) {
             if (url === "/sign-in" || url === "/sign-up") {
                 router.go("/messenger");
             } else {
                 router.start();
             }
+        } else {
+            if (url === "/sign-in" || url === "/sign-up") {
+                router.start();
+            } else {
+                router.go("/sign-in");
+            }
         }
+    }
+    async init() {
+        // this.Loading();
+        this.isAuth = await checkIsAuth();
+        if (this.isAuth) {
+            await this.loadData();
+        }
+        this.redirect();
         if (Page.props.data === "loading") {
             router.start();
         }
     }
+    async loadData() {
+        const data = JSON.parse(await apiController.getUser());
+        store.setData(data);
+        chatStore.init();
+        chatState.init();
+        return;
+    }
     async logOut() {
         const result = await apiController.logOut();
         if (result === "OK") {
-            localStorage.clear();
-            this.isAuth = false;
+            // localStorage.clear();
+            store.logOut();
+            chatStore.logOut();
+            chatState.logOut();
             router.go("/sign-in");
         }
     }
@@ -114,7 +145,6 @@ class State {
         Page.setProps(LoaderComponent);
     }
     async activeForm(data: any, thisForm: any) {
-        // this.Loading();
         await switchApiForm(data, thisForm.id);
         this.init();
     }

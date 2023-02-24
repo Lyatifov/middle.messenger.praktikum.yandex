@@ -89,8 +89,9 @@ const dataForHeaderMiniModalWindow: DataForMiniModalWindow = {
     ],
 };
 
-export default () => {
-    const chats = chatStore.getAllChat();
+export default async () => {
+    const chats = await chatStore.getAllChat();
+    console.log(chats);
 
     const redirectionToProfile = {
         targetId: "redirectionToProfile",

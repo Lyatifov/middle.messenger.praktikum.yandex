@@ -4,14 +4,17 @@ import template from "./Messages.hbs";
 
 export default (messageList: Record<string, string>[]): string => {
     let res = "",
-        className = "interlocutor-message";
+        className = "";
     messageList.map((item: Record<string, string>) => {
         const { time } = item;
         const date = TimeAndDate(time);
         const user = chatState.getUserDataInTargetChat(item.user_id);
         if (user.me) {
             className = "my-message";
+        } else {
+            className = "interlocutor-message";
         }
+        console.log(user.me === true);
         res += template({
             user,
             className,

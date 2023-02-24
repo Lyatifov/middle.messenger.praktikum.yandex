@@ -51,7 +51,7 @@
         "./src/pages/Registration/Registration.ts",
         "./src/pages/Profile/Profile.ts",
         "./src/pages/Error/Error.ts",
-        "./src/pages/Chats/Chats.ts",
+        "src/pages/Messenger/Messenger.ts",
         // pages
         "./src/components/AuthForm/AuthForm.ts",
         "./src/components/AuthForm/ButtonsBlock/ButtonsBlock.ts",

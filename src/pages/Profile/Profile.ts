@@ -51,6 +51,7 @@ const dataFromModal: DataFromModal = {
     loadImg: true,
     inputs: [],
     formId: "profileModalForm",
+    modalId: "modalWindow",
 };
 export default (edit: Record<string, boolean | string>) => {
     const data = Store.getData();
@@ -101,7 +102,7 @@ export default (edit: Record<string, boolean | string>) => {
         func: ModalWindowController("modalWindow"),
     };
     const closeModalWindow = {
-        targetId: "background",
+        targetId: "modalWindow-background",
         eventName: "click",
         func: ModalWindowController("modalWindow"),
     };

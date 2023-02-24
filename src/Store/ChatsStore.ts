@@ -34,7 +34,7 @@ class Chat {
         this.messages = messages;
     }
     addMessage(message: Record<string, string>) {
-        this.messages.push(message);
+        this.messages.unshift(message);
     }
     getMessages() {
         return this.messages;
@@ -44,9 +44,8 @@ class Chat {
 class Chats {
     chats: any = [];
     chatList = [];
-    constructor() {
-        this.init();
-    }
+    loading: boolean = false;
+    constructor() {}
     async init() {
         this.chats = [];
         const chats = JSON.parse(await apiController.getChats());
@@ -56,6 +55,7 @@ class Chats {
                 this.addChat(chat);
             });
         }
+        this.loading = true;
     }
     async addChat(chat: any) {
         const newChat = await new Chat(chat);
@@ -65,8 +65,16 @@ class Chats {
         const chat = this.chats.find((chat: Chat) => chat.chat.id === id);
         return chat;
     }
-    getAllChat() {
+    async getAllChat() {
+        if (!this.chatList.length && !this.loading) {
+            await this.init();
+        }
         return this.chatList;
+    }
+    logOut() {
+        this.chats = [];
+        this.chatList = [];
+        this.loading = false;
     }
 }
 

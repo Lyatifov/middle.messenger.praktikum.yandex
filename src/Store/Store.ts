@@ -65,7 +65,6 @@ function head(newData: Record<string, string>) {
     }
     return [data];
 }
-
 class Store {
     user: any = {};
     body: any = [];
@@ -93,6 +92,12 @@ class Store {
     }
     removeNewAvatar() {
         this._newAvatar = null;
+    }
+    logOut() {
+        this.user = {};
+        this.body = [];
+        this.head = [];
+        this._newAvatar = {};
     }
 }
 

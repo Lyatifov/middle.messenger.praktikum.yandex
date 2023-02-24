@@ -191,8 +191,14 @@ const listOfHashNames: Record<string, (input: string) => Answer> = {
             message: "Введенные пароли разные",
         };
         if (!input) return answer;
-        const password = document.getElementById("newPassword") as HTMLInputElement;
-        if (password) {
+        if (document.getElementById("newPassword")) {
+            const password = document.getElementById("newPassword") as HTMLInputElement;
+            const value: string = password.value;
+            if (input === value) {
+                answer.result = true;
+            }
+        } else {
+            const password = document.getElementById("password") as HTMLInputElement;
             const value: string = password.value;
             if (input === value) {
                 answer.result = true;

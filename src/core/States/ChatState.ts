@@ -9,11 +9,11 @@ class State {
     targetChat: Record<string, string> = {};
     chatClass: any = {};
     user: any = null;
-    wSocket: WSocket;
+    wSocket: any;
     constructor() {}
     init() {
-        if (!this.user) {
-            this.user = store.getUser();
+        this.user = store.getUser();
+        if (!this.wSocket) {
             this.wSocket = new WSocket(this.user);
         }
     }
@@ -32,7 +32,9 @@ class State {
         this.targetChat = {};
     }
     closeSession() {
-        this.wSocket.close();
+        if (this.wSocket) {
+            this.wSocket.close();
+        }
     }
     openSession() {
         if (this.targetChat.id) {
@@ -66,19 +68,25 @@ class State {
         const user = store.getUser();
         if (user.id === id) {
             return {
-                ...user,
                 me: true,
+                ...user,
             };
         } else {
             const anotherUser = this.chatClass.getUser(id);
-            return anotherUser;
+            return { me: false, ...anotherUser };
         }
     }
     async removeThisChat() {
         await apiController.removeChat(this.targetChat.id);
         this.clearTargetChat();
-        chatStore.init();
-        state.init();
+        await chatStore.init();
+        router.start();
+    }
+    logOut() {
+        this.targetChat = {};
+        this.chatClass = {};
+        this.user = null;
+        this.wSocket = null;
     }
 }
 const chatState = new State();
