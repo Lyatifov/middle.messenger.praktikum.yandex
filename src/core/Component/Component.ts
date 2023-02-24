@@ -21,10 +21,10 @@ export default class Component {
     constructor(components: PageComponent) {
         this.eventBus = new EventBus();
         this.props = components;
-        this._registerEvents();
+        this._eventRegistration();
         this.eventBus.emit(Component.EVENTS.INIT);
     }
-    _registerEvents() {
+    _eventRegistration() {
         this.eventBus.on(Component.EVENTS.INIT, this.init.bind(this) as FV);
         this.eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this) as FV);
     }
@@ -160,5 +160,8 @@ export default class Component {
     }
     anotherFunc(anotherList: Array<() => void>) {
         anotherList.forEach((func) => func());
+    }
+    component() {
+        return this;
     }
 }

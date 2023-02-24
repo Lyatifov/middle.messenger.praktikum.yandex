@@ -65,27 +65,39 @@ function head(newData: Record<string, string>) {
     }
     return [data];
 }
-
 class Store {
-    data: any = {};
+    user: any = {};
     body: any = [];
     head: any = [];
-    newAvatar: any = {};
+    _newAvatar: any = {};
     constructor() {}
     setData(data: any) {
-        this.data = data;
-        this.body = body(this.data);
-        this.head = head(this.data);
+        this.user = data;
+        this.body = body(this.user);
+        this.head = head(this.user);
     }
     getData() {
         return { DataList: this.body, ProfileHeader: this.head };
     }
+    getUser() {
+        return this.user;
+    }
     setNewAvatar(newAvatar: any) {
-        this.newAvatar = newAvatar;
-        console.log(this.newAvatar);
+        this._newAvatar = newAvatar;
     }
     getNewAvatar() {
-        return this.newAvatar;
+        const avatar = this._newAvatar;
+        this._newAvatar = null;
+        return avatar;
+    }
+    removeNewAvatar() {
+        this._newAvatar = null;
+    }
+    logOut() {
+        this.user = {};
+        this.body = [];
+        this.head = [];
+        this._newAvatar = {};
     }
 }
 

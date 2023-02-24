@@ -1,6 +1,7 @@
 import store from "../../Store/Store";
 
 export default () => {
+    store.removeNewAvatar();
     const wrapper: HTMLElement | null = document.getElementById("loadFileWrapper"),
         dropZone: HTMLElement | null = document.getElementById("dropZone"),
         modalForm: HTMLElement | null = document.getElementById("modalForm");

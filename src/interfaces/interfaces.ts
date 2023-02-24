@@ -1,4 +1,5 @@
 export interface DataFromModal {
+    modalId: string;
     formId: string;
     button: Record<string, string>;
     title: string;
@@ -43,4 +44,5 @@ export interface PageComponent {
     options?: Record<string, boolean | string>;
     children: PageComponent[];
     another?: Array<() => void>;
+    state?: any;
 }

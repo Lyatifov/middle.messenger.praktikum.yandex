@@ -1,9 +1,9 @@
 <img
-    src="{{img}}"
-    alt="Изображение Вашего собеседника {{name}}"
+    src="{{#if avatar}}{{avatar}}{{else}}https://flyclipart.com/thumb2/circle-icons-chat-616006.png{{/if}}"
+    alt="Изображение чата"
     class="img-interlocutor"
 />
-<h2 class="name-interlocutor">{{name}}</h2>
+<h2 class="name-interlocutor">{{title}}</h2>
 <a id="headerOption" class="option">
     <div class="point"></div>
     <div class="point"></div>

@@ -1,17 +1,25 @@
+import chatState from "../../../../core/States/ChatState";
+import TimeAndDate from "../../../../core/TimeAndDate/TimeAndDate";
 import template from "./Messages.hbs";
 
 export default (messageList: Record<string, string>[]): string => {
     let res = "",
-        className = "interlocutor-message";
+        className = "";
     messageList.map((item: Record<string, string>) => {
-        const { name, text, time } = item;
-        if (name === "Me") {
+        const { time } = item;
+        const date = TimeAndDate(time);
+        const user = chatState.getUserDataInTargetChat(item.user_id);
+        if (user.me) {
             className = "my-message";
+        } else {
+            className = "interlocutor-message";
         }
+        console.log(user.me === true);
         res += template({
-            class: className,
-            text: text,
-            time: time,
+            user,
+            className,
+            ...item,
+            ...date,
         });
     });
     return res;

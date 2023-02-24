@@ -19,22 +19,22 @@ const ProfileFormData: Record<string, string> = {
 const PasswordList: Record<string, string>[] = [
     {
         id: "oldPassword",
-        name: "password",
+        name: "oldPassword",
         value: "",
         title: "Старый пароль",
         type: "password",
     },
     {
-        id: "password",
-        name: "password",
+        id: "newPassword",
+        name: "newPassword",
         value: "",
         title: "Новый пароль",
         type: "password",
         error: "Ошибка",
     },
     {
-        id: "passwordRepite",
-        name: "passwordRepite",
+        id: "repitePassword",
+        name: "repitePassword",
         value: "",
         title: "Повторите новый пароль",
         type: "password",
@@ -51,6 +51,7 @@ const dataFromModal: DataFromModal = {
     loadImg: true,
     inputs: [],
     formId: "profileModalForm",
+    modalId: "modalWindow",
 };
 export default (edit: Record<string, boolean | string>) => {
     const data = Store.getData();
@@ -101,7 +102,7 @@ export default (edit: Record<string, boolean | string>) => {
         func: ModalWindowController("modalWindow"),
     };
     const closeModalWindow = {
-        targetId: "background",
+        targetId: "modalWindow-background",
         eventName: "click",
         func: ModalWindowController("modalWindow"),
     };

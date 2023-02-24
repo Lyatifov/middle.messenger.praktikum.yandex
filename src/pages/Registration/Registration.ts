@@ -54,8 +54,8 @@ const inputsList: Record<string, string>[] = [
         error: "Пароли не совподают",
     },
     {
-        id: "passwordRepite",
-        name: "passwordRepite",
+        id: "repitePassword",
+        name: "repitePassword",
         title: "Пароль (ещё раз)",
         type: "password",
         error: "Пароли не совподают",

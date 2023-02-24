@@ -1,5 +1,5 @@
 import { router } from "../../index";
-import state from "../State/State";
+import state from "../States/State";
 
 export function OnButton(
     ruter: string,

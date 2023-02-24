@@ -1,5 +1,5 @@
-import state from "../State/State";
-import { check } from "../Validator/Validator";
+import chatState from "../States/ChatState";
+import state from "../States/State";
 
 class Route {
     private _pathname: any;
@@ -62,9 +62,7 @@ export class Router {
         return this;
     }
     start() {
-        window.onpopstate = ((event: {
-            currentTarget: { location: { pathname: any } };
-        }) => {
+        window.onpopstate = ((event: any) => {
             this._onRoute(event.currentTarget.location.pathname);
         }).bind(this);
         this._onRoute(window.location.pathname);
@@ -82,6 +80,7 @@ export class Router {
         route.render();
     }
     go(pathname: string) {
+        chatState.clearTargetChat();
         this.history.pushState({}, "", pathname);
         const isPrivateURL = checkURL(pathname);
         if ((isPrivateURL && state.isAuth) || !isPrivateURL) {
