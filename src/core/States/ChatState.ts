@@ -3,7 +3,6 @@ import chatStore from "../../Store/ChatsStore";
 import store from "../../Store/Store";
 import apiController from "../API/Controller";
 import WSocket from "../API/WebSocket";
-import state from "./State";
 
 class State {
     targetChat: Record<string, string> = {};

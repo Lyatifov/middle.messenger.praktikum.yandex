@@ -3,7 +3,6 @@ interface Answer {
     message: string;
 }
 type Func = (input: string) => Answer;
-
 function isLatinAlphabet(input: string): boolean {
     const pattern = new RegExp(/[a-z]/i);
     const isMatch = pattern.test(input);
