@@ -91,8 +91,6 @@ const dataForHeaderMiniModalWindow: DataForMiniModalWindow = {
 
 export default async () => {
     const chats = await chatStore.getAllChat();
-    console.log(chats);
-
     const redirectionToProfile = {
         targetId: "redirectionToProfile",
         eventName: "click",
