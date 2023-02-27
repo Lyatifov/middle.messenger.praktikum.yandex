@@ -84,7 +84,7 @@ async function switchApiForm(data: any, formId: string) {
             }
             if (formId === "modalWFCC") {
                 const res = await apiController.createChat(data);
-                chatStore.init();
+                await chatStore.init();
                 return res;
             }
         default:
@@ -114,7 +114,6 @@ class State {
         }
     }
     async init() {
-        // this.Loading();
         this.isAuth = await checkIsAuth();
         if (this.isAuth) {
             await this.loadData();
@@ -134,7 +133,6 @@ class State {
     async logOut() {
         const result = await apiController.logOut();
         if (result === "OK") {
-            // localStorage.clear();
             store.logOut();
             chatStore.logOut();
             chatState.logOut();

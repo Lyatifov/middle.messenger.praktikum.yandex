@@ -56,6 +56,7 @@ class Chats {
             });
         }
         this.loading = true;
+        return;
     }
     async addChat(chat: any) {
         const newChat = await new Chat(chat);
