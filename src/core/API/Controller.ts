@@ -5,7 +5,7 @@ class Controller {
     constructor(host: string) {
         this.host = host;
     }
-    signup(data: Record<string, unknown>): Promise<any> {
+    signup(data: Record<string, unknown>): Promise<any> | void {
         try {
             return fetch(`${this.host}/auth/signup`, {
                 method: "POST",
@@ -17,10 +17,10 @@ class Controller {
                 data: JSON.stringify(data),
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
-    signin(data: Record<string, unknown>): Promise<any> {
+    signin(data: Record<string, unknown>): Promise<any> | void {
         try {
             return fetch(`${this.host}/auth/signin`, {
                 method: "POST",
@@ -32,10 +32,10 @@ class Controller {
                 data: JSON.stringify(data),
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
-    getUser(): Promise<any> {
+    getUser(): Promise<any> | void {
         try {
             return fetch(`${this.host}/auth/user`, {
                 credentials: "include", // Нужно подставлять куки
@@ -45,7 +45,7 @@ class Controller {
                 },
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
     logOut() {
@@ -59,11 +59,11 @@ class Controller {
                 },
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
     // auth
-    avatarUpdate(data: Record<string, unknown>): Promise<any> {
+    avatarUpdate(data: Record<string, unknown>): Promise<any> | void {
         try {
             return fetch(`${this.host}/user/profile/avatar`, {
                 method: "PUT",
@@ -73,10 +73,10 @@ class Controller {
                 data: data,
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
-    profileUpdate(data: Record<string, unknown>): Promise<any> {
+    profileUpdate(data: Record<string, unknown>): Promise<any> | void {
         try {
             return fetch(`${this.host}/user/profile`, {
                 method: "PUT",
@@ -88,10 +88,10 @@ class Controller {
                 data: JSON.stringify(data),
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
-    passwordUpdate(data: Record<string, unknown>): Promise<any> {
+    passwordUpdate(data: Record<string, unknown>): Promise<any> | void {
         try {
             return fetch(`${this.host}/user/password`, {
                 method: "PUT",
@@ -103,11 +103,11 @@ class Controller {
                 data: JSON.stringify(data),
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
     // profile
-    getChats(): Promise<any> {
+    getChats(): Promise<any> | void {
         try {
             return fetch(`${this.host}/chats`, {
                 credentials: "include", // Нужно подставлять куки
@@ -117,10 +117,10 @@ class Controller {
                 },
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
-    createChat(data: Record<string, unknown>): Promise<any> {
+    createChat(data: Record<string, unknown>): Promise<any> | void {
         try {
             return fetch(`${this.host}/chats`, {
                 method: "POST",
@@ -130,10 +130,10 @@ class Controller {
                 data: JSON.stringify(data),
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
-    deleteChat(data: Record<string, unknown>): Promise<any> {
+    deleteChat(data: Record<string, unknown>): Promise<any> | void {
         try {
             return fetch(`${this.host}/chats`, {
                 method: "DELETE",
@@ -143,10 +143,10 @@ class Controller {
                 data: JSON.stringify(data),
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
-    addUserToChat(data: Record<string, unknown>): Promise<any> {
+    addUserToChat(data: Record<string, unknown>): Promise<any> | void {
         try {
             return fetch(`${this.host}/chats/users`, {
                 method: "PUT",
@@ -156,10 +156,10 @@ class Controller {
                 data: JSON.stringify(data),
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
-    searchUser(data: Record<string, unknown>): Promise<any> {
+    searchUser(data: Record<string, unknown>): Promise<any> | void {
         try {
             return fetch(`${this.host}/user/search`, {
                 method: "POST",
@@ -169,10 +169,10 @@ class Controller {
                 data: JSON.stringify(data),
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
-    getListOfUsersInChat(data: Record<string, unknown>): Promise<any> {
+    getListOfUsersInChat(data: Record<string, unknown>): Promise<any> | void {
         try {
             return fetch(`${this.host}/chats/${data.id}/users`, {
                 credentials: "include", // Нужно подставлять куки
@@ -182,10 +182,10 @@ class Controller {
                 },
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
-    deleteUserFromChat(data: Record<string, unknown>): Promise<any> {
+    deleteUserFromChat(data: Record<string, unknown>): Promise<any> | void {
         try {
             return fetch(`${this.host}/chats/users`, {
                 method: "DELETE",
@@ -195,10 +195,10 @@ class Controller {
                 data: JSON.stringify(data),
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
-    getChatToken(chatId: string): Promise<any> {
+    getChatToken(chatId: string): Promise<any> | void {
         try {
             return fetch(`${this.host}/chats/token/${chatId}`, {
                 method: "POST",
@@ -207,10 +207,10 @@ class Controller {
                 },
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
-    removeChat(chatId: string): Promise<any> {
+    removeChat(chatId: string): Promise<any> | void {
         try {
             return fetch(`${this.host}/chats`, {
                 method: "DELETE",
@@ -220,7 +220,7 @@ class Controller {
                 data: JSON.stringify({ chatId }),
             });
         } catch (error) {
-            throw new Error(error);
+            console.error(error);
         }
     }
 }
