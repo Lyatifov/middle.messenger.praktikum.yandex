@@ -21,10 +21,10 @@ export default class Component {
     constructor(components: PageComponent) {
         this.eventBus = new EventBus();
         this.props = components;
-        this._registerEvents();
+        this._eventRegistration();
         this.eventBus.emit(Component.EVENTS.INIT);
     }
-    _registerEvents() {
+    _eventRegistration() {
         this.eventBus.on(Component.EVENTS.INIT, this.init.bind(this) as FV);
         this.eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this) as FV);
     }
@@ -93,21 +93,14 @@ export default class Component {
             this.props.options
         );
         this._addEvents();
+        if (this.props.another) {
+            this.anotherFunc(this.props.another);
+        }
         this.renderChildern();
     }
     render(
         callback: {
-            (
-                data:
-                    | DataForMiniModalWindow
-                    | DataFromModal
-                    | Record<string, string>
-                    | Record<string, string>[]
-                    | Record<string, Record<string, string>[]>
-                    | Record<string, string | Record<string, string>[]>
-                    | string,
-                options?: Record<string, string | boolean> | undefined
-            ): string;
+            (data: any, options?: Record<string, string | boolean> | undefined): string;
         },
         data:
             | DataForMiniModalWindow
@@ -164,5 +157,11 @@ export default class Component {
         if (this.props.children.length) {
             this.childComponent = Render(this.props.children);
         }
+    }
+    anotherFunc(anotherList: Array<() => void>) {
+        anotherList.forEach((func) => func());
+    }
+    component() {
+        return this;
     }
 }

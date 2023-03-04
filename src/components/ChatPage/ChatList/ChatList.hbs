@@ -1,0 +1,14 @@
+<article id="{{id}}" class="chat {{#if thisTarget}}target{{/if}}">
+    <section class="section-1">
+        <img src="{{#if avatar}}https://ya-praktikum.tech/api/v2/resources{{avatar}}{{else}}https://flyclipart.com/thumb2/circle-icons-chat-616006.png{{/if}}" alt="название чата {{title}}" class="img-interlocutor" />
+    </section>
+    <section class="section-2">
+        <h2 class="name-interlocutor">{{title}}</h2>
+        <p class="massage">{{#if last_message}}{{last_message.content}}{{else}}Нет сообщений{{/if}}</p>
+    </section>
+    <section class="section-3">
+        <time class="massage-time">{{time}}</time>
+        {{#if unread_count}}<div class="massage-counter">{{unread_count}}</div>{{else}}{{/if}}
+        
+    </section>
+</article>

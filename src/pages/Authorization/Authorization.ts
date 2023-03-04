@@ -44,12 +44,12 @@ export default () => {
     const redirectionToRegistration = {
         targetId: "redirectionToRegistration",
         eventName: "click",
-        func: OnButton("/registration"),
+        func: OnButton("/sign-up"),
     };
     const initAuthForm = {
         targetId: data.formId,
         eventName: "submit",
-        func: Forms("/chats"),
+        func: Forms(),
     };
     const inputsEvent: EventE[] = inputsList.reduce(
         (arr: EventE[], item: Record<string, string>) => {

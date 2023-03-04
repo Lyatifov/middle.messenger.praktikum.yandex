@@ -1,8 +1,27 @@
-import ChangeRouter from "../Router/Router";
+import { router } from "../../index";
+import state from "../States/State";
 
-export function OnButton(ruter: string): (targetUrl: string) => void {
+export function OnButton(
+    ruter: string,
+    additFunc?: () => void
+): (targetUrl: string) => void {
+    if (additFunc) {
+        const func = () => {
+            additFunc();
+            router.go(ruter);
+        };
+        return func;
+    } else {
+        const func = () => {
+            router.go(ruter);
+        };
+        return func;
+    }
+}
+
+export function LogOut() {
     const func = () => {
-        ChangeRouter(ruter);
+        state.logOut();
     };
     return func;
 }

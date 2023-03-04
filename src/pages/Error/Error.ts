@@ -12,7 +12,7 @@ export default (): PageComponent => {
     const backToChats = {
         targetId: "backToChats",
         eventName: "click",
-        func: OnButton("/chats"),
+        func: OnButton("/messenger"),
     };
     const error404: Record<string, string>[] = [
         {

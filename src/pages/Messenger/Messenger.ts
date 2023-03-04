@@ -1,7 +1,5 @@
 import ChatPage from "../../components/ChatPage/ChatPage";
-import Сonversations from "../../components/ChatPage/Сonversations/Сonversations";
 import Main from "../../components/ChatPage/Main/Main";
-import { interlocutor, messages, chats } from "../../core/messages/messages";
 import { PageComponent } from "../../interfaces/interfaces";
 import Header from "../../components/ChatPage/Main/Header/Header";
 import Messages from "../../components/ChatPage/Main/Messages/Messages";
@@ -13,8 +11,13 @@ import MiniModalWindow from "../../components/ChatPage/Main/MiniModalWindow/Mini
 import { DataForMiniModalWindow } from "../../interfaces/interfaces";
 import Forms from "../../core/Forms/Forms";
 import ModalWindowController from "../../core/ModalWindowController/ModalWindowController";
+import ChatList from "../../components/ChatPage/ChatList/ChatList";
+import Button from "../../components/UI/Button/Button";
+import chatState from "../../core/States/ChatState";
+import chatStore from "../../Store/ChatsStore";
 
 const dataFromModal: DataFromModal = {
+    modalId: "modalAddOrRemoveUser",
     formId: "chatModalForm",
     button: {
         value: "Добавить",
@@ -24,11 +27,30 @@ const dataFromModal: DataFromModal = {
     loadImg: false,
     inputs: [
         {
-            id: "addUser",
+            id: "addOrRemoveUser",
             name: "login",
             title: "Логин",
             type: "",
             error: "Пользователь не найден",
+        },
+    ],
+};
+const modalWindowForCreatingChat: DataFromModal = {
+    modalId: "modalWindowForCreatingChat",
+    formId: "modalWFCC",
+    button: {
+        value: "Создать",
+        type: "submit",
+    },
+    title: "Создание нового чата",
+    loadImg: false,
+    inputs: [
+        {
+            id: "addTitle",
+            name: "title",
+            title: "Название",
+            type: "",
+            error: "Чат с таким названием уже есть",
         },
     ],
 };
@@ -55,19 +77,20 @@ const dataForHeaderMiniModalWindow: DataForMiniModalWindow = {
     id: "headerMiniModal",
     buttons: [
         {
-            id: "addUser",
+            id: "addOrRemoveUser",
             icon: "&#128100;",
-            title: "Добавить пользователя",
+            title: "Добавить/удалить пользователя",
         },
         {
-            id: "removeUser",
+            id: "removeThisChat",
             icon: "&#10060;",
-            title: "Удалить пользователя",
+            title: "Удалить чат",
         },
     ],
 };
 
-export default () => {
+export default async () => {
+    const chats = await chatStore.getAllChat();
     const redirectionToProfile = {
         targetId: "redirectionToProfile",
         eventName: "click",
@@ -84,23 +107,37 @@ export default () => {
         func: MiniModalWindowFunction("footerMiniModal"),
     };
     const callModalWindow1 = {
-        targetId: "addUser",
+        targetId: "addOrRemoveUser",
         eventName: "click",
-        func: ModalWindowController("modalWindow"),
+        func: ModalWindowController("modalAddOrRemoveUser"),
     };
-    const callModalWindow2 = {
-        targetId: "removeUser",
+    const removeThisChat = {
+        targetId: "removeThisChat",
         eventName: "click",
-        func: ModalWindowController("modalWindow"),
+        func: () => chatState.removeThisChat(),
     };
     const closeModalWindow = {
-        targetId: "background",
+        targetId: "modalAddOrRemoveUser-background",
         eventName: "click",
-        func: ModalWindowController("modalWindow"),
+        func: ModalWindowController("modalAddOrRemoveUser"),
     };
-
+    const callModalWFCC = {
+        targetId: "buttonCreaterNewChat",
+        eventName: "click",
+        func: ModalWindowController("modalWindowForCreatingChat"),
+    };
+    const closeModalWFCC = {
+        targetId: "modalWindowForCreatingChat-background",
+        eventName: "click",
+        func: ModalWindowController("modalWindowForCreatingChat"),
+    };
+    const initModalWFCC = {
+        targetId: "modalWFCC",
+        eventName: "submit",
+        func: Forms(),
+    };
     const initMessageForm = {
-        targetId: interlocutor[1].formId,
+        targetId: "messageForm",
         eventName: "submit",
         func: Forms(),
     };
@@ -114,6 +151,21 @@ export default () => {
         eventName: "submit",
         func: Forms(),
     };
+    const chatEvents = () => {
+        const events: { targetId: any; eventName: string; func: (e: any) => void }[] = [];
+        chats.forEach((item: any) => {
+            const func = () => {
+                chatState.setTargetChat(item.id);
+            };
+            const obj = {
+                targetId: item.id,
+                eventName: "click",
+                func: func,
+            };
+            events.push(obj);
+        });
+        return events;
+    };
     const domComponents: PageComponent = {
         enter: "root",
         callback: ChatPage,
@@ -122,15 +174,15 @@ export default () => {
         children: [
             {
                 enter: "conversations",
-                callback: Сonversations,
+                callback: ChatList,
                 data: chats,
-                events: [],
+                events: chatEvents(),
                 children: [],
             },
             {
                 enter: "chatMain",
                 callback: Main,
-                data: interlocutor,
+                data: chatState.getTargetChat(),
                 events: [],
                 children: [
                     {
@@ -143,7 +195,7 @@ export default () => {
                     {
                         enter: "chatHeader",
                         callback: Header,
-                        data: interlocutor,
+                        data: chatState.getTargetChat(),
                         events: [],
                         children: [
                             {
@@ -158,9 +210,10 @@ export default () => {
                     {
                         enter: "messageList",
                         callback: Messages,
-                        data: messages,
+                        data: chatState.getMessages(),
                         events: [],
                         children: [],
+                        another: [],
                     },
                 ],
             },
@@ -170,10 +223,28 @@ export default () => {
                 data: dataFromModal,
                 events: [
                     callModalWindow1,
-                    callModalWindow2,
+                    removeThisChat,
                     closeModalWindow,
                     initChatModalForm,
                 ],
+                children: [],
+            },
+            {
+                enter: "buttonsAndPopup",
+                callback: Button,
+                data: {
+                    id: "buttonCreaterNewChat",
+                    value: "+",
+                    className: "button-creater-new-chat",
+                },
+                events: [],
+                children: [],
+            },
+            {
+                enter: "createModalWrapper",
+                callback: ModalWindow,
+                data: modalWindowForCreatingChat,
+                events: [callModalWFCC, closeModalWFCC, initModalWFCC],
                 children: [],
             },
         ],

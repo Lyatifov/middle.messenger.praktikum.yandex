@@ -54,8 +54,8 @@ const inputsList: Record<string, string>[] = [
         error: "Пароли не совподают",
     },
     {
-        id: "passwordRepite",
-        name: "passwordRepite",
+        id: "repitePassword",
+        name: "repitePassword",
         title: "Пароль (ещё раз)",
         type: "password",
         error: "Пароли не совподают",
@@ -79,12 +79,12 @@ export default () => {
     const redirectionToAuth = {
         targetId: "redirectionToAuth",
         eventName: "click",
-        func: OnButton("/auth"),
+        func: OnButton("/sign-in"),
     };
     const initRegistrationForm = {
         targetId: data.formId,
         eventName: "submit",
-        func: Forms("/auth"),
+        func: Forms(),
     };
     const inputsEvent: EventE[] = inputsList.reduce(
         (arr: EventE[], item: Record<string, string>) => {
