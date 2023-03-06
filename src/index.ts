@@ -23,7 +23,7 @@ const startData: PageComponent = {
 };
 const Page: Component = Render([startData])[0];
 export default Page;
-export const router = new Router(".app");
+export const router = new Router();
 router.use("/profile", ProfilePage);
 router.use("/profile/settings/data", ProfileSettingsDataPage);
 router.use("/profile/settings/password", ProfileSettingsPasswordPage);

@@ -14,7 +14,6 @@ export default (messageList: Record<string, string>[]): string => {
         } else {
             className = "interlocutor-message";
         }
-        console.log(user.me === true);
         res += template({
             user,
             className,

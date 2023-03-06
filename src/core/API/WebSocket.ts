@@ -4,7 +4,7 @@ export default class WSocket {
     user: any;
     socket: any;
     status: string = "close";
-    interval: number | undefined;
+    interval: NodeJS.Timer | undefined;
     constructor(user: any) {
         this.user = user;
     }
