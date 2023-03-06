@@ -9,7 +9,6 @@ class State {
     chatClass: any = {};
     user: any = null;
     wSocket: any;
-    constructor() {}
     init() {
         this.user = store.getUser();
         if (!this.wSocket) {

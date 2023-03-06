@@ -34,10 +34,13 @@ async function switchApiForm(data: any, formId: string) {
     const pathname = window.location.pathname;
     switch (pathname) {
         case "/sign-in":
+            // eslint-disable-next-line no-case-declarations
             const resIn = await apiController.signin(data);
             singResult(resIn);
             return;
+            break;
         case "/sign-up":
+            // eslint-disable-next-line no-case-declarations
             const resUp = await apiController.signup(data);
             singResult(resUp);
             return;
@@ -45,18 +48,21 @@ async function switchApiForm(data: any, formId: string) {
             if (formId === "profileModalForm") {
                 return apiController.avatarUpdate(data);
             }
+            break;
         case "/profile/settings/data":
             if (formId === "profileDataForm") {
                 return apiController.profileUpdate(data);
             } else if (formId === "profileModalForm") {
                 return apiController.avatarUpdate(data);
             }
+            break;
         case "/profile/settings/password":
             if (formId === "profileDataForm") {
                 return apiController.passwordUpdate(data);
             } else if (formId === "profileModalForm") {
                 return apiController.avatarUpdate(data);
             }
+            break;
         case "/messenger":
             if (formId === "chatModalForm") {
                 const targetUser = JSON.parse(await apiController.searchUser(data));
@@ -87,8 +93,6 @@ async function switchApiForm(data: any, formId: string) {
                 await chatStore.init();
                 return res;
             }
-        default:
-            break;
     }
 }
 
