@@ -9,25 +9,24 @@ A special application for instantaneous text messages, photos, pictures, videos,
 
 ### Running via docker (localhost:3000)
 
-docker build -t app .
-docker run -p 3000:3000 -d app
+| Command                           |
+| :------------                     |
+| docker build -t app .             |
+| docker run -p 3000:3000 -d app    |
 
-### Running development (localhost:8080)
+#### Running development (localhost:8080)
 
-npm install
-npm run dev
+| Command        |
+| :------------  |
+| npm install    |
+| npm run dev    |
 
-### Running production (localhost:3000)
+#### Running production (localhost:3000)
 
-npm install
-npm run start
-
-#### Get all items
-
-| Command       | Description                      |
-| :------------ | :------------------------------- |
-| npm run build | Makes a build                    |
-| npm run start | Starts local server at 3000 port |
+| Command        |
+| :------------  |
+| npm install    |
+| npm run start  |
 
 ### Structure project
 ```
