@@ -22,7 +22,6 @@ class State {
         this.targetChat = chat;
         this.closeSession();
         this.openSession();
-        this.wSocket.uploadingMessages();
         router.start();
     }
     clearTargetChat() {
