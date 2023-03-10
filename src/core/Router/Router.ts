@@ -4,11 +4,9 @@ import state from "../States/State";
 class Route {
     private _pathname: any;
     view: any;
-    private _props: any;
-    constructor(pathname: string, view: any, props: { rootQuery: any }) {
+    constructor(pathname: string, view: any) {
         this._pathname = pathname;
         this.view = view;
-        this._props = props;
     }
     isEqual(lhs: string, rhs: string) {
         return lhs === rhs;
@@ -42,22 +40,20 @@ export class Router {
     routes: Route[];
     history: History;
     private _currentRoute: any;
-    private _rootQuery: any;
     defaultView: any;
     static __instance: Router;
-    constructor(rootQuery: string) {
+    constructor() {
         if (Router.__instance) {
             return Router.__instance;
         }
         this.routes = [];
         this.history = window.history;
         this._currentRoute = null;
-        this._rootQuery = rootQuery;
         this.defaultView = null;
         Router.__instance = this;
     }
     use(pathname: string, view: any) {
-        const route = new Route(pathname, view, { rootQuery: this._rootQuery });
+        const route = new Route(pathname, view);
         this.routes.push(route);
         return this;
     }

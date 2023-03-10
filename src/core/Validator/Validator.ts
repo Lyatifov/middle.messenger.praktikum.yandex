@@ -41,7 +41,7 @@ function isSpecialCharacters(input: string): boolean {
 }
 function isEmail(input: string): boolean {
     const pattern = new RegExp(
-        // eslint-disable-next-line no-useless-escape
+        // eslint-disable-next-line no-useless-escape, max-len
         /^[a-zA-Z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1}([a-zA-Z0-9][\-_\.\+\!\#\$\%\&\'\*\/\=\?\^\`\{\|]{0,1})*[a-zA-Z0-9]@[a-zA-Z0-9][-\.]{0,1}([a-zA-Z][-\.]{0,1})*[a-zA-Z0-9]\.[a-zA-Z0-9]{1,}([\.\-]{0,1}[a-zA-Z]){0,}[a-zA-Z0-9]{0,}$/i
     );
     const isMatch = pattern.test(input);
@@ -76,6 +76,7 @@ const listOfHashNames: Record<string, (input: string) => Answer> = {
         const answer: Answer = {
             result: false,
             message:
+                // eslint-disable-next-line max-len
                 "В данное поле принимается: латиница или кириллица, первая буква должна быть заглавной, без пробелов. без цифр, без спецсимволов (допустим только дефис)",
         };
         if (!input) return answer;
@@ -100,6 +101,7 @@ const listOfHashNames: Record<string, (input: string) => Answer> = {
         const answer: Answer = {
             result: false,
             message:
+                // eslint-disable-next-line max-len
                 "В данное поле принимается: латиница или кириллица, первая буква должна быть заглавной, без пробелов. без цифр, без спецсимволов (допустим только дефис)",
         };
         if (!input) return answer;
@@ -109,6 +111,7 @@ const listOfHashNames: Record<string, (input: string) => Answer> = {
         const answer: Answer = {
             result: false,
             message:
+                // eslint-disable-next-line max-len
                 "В данное поле принимается: от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)",
         };
         if (!input) return answer;

@@ -3,8 +3,8 @@ import chatState from "../States/ChatState";
 export default class WSocket {
     user: any;
     socket: any;
-    status: string = "close";
-    interval: number | undefined;
+    status = "close";
+    interval: NodeJS.Timer | undefined;
     constructor(user: any) {
         this.user = user;
     }
@@ -60,7 +60,6 @@ export default class WSocket {
     onerror() {
         console.log("Соединение установлено");
     }
-    uploadingMessages() {}
     close() {
         if (this.socket) {
             this.socket.close();

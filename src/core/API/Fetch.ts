@@ -10,13 +10,16 @@ function queryStringify(data: Record<string, string> | string) {
     }, "?");
 }
 
-export default function fetch(url: string, options?: Record<string, any>) {
+export default function fetch(
+    url: string,
+    options?: Record<string, any>
+): Promise<string> {
     const { method = METHODS.GET, timeout = 5000, headers = {}, data } = options || {};
     const isGet = method === METHODS.GET;
     const isData = !!data;
     const xhr = new XMLHttpRequest();
     const uri = isGet && isData ? `${url}${queryStringify(data)}` : url;
-    const result = new Promise((res, rej) => {
+    const promise: Promise<string> = new Promise((res, rej) => {
         xhr.open(method, uri);
         Object.keys(headers).forEach((key) => {
             xhr.setRequestHeader(key, headers[key]);
@@ -36,5 +39,5 @@ export default function fetch(url: string, options?: Record<string, any>) {
             xhr.send(data);
         }
     });
-    return result;
+    return promise;
 }

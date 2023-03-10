@@ -9,7 +9,6 @@ class State {
     chatClass: any = {};
     user: any = null;
     wSocket: any;
-    constructor() {}
     init() {
         this.user = store.getUser();
         if (!this.wSocket) {
@@ -23,7 +22,6 @@ class State {
         this.targetChat = chat;
         this.closeSession();
         this.openSession();
-        this.wSocket.uploadingMessages();
         router.start();
     }
     clearTargetChat() {

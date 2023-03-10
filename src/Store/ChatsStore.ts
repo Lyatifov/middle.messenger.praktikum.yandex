@@ -44,8 +44,7 @@ class Chat {
 class Chats {
     chats: any = [];
     chatList = [];
-    loading: boolean = false;
-    constructor() {}
+    loading = false;
     async init() {
         this.chats = [];
         const chats = JSON.parse(await apiController.getChats());

@@ -70,7 +70,6 @@ class Store {
     body: any = [];
     head: any = [];
     _newAvatar: any = {};
-    constructor() {}
     setData(data: any) {
         this.user = data;
         this.body = body(this.user);

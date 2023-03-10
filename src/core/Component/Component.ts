@@ -38,6 +38,8 @@ export default class Component {
             return element;
         }
         const newElement = document.createElement("div");
+        newElement.id = "root";
+        document.body.append(newElement);
         return newElement;
     }
     check(newContent: PageComponent) {
